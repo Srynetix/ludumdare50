@@ -1,3 +1,4 @@
 /.import
 /.mono
 /exports
+!/exports/.gdignore

@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/tilesets/tileset.png" type="Texture" id=1]
+[ext_resource path="res://assets/fx/crate-break.wav" type="AudioStream" id=2]
+[ext_resource path="res://scenes/Destructible.cs" type="Script" id=3]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D noise;
+uniform float dissolution_level: hint_range(0, 1) = 0.0;
+uniform float edge_width: hint_range(0, 1) = 0.0;
+uniform vec4 edge_color1: hint_color = vec4(1, 1, 1, 1);
+uniform vec4 edge_color2: hint_color = vec4(1, 1, 1, 1);
+
+void fragment() {
+    float cutout = texture(noise, UV.xy).r;
+    vec4 color = texture(TEXTURE, UV.xy);
+    
+    if (cutout < dissolution_level) {
+       discard;
+    }
+    
+    if (cutout < color.a && cutout < dissolution_level + edge_width) {
+       color = mix(edge_color1, edge_color2, (cutout - dissolution_level) / edge_width);
+    }
+}"
+
+[sub_resource type="OpenSimplexNoise" id=3]
+octaves = 1
+period = 5.4
+
+[sub_resource type="NoiseTexture" id=4]
+resource_local_to_scene = true
+width = 1024
+noise = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/dissolution_level = 0.0
+shader_param/edge_width = 0.0
+shader_param/edge_color1 = Color( 1, 1, 1, 1 )
+shader_param/edge_color2 = Color( 1, 1, 1, 1 )
+shader_param/noise = SubResource( 4 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="Curve" id=6]
+max_value = 2.0
+_data = [ Vector2( 0, 0.974138 ), 0.0, 0.0, 0, 0, Vector2( 0.757143, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.974138 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0.475138, 1 )
+colors = PoolColorArray( 0.585938, 0.281251, 0.185394, 1, 0.670588, 0.321569, 0.211765, 0 )
+
+[node name="Destructible" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 5 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 176, 0, 16, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="ExplosionFX" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 300 )
+initial_velocity = 200.0
+initial_velocity_random = 1.0
+damping = 600.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 3.0
+scale_amount_curve = SubResource( 6 )
+color_ramp = SubResource( 7 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
