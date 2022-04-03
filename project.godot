@@ -32,8 +32,8 @@ GlobalMusicPlayer="*res://addons/nodeext/GlobalMusicPlayer/GlobalMusicPlayer.tsc
 
 window/size/width=832
 window/size/height=480
-window/size/test_width=1280
-window/size/test_height=720
+window/size/test_width=998
+window/size/test_height=576
 window/stretch/mode="2d"
 window/stretch/aspect="keep_width"
 
