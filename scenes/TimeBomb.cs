@@ -47,6 +47,10 @@ public class TimeBomb : KinematicBody2D
 	}
 
 	private void OnTimerTimeout() {
+        if (Timer.Paused) {
+            return;
+        }
+
 		EmitSignal(nameof(timeout));
 	}
 

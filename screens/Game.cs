@@ -12,6 +12,8 @@ public class Game : Control
 
     public override void _Ready()
     {
+        GameData.GetInstance().Store("from_game", true);
+
         var levelId = CurrentLevelIdx;
         if (LoadFromSave) {
             levelId = (int)GameData.GetInstance().LoadNumber("last_level", CurrentLevelIdx);
@@ -32,6 +34,7 @@ public class Game : Control
                 return "track3";
             case 6:
             case 7:
+            case 8:
                 return "track4";
             default:
                 return "track5";

@@ -7,7 +7,7 @@ LevelNumber = 5
 LevelName = "Don't shoot me!"
 BombTime = 10
 HelpText = "Too easy heh?
-Here are turrets to help you reach the end."
+Here are [color=#abc123]turrets[/color] to help you reach the end."
 TurretFireRate = 2.0
 
 [node name="Background" parent="." index="0"]

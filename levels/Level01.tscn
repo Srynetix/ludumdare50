@@ -4,13 +4,12 @@
 
 [node name="Level" instance=ExtResource( 1 )]
 LevelName = "Slide!"
-BombTime = 60
 HelpText = "Hello again!
 
 See these blocks upfront? This is [color=#5555dd]ice[/color], try stepping on it.
 You need to press all buttons to open the door.
 
-Watch out for these [color=#123123]spikes[/color], and don't forget you can [color=#123abc]double jump[/color].
+Watch out for these [color=#abc123]spikes[/color], and don't forget you can [color=#abc123]double jump[/color].
 
 See you in the next level, to watch you [shake]die again and again[/shake]."
 

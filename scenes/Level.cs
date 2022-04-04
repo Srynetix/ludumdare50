@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 using SxGD;
@@ -38,6 +39,7 @@ public class Level : Node2D
     private LevelHUD LevelHUD;
     private AudioStreamPlayer SuccessFX;
     private FXCamera Camera;
+    private bool Finished = false;
 
     public override void _Ready()
     {
@@ -160,9 +162,22 @@ public class Level : Node2D
 
     public override void _Process(float delta)
     {
-        if (Players.Count > 0) {
-            var player = Players[0];
-            Camera.GlobalPosition = player.GlobalPosition;
+        if (!Finished) {
+            if (Players.Count > 0) {
+                var player = Players[0];
+                Camera.GlobalPosition = player.GlobalPosition;
+            }
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey key) {
+            if (key.Scancode == (int)KeyList.Enter) {
+                if (!GameData.GetInstance().HasValue("from_game")) {
+                    GetTree().ReloadCurrentScene();
+                }
+            }
         }
     }
 
@@ -210,6 +225,8 @@ public class Level : Node2D
     }
 
     private void StopMechanisms() {
+        Finished = true;
+
         foreach (var player1 in Players) {
             player1.DetectInput = false;
         }
@@ -220,6 +237,10 @@ public class Level : Node2D
 
         foreach (var turret in Turrets) {
             turret.Stop();
+        }
+
+        foreach (Bullet bullet in GetTree().GetNodesInGroup("bullet")) {
+            bullet.QueueFree();
         }
     }
 
@@ -248,19 +269,32 @@ public class Level : Node2D
         GameOver();
     }
 
-    private void OnBombExplosion(TimeBomb bomb) {
+    async private void OnBombExplosion(TimeBomb bomb) {
+        StopMechanisms();
+
+        // Move cam on bomb
+        await ZoomOnPosition(bomb.GlobalPosition);
+
 		var explosion = LoadCache.GetInstance().InstantiateScene<ExplosionFX>();
 		FXTarget.AddChild(explosion);
-
 		explosion.Position = bomb.Position;
 		explosion.Explode();
 
-        StopMechanisms();
         GameOver();
+    }
+
+    async private Task ZoomOnPosition(Vector2 position) {
+        Camera.LimitLeft = -1000000;
+        Camera.LimitRight = 1000000;
+        Camera.LimitTop = -1000000;
+        Camera.LimitBottom = 1000000;
+        Camera.SmoothingEnabled = false;
+        await Camera.TweenToPosition(position, zoom: 0.5f);
     }
 
     async private void OnPlayerExit(Player player) {
         StopMechanisms();
+
         LevelHUD.PlayAnimation("win");
         SuccessFX.Play();
 

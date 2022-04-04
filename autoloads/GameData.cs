@@ -47,6 +47,11 @@ public class GameData : Node
         _Data.Remove(name);
     }
 
+    public bool HasValue(string name)
+    {
+        return _Data.Contains(name);
+    }
+
     public T Load<T>(string name, object orDefault = null)
     {
         if (_Data.Contains(name))

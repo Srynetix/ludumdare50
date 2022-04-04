@@ -26,6 +26,8 @@ public class Title : Control
     public void StartNewGame() {
         GlobalMusicPlayer.Instance.FadeOut();
         GameData.GetInstance().StoreNumber("last_level", 0);
+        GameData.GetInstance().StoreNumber("deaths", 0);
+        GameData.GetInstance().PersistToDisk();
         SceneTransitioner.GetInstance().FadeToScene("res://screens/Game.tscn");
     }
 }

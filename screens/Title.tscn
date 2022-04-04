@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=2]
@@ -49,6 +49,14 @@ font_data = ExtResource( 2 )
 size = 32
 outline_size = 2
 outline_color = Color( 0.2, 0.2, 0.2, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 18
+outline_size = 1
+outline_color = Color( 0.121569, 0, 0.172549, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 2 )
@@ -115,6 +123,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Author:anchor_top")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "boot"
@@ -178,6 +198,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Author:anchor_top")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
 }
 
 [node name="Title" type="Control"]
@@ -245,6 +277,19 @@ margin_bottom = 220.0
 custom_fonts/font = SubResource( 3 )
 text = "New Game"
 flat = true
+
+[node name="Author" type="RichTextLabel" parent="."]
+anchor_bottom = 1.0
+margin_left = 303.0
+margin_top = 446.0
+margin_right = 552.0
+margin_bottom = 476.0
+custom_fonts/normal_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "Made in 48 hours by [wave]@Srynetix[/wave]"
+text = "Made in 48 hours by @Srynetix"
+fit_content_height = true
+scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "boot"

@@ -8,7 +8,7 @@ public class GameOver : Control
     public bool GoodEnding = false;
 
     private readonly string BadHelpText = @"Hello [color=#abc123]again[/color].
-You died [color=#123987]{0}[/color] times, but thanks for beating the game.
+You died [color=#abc123]{0}[/color] times, but thanks for beating the game.
 Don't forget to rate it, and let me know if you liked it.
 
 Until next time!";

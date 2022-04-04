@@ -40,7 +40,7 @@ public class Turret : Area2D
 
     public override void _Process(float delta)
     {
-        if (!Stopped && !Exploded) {
+        if (!Stopped && !Exploded && !Frozen) {
             DetectNearestPlayer();
             AimNearestPlayer();
         }
@@ -66,15 +66,18 @@ public class Turret : Area2D
     }
 
     public void Freeze() {
-        Stop();
+        Frozen = true;
+        NearestPlayer = null;
+        Timer.Stop();
     }
 
     public void Unfreeze() {
-        Start();
+        Frozen = false;
+        Timer.Start();
     }
 
     private void OnTimerTimeout() {
-        if (NearestPlayer != null && !Exploded) {
+        if (NearestPlayer != null && !Exploded && !Stopped) {
             Fire();
         }
     }

@@ -4,7 +4,7 @@ using SxGD;
 public class GameLoadCache : LoadCache
 {
     public override void Initialize() {
-        int levelCount = 7;
+        int levelCount = 10;
 
         // Scenes
         StoreScene<SparklesFX>("res://scenes/SparklesFX.tscn");

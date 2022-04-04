@@ -10,7 +10,7 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
-length = 8.0
+length = 9.0
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -18,7 +18,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 8 ),
+"times": PoolRealArray( 9 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
