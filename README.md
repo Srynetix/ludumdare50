@@ -9,7 +9,7 @@
 
 ![screenshot](./doc/screenshot.png)
 
-**:rocket: [Play it here!](https://srynetix.github.io/ludumdare50/Time%20Lab)**
+**:rocket: [Play it here!](https://srynetix.github.io/time-lab/Time%20Lab)**
 
 Welcome on my 4th **Ludum Dare** Compo entry!
 
