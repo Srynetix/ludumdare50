@@ -28,15 +28,14 @@ public class Destructible : KinematicBody2D
         AudioStreamPlayer.PitchScale = (float)GD.RandRange(0.5, 1.5);
         AudioStreamPlayer.Play();
 
-        float amount = CurrentHit / (float)MaxHits;
-        ShaderMaterial.SetShaderParam("dissolution_level", amount);
-
         if (CurrentHit >= MaxHits) {
             Explode();
         }
     }
 
     async public void Explode() {
+        Sprite.Visible = false;
+
         CollisionShape2D.Disabled = true;
         ExplosionFX.Emitting = true;
         await ToSignal(GetTree().CreateTimer(ExplosionFX.Lifetime), "timeout");

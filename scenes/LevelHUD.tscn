@@ -1,17 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/LevelHUD.cs" type="Script" id=2]
 [ext_resource path="res://addons/fx/screen-effects/BetterBlur.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/nodeext/HelpText/HelpText.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/HelpText.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/textures/timebomb-mask.png" type="Texture" id=6]
-
-[sub_resource type="DynamicFont" id=16]
-outline_color = Color( 0.164706, 0, 0, 0.490196 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 32
@@ -342,7 +335,6 @@ range_item_cull_mask = 2
 
 [node name="HelpText" parent="." instance=ExtResource( 4 )]
 Text = "Help text"
-Font = SubResource( 16 )
 
 [node name="BetterBlur" parent="." instance=ExtResource( 3 )]
 

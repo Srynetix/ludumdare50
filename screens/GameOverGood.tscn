@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/EndScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://addons/nodeext/HelpText/HelpText.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/HelpText.tscn" type="PackedScene" id=4]
 [ext_resource path="res://screens/GameOver.cs" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=3]
@@ -41,7 +41,6 @@ color = Color( 0, 0.0470588, 0, 0.803922 )
 
 [node name="HelpText" parent="." instance=ExtResource( 4 )]
 Text = ""
-Font = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"

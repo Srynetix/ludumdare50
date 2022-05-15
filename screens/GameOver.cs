@@ -17,14 +17,13 @@ Until next time!";
 
 Good for him, I have thousands like him waiting for a challenge.";
 
-    public override void _Ready() {
+    public async override void _Ready() {
         var deaths = GameData.GetInstance().LoadNumber("deaths", 0);
         var helpText = GetNode<HelpText>("HelpText");
         helpText.Text = GoodEnding ? GoodHelpText : string.Format(BadHelpText, deaths);
         helpText.FadeIn();
-    }
 
-    public void LoadTitle() {
+        await ToSignal(helpText, nameof(HelpText.shown));
         SceneTransitioner.GetInstance().FadeToScene("res://screens/Boot.tscn");
     }
 }
