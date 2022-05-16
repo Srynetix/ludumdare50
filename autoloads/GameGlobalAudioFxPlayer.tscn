@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/nodeext/GlobalAudioFxPlayer/GlobalAudioFxPlayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/nodeext/Audio/GlobalAudioFxPlayer/GlobalAudioFxPlayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fx/click.wav" type="AudioStream" id=2]
 [ext_resource path="res://assets/fx/shoot.wav" type="AudioStream" id=3]
 

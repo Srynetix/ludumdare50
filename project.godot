@@ -25,9 +25,9 @@ config/windows_native_icon="res://assets/logos/timebomb-logo.ico"
 GameData="*res://autoloads/GameData.cs"
 GameGlobalAudioFxPlayer="*res://autoloads/GameGlobalAudioFxPlayer.tscn"
 GameLoadCache="*res://autoloads/GameLoadCache.cs"
-GlobalMusicPlayer="*res://addons/nodeext/GlobalMusicPlayer/GlobalMusicPlayer.tscn"
-SceneTransitioner="*res://addons/nodeext/SceneTransitioner.tscn"
-DebugInfo="*res://scenes/DebugInfo.tscn"
+GlobalMusicPlayer="*res://addons/nodeext/Audio/GlobalMusicPlayer/GlobalMusicPlayer.tscn"
+SceneTransitioner="*res://addons/nodeext/Utils/SceneTransitioner/SceneTransitioner.tscn"
+GameDebugInfo="*res://autoloads/GameDebugInfo.tscn"
 
 [display]
 
@@ -35,7 +35,6 @@ window/size/width=832
 window/size/height=480
 window/size/test_width=998
 window/size/test_height=576
-window/vsync/use_vsync=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep_width"
 
