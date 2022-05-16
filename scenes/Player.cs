@@ -7,10 +7,10 @@ public class Player : KinematicBody2D
     public bool DetectInput = true;
 
     private Vector2 Gravity = new Vector2(0, 25);
-    private float MaxVelocity = 400;
-    private float JumpSpeed = 500;
+    private float MaxVelocity = 300;
+    private float JumpSpeed = 550;
     private float MovementSpeed = 25;
-    private float FrictionValue = 0.65f;
+    private float FrictionValue = 0.85f;
     private int MaxJumps = 2;
 
     [Signal]
