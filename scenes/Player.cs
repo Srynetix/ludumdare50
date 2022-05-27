@@ -110,6 +110,8 @@ public class Player : KinematicBody2D
                     }
                 }
             }
+
+            collision.Dispose();
         }
 
         if (IsOnFloor()) {

@@ -82,6 +82,8 @@ public class Bullet : KinematicBody2D
             Rotation = InitialVelocity.Angle();
             Velocity = Velocity.Bounce(collision.Normal);
             Bounces++;
+
+            collision.Dispose();
         }
 
         RemoveIfTooManyBounces();
