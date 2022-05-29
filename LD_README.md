@@ -1,7 +1,5 @@
 # Time Lab - Ludum Dare 50
 
-You can view the [original README here](./LD_README.md).
-
 |             |                                                                                |
 |-------------|--------------------------------------------------------------------------------|
 | **Theme**   | _Delay the inevitable_                                                         |
@@ -21,7 +19,7 @@ Instructions are included in the game, and _once again_, it is **quite challengi
 There is a secret end, think fast :wink:!
 
 **Software used**:
-- Godot Engine 3.4.4 with my [`sxgd`](https://github.com/Srynetix/sxgd) addon,
+- Godot Engine 3.4.4 (mono edition) with a few addons of mine (_fx_, _nodeext_, _mathext_),
 - sfxia,
 - aseprite 1.3-beta14,
 - FL Studio
