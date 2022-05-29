@@ -3,10 +3,10 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-LevelNumber = 3
-LevelName = "Freezing..."
-BombTime = 10
-HelpText = "So [color=#abc123]you did[/color] shoot the time.
+level_number = 3
+level_name = "Freezing..."
+bomb_time = 10
+help_text = "So [color=#abc123]you did[/color] shoot the time.
 Congratulations, you are not dead yet and found a trick.
 
 Try to pass this one, the bomb is protected by [color=#abc123]crates[/color]!"

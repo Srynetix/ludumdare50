@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/nodeext/Audio/GlobalAudioFxPlayer/GlobalAudioFxPlayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/sxgd/nodes/audio/SxGlobalAudioFxPlayer/SxGlobalAudioFxPlayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fx/click.wav" type="AudioStream" id=2]
 [ext_resource path="res://assets/fx/shoot.wav" type="AudioStream" id=3]
 
 [node name="GameGlobalAudioFxPlayer" instance=ExtResource( 1 )]
-Streams = {
+streams = {
 "click": ExtResource( 2 ),
 "shoot": ExtResource( 3 )
 }

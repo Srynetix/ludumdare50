@@ -1,33 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/EndScene.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/fx/screen-effects/Vignette.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxVignette/SxVignette.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fx/exitdoor.wav" type="AudioStream" id=7]
-[ext_resource path="res://screens/Title.cs" type="Script" id=8]
-
-[sub_resource type="Shader" id=7]
-code = "shader_type canvas_item;
-render_mode blend_mul;
-
-uniform float size = 10.0;
-uniform float ratio = 0.25;
-
-void fragment() {
-  vec2 uv = SCREEN_UV;
-  uv *= 1.0 - uv.yx;
-  
-  float vig = uv.x * uv.y * size;
-  vig = pow(vig, ratio);
-  COLOR = vec4(vig);
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-resource_local_to_scene = true
-shader = SubResource( 7 )
-shader_param/size = 20.0
-shader_param/ratio = 2.0
+[ext_resource path="res://screens/Title.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 82
@@ -225,9 +203,6 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.666667 )
 
 [node name="Vignette" parent="." instance=ExtResource( 6 )]
-material = SubResource( 6 )
-Ratio = 2.0
-Size = 20.0
 
 [node name="Time" type="RichTextLabel" parent="."]
 margin_left = 274.0
@@ -301,5 +276,5 @@ stream = ExtResource( 7 )
 volume_db = -10.0
 pitch_scale = 2.0
 
-[connection signal="pressed" from="MarginContainer/Buttons/Continue" to="." method="StartGame"]
-[connection signal="pressed" from="MarginContainer/Buttons/New Game" to="." method="StartNewGame"]
+[connection signal="pressed" from="MarginContainer/Buttons/Continue" to="." method="start_game"]
+[connection signal="pressed" from="MarginContainer/Buttons/New Game" to="." method="start_new_game"]

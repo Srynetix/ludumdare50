@@ -9,16 +9,7 @@ indent_style = space
 charset = utf-8
 end_of_line = lf
 
-[Makefile]
-indent_style = tabs
-
-# Code files
-[*.cs]
-charset = utf-8
-end_of_line = lf
-indent_style = space
-indent_size = 4
-insert_final_newline = true
+[*.gd]
 trim_trailing_whitespace = true
 
 [*.md]

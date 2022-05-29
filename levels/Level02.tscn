@@ -3,10 +3,10 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-LevelNumber = 2
-LevelName = "Gotta be fast...?"
-BombTime = 4
-HelpText = "Here we are, you have 4 seconds to finish the level. Think fast.
+level_number = 2
+level_name = "Gotta be fast...?"
+bomb_time = 4
+help_text = "Here we are, you have 4 seconds to finish the level. Think fast.
 Do [color=#abc123]not[/color] shoot the time!"
 
 [node name="Background" parent="." index="0"]
