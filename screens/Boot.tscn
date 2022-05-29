@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/logos/logo_large_monochrome_dark.png" type="Texture" id=2]
 [ext_resource path="res://assets/logos/New_Ludum_Dare_Logo.png" type="Texture" id=3]
-[ext_resource path="res://screens/Boot.cs" type="Script" id=4]
+[ext_resource path="res://screens/Boot.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -167,7 +167,7 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "LoadGame"
+"method": "load_game"
 } ]
 }
 tracks/6/type = "value"

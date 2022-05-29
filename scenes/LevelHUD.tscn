@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scenes/LevelHUD.cs" type="Script" id=2]
-[ext_resource path="res://addons/fx/screen-effects/BetterBlur.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/LevelHUD.gd" type="Script" id=2]
+[ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxBetterBlur/SxBetterBlur.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/HelpText.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/textures/timebomb-mask.png" type="Texture" id=6]
 
@@ -124,7 +124,7 @@ tracks/6/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("BetterBlur:Strength")
+tracks/7/path = NodePath("BetterBlur:strength")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -237,11 +237,11 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "SendReadySignal"
+"method": "send_ready_signal"
 } ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("BetterBlur:Strength")
+tracks/4/path = NodePath("BetterBlur:strength")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -304,7 +304,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("BetterBlur:Strength")
+tracks/2/path = NodePath("BetterBlur:strength")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -334,7 +334,6 @@ range_layer_max = 1
 range_item_cull_mask = 2
 
 [node name="HelpText" parent="." instance=ExtResource( 4 )]
-Text = "Help text"
 
 [node name="BetterBlur" parent="." instance=ExtResource( 3 )]
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/tilesets/tileset.png" type="Texture" id=1]
 [ext_resource path="res://assets/fx/crate-break.wav" type="AudioStream" id=2]
-[ext_resource path="res://scenes/Destructible.cs" type="Script" id=3]
+[ext_resource path="res://scenes/Destructible.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
