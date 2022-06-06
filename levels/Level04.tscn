@@ -4,7 +4,6 @@
 
 [node name="Level" instance=ExtResource( 1 )]
 level_number = 4
-level_name = "Not the crates!"
 bomb_time = 7
 help_text = "Okay, so crates are not enough...
 Or there were NOT ENOUGH CRATES!"

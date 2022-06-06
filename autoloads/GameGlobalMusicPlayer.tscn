@@ -3,3 +3,4 @@
 [ext_resource path="res://addons/sxgd/nodes/audio/SxGlobalMusicPlayer/SxGlobalMusicPlayer.tscn" type="PackedScene" id=1]
 
 [node name="GameGlobalMusicPlayer" instance=ExtResource( 1 )]
+bus = "Music"

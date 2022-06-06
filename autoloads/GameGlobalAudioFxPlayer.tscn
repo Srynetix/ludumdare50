@@ -5,6 +5,7 @@
 [ext_resource path="res://assets/fx/shoot.wav" type="AudioStream" id=3]
 
 [node name="GameGlobalAudioFxPlayer" instance=ExtResource( 1 )]
+audio_bus_output = "Effects"
 streams = {
 "click": ExtResource( 2 ),
 "shoot": ExtResource( 3 )

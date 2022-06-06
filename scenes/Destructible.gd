@@ -25,6 +25,6 @@ func explode() -> void:
 
     collision_shape.set_deferred("disabled", true)
     explosion_fx.emitting = true
-    
+
     yield(get_tree().create_timer(explosion_fx.lifetime), "timeout")
     queue_free()
