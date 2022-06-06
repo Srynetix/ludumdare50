@@ -193,6 +193,7 @@ anims/run = SubResource( 8 )
 [node name="JumpFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -10.0
+bus = "Effects"
 
 [node name="JumpParticles" type="CPUParticles2D" parent="."]
 position = Vector2( 0, 31 )

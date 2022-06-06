@@ -7,7 +7,6 @@ signal restart()
 const LAST_LEVEL = 999999
 
 export var level_number := 1
-export var level_name := "Hello World"
 export var bomb_time := 30
 export(String, MULTILINE) var help_text := "Hello."
 export var wait_for_help_text := false
@@ -30,6 +29,8 @@ var _turrets := Array()
 var _finished := false
 
 func _ready() -> void:
+    var levels = GameData.levels
+    var level_name = levels[str(level_number)]
     level_hud.connect("level_ready", self, "_activate")
     level_hud.set_level_data(level_number, level_name, help_text, wait_for_help_text)
 
@@ -107,7 +108,7 @@ func _game_over() -> void:
     yield(get_tree().create_timer(1), "timeout")
 
     if level_number == LAST_LEVEL:
-        GameSceneTransitioner.fade_to_scene_path("res://screens/GameOver.tscn")
+        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverScreen")
     else:
         emit_signal("restart")
 
@@ -196,7 +197,7 @@ func _on_player_exit(_player: Player) -> void:
     yield(get_tree().create_timer(1), "timeout")
 
     if level_number == LAST_LEVEL:
-        GameSceneTransitioner.fade_to_scene_path("res://screens/GameOverGood.tscn")
+        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverGoodScreen")
     else:
         emit_signal("success")
 

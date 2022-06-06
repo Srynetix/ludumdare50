@@ -4,7 +4,6 @@
 
 [node name="Level" instance=ExtResource( 1 )]
 level_number = 0
-level_name = "Hell World"
 bomb_time = 60
 help_text = "Welcome [color=#abc123]random test subject![/color]
 

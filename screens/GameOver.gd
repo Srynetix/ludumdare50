@@ -19,7 +19,7 @@ export var good_ending := false
 onready var help_text: HelpText = $HelpText
 
 func _ready() -> void:
-    var deaths = GameData.load_value("deaths", 0)
+    var deaths = GameData.deaths
     if good_ending:
         help_text.text = GOOD_HELP_TEXT
     else:
@@ -27,4 +27,4 @@ func _ready() -> void:
     help_text.fade_in()
 
     yield(help_text, "shown")
-    GameSceneTransitioner.fade_to_scene_path("res://screens/Boot.tscn")
+    GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "BootScreen")

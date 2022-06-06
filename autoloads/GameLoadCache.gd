@@ -26,11 +26,20 @@ func load_resources():
     store_resource("track4", "res://assets/music/track4.ogg")
     store_resource("track5", "res://assets/music/track5.ogg")
 
+    # Screens
+    store_scene("BootScreen", "res://screens/Boot.tscn")
+    store_scene("GameScreen", "res://screens/Game.tscn")
+    store_scene("GameOverScreen", "res://screens/GameOver.tscn")
+    store_scene("GameOverGoodScreen", "res://screens/GameOverGood.tscn")
+    store_scene("TitleScreen", "res://screens/Title/Title.tscn")
+    store_scene("OptionsScreen", "res://screens/Options/Options.tscn")
+    store_scene("LevelSelectorScreen", "res://screens/LevelSelector/LevelSelector.tscn")
+
     # Levels
     for i in range(level_count + 1):
         store_scene(
             "Level%02d" % i,
             "res://levels/Level%02d.tscn" % i
         )
-    
+
     store_scene("LevelEnd", "res://levels/LevelEnd.tscn")

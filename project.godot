@@ -31,6 +31,7 @@ _global_script_class_icons={
 "SxGameData": "",
 "SxGlobalAudioFxPlayer": "",
 "SxGlobalMusicPlayer": "",
+"SxJson": "",
 "SxLoadCache": "",
 "SxLog": "",
 "SxMath": "",
@@ -42,8 +43,7 @@ _global_script_class_icons={
 "SxTileMap": "",
 "SxVignette": "",
 "TimeBomb": "",
-"Turret": "",
-"ZoneTile": ""
+"Turret": ""
 }
 _global_script_classes=[ {
 "base": "KinematicBody2D",
@@ -156,6 +156,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/sxgd/nodes/audio/SxGlobalMusicPlayer/SxGlobalMusicPlayer.gd"
 }, {
+"base": "Reference",
+"class": "SxJson",
+"language": "GDScript",
+"path": "res://addons/sxgd/extensions/SxJson.gd"
+}, {
 "base": "Node",
 "class": "SxLoadCache",
 "language": "GDScript",
@@ -215,11 +220,6 @@ _global_script_classes=[ {
 "class": "Turret",
 "language": "GDScript",
 "path": "res://scenes/Turret.gd"
-}, {
-"base": "Area2D",
-"class": "ZoneTile",
-"language": "GDScript",
-"path": "res://scenes/ZoneTile.gd"
 } ]
 
 [application]

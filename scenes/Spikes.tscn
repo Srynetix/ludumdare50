@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Spikes.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14, 6 )
+extents = Vector2( 12, 5 )
 
 [node name="Spikes" type="Area2D"]
 script = ExtResource( 2 )
@@ -16,5 +16,5 @@ region_enabled = true
 region_rect = Rect2( 128, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 10 )
+position = Vector2( 0, 11 )
 shape = SubResource( 1 )

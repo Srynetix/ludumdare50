@@ -4,7 +4,6 @@
 
 [node name="Level" instance=ExtResource( 1 )]
 level_number = 10
-level_name = "Final test"
 bomb_time = 20
 help_text = "[rainbow]Good job![/rainbow]
 Now you should be [color=#abc123]good enough[/color] to get through this test."
