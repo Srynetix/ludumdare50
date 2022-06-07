@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/EndScene.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxVignette/Vignette.gdshader" type="Shader" id=4]
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxVignette/SxVignette.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fx/exitdoor.wav" type="AudioStream" id=7]
 [ext_resource path="res://screens/Title/Title.gd" type="Script" id=8]
@@ -202,6 +203,14 @@ tracks/5/keys = {
 "values": [ 1.0, 1.0, 0.0 ]
 }
 
+[sub_resource type="DynamicFont" id=11]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 32
+font_data = ExtResource( 5 )
+
 [node name="Title" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -326,12 +335,51 @@ stream = ExtResource( 7 )
 volume_db = -10.0
 pitch_scale = 2.0
 
-[node name="ClearSaveDataDialog" type="ConfirmationDialog" parent="."]
-margin_right = 200.0
-margin_bottom = 70.0
-window_title = "Clear save data"
-dialog_text = "Are you sure you want to clear your save data?"
-dialog_autowrap = true
+[node name="ClearSaveDataOverlay" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Tween" type="Tween" parent="ClearSaveDataOverlay"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ClearSaveDataOverlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 80
+alignment = 1
+
+[node name="Label" type="Label" parent="ClearSaveDataOverlay/VBoxContainer"]
+margin_top = 125.0
+margin_right = 832.0
+margin_bottom = 222.0
+custom_fonts/font = SubResource( 11 )
+text = "Are you sure you want to clear all data, including your game progression ?"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ClearSaveDataOverlay/VBoxContainer"]
+margin_top = 302.0
+margin_right = 832.0
+margin_bottom = 355.0
+custom_constants/separation = 80
+alignment = 1
+
+[node name="Yes" type="Button" parent="ClearSaveDataOverlay/VBoxContainer/HBoxContainer"]
+margin_left = 313.0
+margin_right = 381.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 12 )
+text = "Yes"
+flat = true
+
+[node name="No" type="Button" parent="ClearSaveDataOverlay/VBoxContainer/HBoxContainer"]
+margin_left = 461.0
+margin_right = 518.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 12 )
+text = "No"
+flat = true
 
 [connection signal="pressed" from="MarginContainer/Buttons/Continue" to="." method="start_game"]
 [connection signal="pressed" from="MarginContainer/Buttons/Select Level" to="." method="level_selector"]

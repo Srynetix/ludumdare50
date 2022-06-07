@@ -59,15 +59,15 @@ func _get_from_game() -> bool:
     return bool(load_value("from_game", false))
 
 func _set_effects_volume(value: int) -> void:
-    store_value("effects_volume", value)
+    store_value("effects_volume", value, "options")
     AudioServer.set_bus_volume_db(_effects_bus_idx, value)
 
 func _get_effects_volume() -> int:
-    return int(load_value("effects_volume", -3))
+    return int(load_value("effects_volume", -3, "options"))
 
 func _set_music_volume(value: int) -> void:
-    store_value("music_volume", value)
+    store_value("music_volume", value, "options")
     AudioServer.set_bus_volume_db(_music_bus_idx, value)
 
 func _get_music_volume() -> int:
-    return int(load_value("music_volume", -3))
+    return int(load_value("music_volume", -3, "options"))
