@@ -3,10 +3,9 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-LevelNumber = 9
-LevelName = "Another bomb?"
-BombTime = 10
-HelpText = "Looks easy no?
+level_number = 9
+bomb_time = 10
+help_text = "Looks easy no?
 Guess [color=#abc123]again[/color]."
 
 [node name="Background" parent="." index="0"]

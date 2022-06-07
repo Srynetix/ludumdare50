@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://addons/fx/screen-effects/BetterBlur.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxBetterBlur/SxBetterBlur.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/TimeBomb.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/EndScene.tscn" type="PackedScene" id=6]
 

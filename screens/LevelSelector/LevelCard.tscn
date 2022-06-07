@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://screens/LevelSelector/LevelCard.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+outline_size = 1
+outline_color = Color( 0.152941, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 1
+outline_color = Color( 0.152941, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="LevelCard" type="Control"]
+rect_min_size = Vector2( 700, 50 )
+mouse_filter = 2
+script = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 45.0
+mouse_filter = 2
+
+[node name="LevelId" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 186.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 1 )
+text = "Level 00"
+align = 1
+valign = 1
+
+[node name="LevelName" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_left = 190.0
+margin_right = 690.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 2 )
+text = "Level"
+valign = 1
+autowrap = true
+__meta__ = {
+"_editor_description_": ""
+}

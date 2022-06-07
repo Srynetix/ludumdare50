@@ -3,8 +3,7 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-LevelName = "Slide!"
-HelpText = "Hello again!
+help_text = "Hello again!
 
 See these blocks upfront? This is [color=#5555dd]ice[/color], try stepping on it.
 You need to press all buttons to open the door.

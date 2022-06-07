@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/textures/player-arm.png" type="Texture" id=1]
-[ext_resource path="res://scenes/Player.cs" type="Script" id=2]
+[ext_resource path="res://scenes/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/spritesheets/player.png" type="Texture" id=3]
 [ext_resource path="res://assets/fx/jump.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/spritesheets/player-run.png" type="Texture" id=5]
@@ -193,6 +193,7 @@ anims/run = SubResource( 8 )
 [node name="JumpFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -10.0
+bus = "Effects"
 
 [node name="JumpParticles" type="CPUParticles2D" parent="."]
 position = Vector2( 0, 31 )
