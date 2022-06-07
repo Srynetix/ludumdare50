@@ -11,7 +11,7 @@ You can view the [original README here](./LD_README.md).
 
 ![screenshot](./doc/screenshot.png)
 
-**:rocket: [Play it here!](https://srynetix.github.io/time-lab/Time%20Lab)**
+**:rocket: [Play it here!](https://srynetix.github.io/time-lab/)**
 
 Welcome on my 4th **Ludum Dare** Compo entry!
 
