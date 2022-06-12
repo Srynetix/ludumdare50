@@ -1,14 +1,50 @@
 {
-    "0": "Hell World",
-    "1": "Slide!",
-    "2": "Gotta be fast...?",
-    "3": "Freezing...",
-    "4": "Not the crates!",
-    "5": "Don't shoot me!",
-    "6": "Dodge and run",
-    "7": "Hurry up!",
-    "8": "Long shot",
-    "9": "Another bomb?",
-    "10": "Final test",
-    "999999": "End World"
+    "0": {
+        "name": "Level 00: Hell World",
+        "author": "Srynetix"
+    },
+    "1": {
+        "name": "Level 01: Slide!",
+        "author": "Srynetix"
+    },
+    "2": {
+        "name": "Level 02: Gotta be fast...?",
+        "author": "Srynetix"
+    },
+    "3": {
+        "name": "Level 03: Freezing...",
+        "author": "Srynetix"
+    },
+    "4": {
+        "name": "Level 04: Not the crates!",
+        "author": "Srynetix"
+    },
+    "5": {
+        "name": "Level 05: Don't shoot me!",
+        "author": "Srynetix"
+    },
+    "6": {
+        "name": "Level 06: Dodge and run",
+        "author": "Srynetix"
+    },
+    "7": {
+        "name": "Level 07: Hurry up!",
+        "author": "Srynetix"
+    },
+    "8": {
+        "name": "Level 08: Long shot",
+        "author": "Srynetix"
+    },
+    "9": {
+        "name": "Level 09: Another bomb?",
+        "author": "Srynetix"
+    },
+    "10": {
+        "name": "Level 10: Final test",
+        "author": "Srynetix"
+    },
+    "999999": {
+        "name": "End World",
+        "author": "???"
+    }
 }

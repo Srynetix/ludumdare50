@@ -5,16 +5,17 @@ signal level_ready()
 
 var _wait_for_help_text := false
 
-onready var level_number_label: Label = $MarginContainer/LevelInfo/LevelNumber
 onready var level_name_label: Label = $MarginContainer/LevelInfo/LevelName
+onready var level_author_label: Label = $MarginContainer/LevelInfo/LevelAuthor
 onready var help_text: HelpText = $HelpText
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func set_level_data(number: int, name: String, help_text_contents: String, wait_for_help_text: bool = false) -> void:
-    level_number_label.text = "Level %02d" % number
+func set_level_data(name: String, author: String, help_text_contents: String, wait_for_help_text: bool = false) -> void:
     level_name_label.text = name
+    level_author_label.text = "By @%s" % author
     help_text.text = help_text_contents
     _wait_for_help_text = wait_for_help_text
+    animation_player.play("show_level")
 
 func play_animation(anim: String):
     animation_player.play(anim)

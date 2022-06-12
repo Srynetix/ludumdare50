@@ -18,10 +18,12 @@ func _ready() -> void:
 
     for x in range(max_level + 1):
         if level_data.has(str(x)):
+            var level_item = level_data[str(x)]
             var card = _level_card.instance()
             levels.add_child(card)
-            card.level_id = x
-            card.level_name = level_data[str(x)]
+
+            card.level_name = level_item["name"]
+            card.level_author = level_item["author"]
             card.connect("pressed", self, "_on_level_pressed", [x])
 
 func _on_back_pressed() -> void:

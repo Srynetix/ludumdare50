@@ -2,12 +2,9 @@ extends Control
 
 onready var continue_btn: Button = $MarginContainer/Buttons/Continue
 onready var select_level_btn: Button = $"MarginContainer/Buttons/Select Level"
-onready var clear_save_data_panel: Panel = $ClearSaveDataOverlay
+onready var clear_save_data_confirm: FullScreenConfirmationDialog = $ClearSaveDataConfirm
+onready var new_game_confirm: FullScreenConfirmationDialog = $ConfirmNewGame
 onready var clear_save_data_btn: Button = $MarginContainer2/ClearSaveData
-
-onready var clear_save_data_tween: Tween = $ClearSaveDataOverlay/Tween
-onready var clear_save_data_yes: Button = $ClearSaveDataOverlay/VBoxContainer/HBoxContainer/Yes
-onready var clear_save_data_no: Button = $ClearSaveDataOverlay/VBoxContainer/HBoxContainer/No
 
 func _ready() -> void:
     if GameData.from_boot:
@@ -22,20 +19,30 @@ func _ready() -> void:
     select_level_btn.visible = can_continue
 
     clear_save_data_btn.connect("pressed", self, "_show_clear_save_data_panel")
-    clear_save_data_no.connect("pressed", self, "_hide_clear_save_data_panel")
-    clear_save_data_yes.connect("pressed", self, "_clear_save_data")
+    clear_save_data_confirm.connect("confirmed", self, "_clear_save_data")
+    new_game_confirm.connect("confirmed", self, "_start_new_game")
 
 func start_game() -> void:
     GameGlobalMusicPlayer.fade_out()
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameScreen")
 
 func start_new_game() -> void:
+    if GameData.max_level > 0:
+        new_game_confirm.fade_in()
+    else:
+        _start_new_game()
+
+func _start_new_game() -> void:
     GameGlobalMusicPlayer.fade_out()
     GameData.last_level = 0
     GameData.max_level = 0
     GameData.deaths = 0
     GameData.persist_to_disk()
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameScreen")
+
+func start_editor() -> void:
+    GameGlobalMusicPlayer.fade_out()
+    GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "EditorScreen")
 
 func options() -> void:
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "OptionsScreen")
@@ -49,14 +56,4 @@ func _clear_save_data() -> void:
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "BootScreen")
 
 func _show_clear_save_data_panel() -> void:
-    clear_save_data_tween.stop_all()
-    clear_save_data_panel.visible = true
-    clear_save_data_tween.interpolate_property(clear_save_data_panel, "modulate", Color.transparent, Color.white, 0.25, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-    clear_save_data_tween.start()
-
-func _hide_clear_save_data_panel() -> void:
-    clear_save_data_tween.stop_all()
-    clear_save_data_tween.interpolate_property(clear_save_data_panel, "modulate", Color.white, Color.transparent, 0.25, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-    clear_save_data_tween.start()
-    yield(clear_save_data_tween, "tween_all_completed")
-    clear_save_data_panel.visible = false
+    clear_save_data_confirm.fade_in()

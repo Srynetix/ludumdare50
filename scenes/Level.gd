@@ -4,22 +4,29 @@ class_name Level
 signal success()
 signal restart()
 
-const LAST_LEVEL = 999999
-
 export var level_number := 1
+export var level_author := ""
+export var level_name := ""
 export var bomb_time := 30
 export(String, MULTILINE) var help_text := "Hello."
 export var wait_for_help_text := false
 export var turret_fire_rate := 1.0
 export var lock_camera := false
+export var editor_mode := false
 
 onready var areas_target: Node = $Areas
 onready var fx_target: Node = $FX
 onready var players_target: Node = $Players
+onready var background_tilemap: TileMap = $Background
 onready var tilemap: TileMap = $Middleground
+onready var foreground_tilemap: TileMap = $Foreground
 onready var level_hud: LevelHUD = $LevelHUD
 onready var success_fx: AudioStreamPlayer = $SuccessFX
 onready var camera: SxFXCamera = $Camera
+
+var initial_background_tile_data := Array()
+var initial_middleground_tile_data := Array()
+var initial_foreground_tile_data := Array()
 
 var _players := Array()
 var _time_bombs := Array()
@@ -29,10 +36,17 @@ var _turrets := Array()
 var _finished := false
 
 func _ready() -> void:
-    var levels = GameData.levels
-    var level_name = levels[str(level_number)]
     level_hud.connect("level_ready", self, "_activate")
-    level_hud.set_level_data(level_number, level_name, help_text, wait_for_help_text)
+    level_hud.set_level_data(level_name, level_author, help_text, wait_for_help_text)
+
+    if len(initial_background_tile_data) > 0:
+        SxTileMap.load_dump(background_tilemap, initial_background_tile_data)
+
+    if len(initial_middleground_tile_data) > 0:
+        SxTileMap.load_dump(tilemap, initial_middleground_tile_data)
+
+    if len(initial_foreground_tile_data) > 0:
+        SxTileMap.load_dump(foreground_tilemap, initial_foreground_tile_data)
 
     call_deferred("_spawn_tiles")
     _prepare_camera()
@@ -101,16 +115,14 @@ func _stop_mechanisms() -> void:
         node.queue_free()
 
 func _game_over() -> void:
-    GameData.increment("deaths")
-    GameData.persist_to_disk()
+    if !editor_mode:
+        GameData.increment("deaths")
+        GameData.persist_to_disk()
 
     level_hud.play_animation("game_over")
     yield(get_tree().create_timer(1), "timeout")
 
-    if level_number == LAST_LEVEL:
-        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverScreen")
-    else:
-        emit_signal("restart")
+    emit_signal("restart")
 
 func _spawn_tiles() -> void:
     for pos in tilemap.get_used_cells():
@@ -196,10 +208,7 @@ func _on_player_exit(_player: Player) -> void:
 
     yield(get_tree().create_timer(1), "timeout")
 
-    if level_number == LAST_LEVEL:
-        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverGoodScreen")
-    else:
-        emit_signal("success")
+    emit_signal("success")
 
 func _on_player_dead(player: Player) -> void:
     var explosion: ExplosionFX = GameLoadCache.instantiate_scene("ExplosionFX")

@@ -5,6 +5,8 @@ export var load_from_save := true
 
 var _current_level: Level
 
+const LAST_LEVEL = 999999
+
 func _ready() -> void:
     GameData.from_game = true
 
@@ -49,6 +51,13 @@ func _load_level(level_id: int) -> void:
     else:
         _current_level = GameLoadCache.instantiate_scene(level_path)
 
+    var level_data = GameData.levels
+    if !level_data.has(str(level_id)):
+        level_id = LAST_LEVEL
+    var level_item = level_data[str(level_id)]
+    _current_level.level_name = level_item["name"]
+    _current_level.level_author = level_item["author"]
+
     _current_level.connect("success", self, "_load_next_level")
     _current_level.connect("restart", self, "_reload_current_level")
     add_child(_current_level)
@@ -59,7 +68,13 @@ func _load_level(level_id: int) -> void:
     current_level_idx = level_id
 
 func _load_next_level() -> void:
-    _load_level(current_level_idx + 1)
+    if current_level_idx == LAST_LEVEL:
+        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverGoodScreen")
+    else:
+        _load_level(current_level_idx + 1)
 
 func _reload_current_level() -> void:
-    _load_level(current_level_idx)
+    if current_level_idx == LAST_LEVEL:
+        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverScreen")
+    else:
+        _load_level(current_level_idx)

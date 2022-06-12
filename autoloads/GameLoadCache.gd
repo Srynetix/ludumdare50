@@ -2,7 +2,7 @@ extends SxLoadCache
 
 func load_resources():
     var logger = SxLog.get_logger("SxLoadCache")
-    logger.set_max_log_level(SxLog.LogLevel.DEBUG)
+    logger.set_max_log_level(SxLog.LogLevel.INFO)
 
     var level_count: int = 10
 
@@ -34,6 +34,7 @@ func load_resources():
     store_scene("TitleScreen", "res://screens/Title/Title.tscn")
     store_scene("OptionsScreen", "res://screens/Options/Options.tscn")
     store_scene("LevelSelectorScreen", "res://screens/LevelSelector/LevelSelector.tscn")
+    store_scene("EditorScreen", "res://screens/LevelEditor/EditorContainer.tscn")
 
     # Levels
     for i in range(level_count + 1):
