@@ -3,7 +3,8 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-level_number = 999999
+level_name = "End World"
+level_author = "???"
 bomb_time = 1
 help_text = "Well, [color=#abc123]congratulations[/color].
 You reached the end of the game.

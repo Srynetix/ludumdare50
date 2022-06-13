@@ -3,7 +3,8 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-level_number = 8
+level_name = "Level 08: Long shot"
+level_author = "Srynetix"
 bomb_time = 10
 help_text = "What is this thing I made?
 Looks like a creepy head with large eyes."
