@@ -1,13 +1,8 @@
 extends Control
 
-enum MapLayer {
-    BACKGROUND = 0,
-    MIDDLEGROUND,
-    FOREGROUND
-}
-
 const TilesPanel = preload("res://screens/LevelEditor/TilesPanel.gd")
 const ToolMode = TilesPanel.ToolMode
+const MapLayer = TilesPanel.MapLayer
 
 onready var background_tilemap: TileMap = $Middle/BackgroundTileMap
 onready var middleground_tilemap: TileMap = $Middle/MiddlegroundTileMap
@@ -16,7 +11,6 @@ onready var tile_at_cursor: Sprite = $Middle/TileAtCursor
 onready var tiles_panel = $TilesPanel
 onready var grid_lines = $GridLines
 
-onready var current_layer_label: Label = $HUD/VBoxContainer/CurrentLayer
 onready var grid_offset_label: Label = $HUD/VBoxContainer/GridOffset
 onready var cell_position_label: Label = $HUD/VBoxContainer/CellPosition
 onready var zoom_level_label: Label = $HUD/VBoxContainer/ZoomLevel
@@ -32,7 +26,7 @@ var tileset: TileSet = null
 var current_zoom: float = 1
 var offset := Vector2.ZERO
 var current_tool = ToolMode.PENCIL
-var current_layer: int = MapLayer.BACKGROUND
+var current_layer: int = MapLayer.MIDDLEGROUND
 var current_tile_rotation := 0
 
 var grid_bounds_coefficient = 1
@@ -61,6 +55,7 @@ func _ready():
 
     tiles_panel.connect("tile_selected", self, "set_current_tile")
     tiles_panel.connect("tool_selected", self, "set_current_tool")
+    tiles_panel.connect("layer_selected", self, "set_current_tilemap_layer")
 
 func _update_tile_at_cursor():
     var tile_idx = tileset.find_tile_by_name(current_tile)
@@ -148,8 +143,6 @@ func set_current_tilemap_layer(map_layer: int) -> void:
     tilemap = _get_tilemap_layer(map_layer)
     tilemap.modulate = tilemap_colors[current_layer]
 
-    current_layer_label.text = "Current layer: %s" % _map_layer_to_string(map_layer)
-
 func toggle_ui():
     tiles_panel.visible = !tiles_panel.visible
 
@@ -217,14 +210,6 @@ func _unhandled_input(event: InputEvent):
         var event_key: InputEventKey = event
         if event_key.pressed && event_key.scancode == KEY_C:
             _reset_position()
-        elif event_key.pressed && event_key.scancode == KEY_R:
-            _rotate_current_tile()
-        elif event_key.pressed && event_key.scancode == KEY_F1:
-            set_current_tilemap_layer(MapLayer.BACKGROUND)
-        elif event_key.pressed && event_key.scancode == KEY_F2:
-            set_current_tilemap_layer(MapLayer.MIDDLEGROUND)
-        elif event_key.pressed && event_key.scancode == KEY_F3:
-            set_current_tilemap_layer(MapLayer.FOREGROUND)
 
     _set_current_zoom(clamp(current_zoom, 0.2, 2.0))
 

@@ -9,17 +9,26 @@ enum ToolMode {
     ROTATE
 }
 
+enum MapLayer {
+    BACKGROUND = 0,
+    MIDDLEGROUND,
+    FOREGROUND
+}
+
 signal tile_selected(tile_name)
 signal tool_selected(tool_mode)
+signal layer_selected(map_layer)
 
 onready var tile_container: HBoxContainer = $MarginContainer/HBoxContainer/Tiles/HBoxContainer
 onready var tool_pencil: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Pencil
 onready var tool_move: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Move
 onready var tool_zoom: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Zoom
 onready var tool_rotate: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Rotate
+onready var grid_layer: MenuButton = $MarginContainer/HBoxContainer/Grid/HBoxContainer/Layer
 
 var selected_tile: TextureButton = null
 var selected_tool: Button = null
+var selected_layer: int = MapLayer.MIDDLEGROUND
 
 const tile_size = 24
 
@@ -52,6 +61,9 @@ func _ready():
     tool_move.connect("pressed", self, "_on_tool_pressed", [ tool_move, ToolMode.MOVE ])
     tool_zoom.connect("pressed", self, "_on_tool_pressed", [ tool_zoom, ToolMode.ZOOM ])
     tool_rotate.connect("pressed", self, "_on_tool_pressed", [ tool_rotate, ToolMode.ROTATE ])
+    grid_layer.get_popup().connect("id_pressed", self, "_on_layer_selected")
+    grid_layer.get_popup().set("custom_fonts/font", grid_layer.get("custom_fonts/font"))
+    grid_layer.text = map_layer_to_string(selected_layer)
 
     call_deferred("_on_tool_pressed", tool_pencil, ToolMode.PENCIL)
 
@@ -70,3 +82,32 @@ func _on_tool_pressed(btn: Button, tool_mode: int) -> void:
     selected_tool.modulate = SxColor.with_alpha_f(Color.lightgray, 0.5)
 
     emit_signal("tool_selected", tool_mode)
+
+func _on_layer_selected(item_id: int) -> void:
+    selected_layer = item_id
+    grid_layer.text = map_layer_to_string(item_id)
+
+    for idx in range(grid_layer.get_popup().get_item_count()):
+        grid_layer.get_popup().set_item_checked(idx, false)
+    grid_layer.get_popup().set_item_checked(item_id, true)
+
+    emit_signal("layer_selected", item_id)
+
+func map_layer_to_string(map_layer: int) -> String:
+    if map_layer == MapLayer.BACKGROUND:
+        return "Background"
+    elif map_layer == MapLayer.MIDDLEGROUND:
+        return "Middleground"
+    return "Foreground"
+
+func _unhandled_input(event):
+    if event is InputEventKey:
+        var event_key: InputEventKey = event
+        if event_key.pressed && event_key.scancode == KEY_R:
+            _on_tool_pressed(tool_rotate, ToolMode.ROTATE)
+        elif event_key.pressed && event_key.scancode == KEY_F1:
+            _on_layer_selected(MapLayer.BACKGROUND)
+        elif event_key.pressed && event_key.scancode == KEY_F2:
+            _on_layer_selected(MapLayer.MIDDLEGROUND)
+        elif event_key.pressed && event_key.scancode == KEY_F3:
+            _on_layer_selected(MapLayer.FOREGROUND)

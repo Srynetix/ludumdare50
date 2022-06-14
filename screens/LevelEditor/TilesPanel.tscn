@@ -44,14 +44,14 @@ margin_bottom = 44.0
 custom_constants/separation = 8
 
 [node name="Tiles" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_right = 652.0
+margin_right = 538.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Tiles"]
-margin_right = 652.0
+margin_right = 538.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -60,13 +60,49 @@ text = "Tiles"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Tiles"]
 margin_top = 12.0
-margin_right = 652.0
+margin_right = 538.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Grid" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 546.0
+margin_right = 681.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Grid"]
+margin_right = 135.0
+margin_bottom = 12.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+custom_fonts/font = SubResource( 1 )
+text = "Grid"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Grid"]
+margin_top = 12.0
+margin_right = 135.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Layer" type="MenuButton" parent="MarginContainer/HBoxContainer/Grid/HBoxContainer"]
+margin_top = 2.0
+margin_right = 46.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Click to change layer"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Layer"
+items = [ "Background", null, 2, false, false, 0, 0, null, "", false, "Middleground", null, 2, true, false, 1, 0, null, "", false, "Foreground", null, 2, false, false, 2, 0, null, "", false ]
+
 [node name="Tools" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 660.0
+margin_left = 689.0
 margin_right = 824.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
@@ -75,7 +111,7 @@ size_flags_stretch_ratio = 0.25
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Tools"]
-margin_right = 164.0
+margin_right = 135.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -84,7 +120,7 @@ text = "Tools"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Tools"]
 margin_top = 12.0
-margin_right = 164.0
+margin_right = 135.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

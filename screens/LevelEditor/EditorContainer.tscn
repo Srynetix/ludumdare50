@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://screens/LevelEditor/DetailPanel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://screens/LevelEditor/GridPanel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://screens/LevelEditor/EditorContainer.gd" type="Script" id=4]
+[ext_resource path="res://screens/LevelEditor/HelpPanel.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
@@ -46,6 +47,9 @@ margin_bottom = 480.0
 
 [node name="GridPanel" parent="Panel" instance=ExtResource( 3 )]
 
+[node name="HelpPanel" parent="Panel" instance=ExtResource( 5 )]
+visible = false
+
 [node name="TopContainer" type="MarginContainer" parent="Panel"]
 margin_right = 832.0
 margin_bottom = 49.0
@@ -73,41 +77,34 @@ margin_right = 607.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
-[node name="Background" type="Button" parent="Panel/TopContainer/TopBar/Left"]
+[node name="Grid" type="Button" parent="Panel/TopContainer/TopBar/Left"]
 margin_right = 128.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 128, 0 )
 custom_fonts/font = SubResource( 1 )
-text = "Background"
-flat = true
-
-[node name="Middleground" type="Button" parent="Panel/TopContainer/TopBar/Left"]
-margin_left = 132.0
-margin_right = 260.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 128, 0 )
-custom_fonts/font = SubResource( 1 )
-text = "Middleground"
-flat = true
-
-[node name="Foreground" type="Button" parent="Panel/TopContainer/TopBar/Left"]
-margin_left = 264.0
-margin_right = 392.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 128, 0 )
-custom_fonts/font = SubResource( 1 )
-text = "Foreground"
+text = "Grid"
 flat = true
 
 [node name="Details" type="Button" parent="Panel/TopContainer/TopBar/Left"]
-margin_left = 396.0
-margin_right = 524.0
+margin_left = 132.0
+margin_right = 260.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 128, 0 )
 custom_fonts/font = SubResource( 1 )
 toggle_mode = true
 pressed = true
 text = "Details"
+flat = true
+
+[node name="Help" type="Button" parent="Panel/TopContainer/TopBar/Left"]
+margin_left = 264.0
+margin_right = 392.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 128, 0 )
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+pressed = true
+text = "Help"
 flat = true
 
 [node name="Right" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
@@ -215,6 +212,10 @@ dialog_autowrap = true
 [node name="MarginContainer" type="MarginContainer" parent="ExportDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
 custom_constants/margin_right = 8
 custom_constants/margin_top = 8
 custom_constants/margin_left = 8
@@ -223,8 +224,8 @@ custom_constants/margin_bottom = 34
 [node name="VBoxContainer" type="VBoxContainer" parent="ExportDialog/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 392.0
-margin_bottom = 266.0
+margin_right = 376.0
+margin_bottom = 222.0
 
 [node name="TextEdit" type="TextEdit" parent="ExportDialog/MarginContainer/VBoxContainer"]
 margin_right = 384.0
@@ -251,6 +252,10 @@ dialog_autowrap = true
 [node name="MarginContainer" type="MarginContainer" parent="ImportDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
 custom_constants/margin_right = 8
 custom_constants/margin_top = 8
 custom_constants/margin_left = 8
@@ -259,8 +264,8 @@ custom_constants/margin_bottom = 34
 [node name="VBoxContainer" type="VBoxContainer" parent="ImportDialog/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 392.0
-margin_bottom = 266.0
+margin_right = 376.0
+margin_bottom = 222.0
 
 [node name="TextEdit" type="TextEdit" parent="ImportDialog/MarginContainer/VBoxContainer"]
 margin_right = 384.0

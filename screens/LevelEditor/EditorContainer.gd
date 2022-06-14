@@ -2,13 +2,11 @@ extends Control
 
 const GridPanel = preload("res://screens/LevelEditor/GridPanel.gd")
 const DetailPanel = preload("res://screens/LevelEditor/DetailPanel.gd")
-const MapLayer = GridPanel.MapLayer
 
 onready var top_container: MarginContainer = $Panel/TopContainer
 onready var details_btn: Button = $Panel/TopContainer/TopBar/Left/Details
-onready var background_btn: Button = $Panel/TopContainer/TopBar/Left/Background
-onready var middleground_btn: Button = $Panel/TopContainer/TopBar/Left/Middleground
-onready var foreground_btn: Button = $Panel/TopContainer/TopBar/Left/Foreground
+onready var help_btn: Button = $Panel/TopContainer/TopBar/Left/Help
+onready var grid_btn: Button = $Panel/TopContainer/TopBar/Left/Grid
 
 onready var play_btn: Button = $Panel/TopContainer/TopBar/Right/Play
 onready var save_btn: MenuButton = $Panel/TopContainer/TopBar/Right/Save
@@ -19,6 +17,7 @@ onready var stop_btn: Button = $LevelPanel/GameOverlay/ParentOverlay/TopContaine
 onready var main_panel: Panel = $Panel
 onready var detail_panel: DetailPanel = $Panel/DetailPanelContainer/DetailPanel
 onready var grid_panel: GridPanel = $Panel/GridPanel
+onready var help_panel: MarginContainer = $Panel/HelpPanel
 onready var level_panel: Panel = $LevelPanel
 onready var overlay_container: Control = $LevelPanel/GameOverlay/ParentOverlay
 onready var level_container: Control = $LevelPanel/LevelContainer
@@ -40,9 +39,8 @@ var logger = SxLog.get_logger("Editor")
 
 func _ready() -> void:
     details_btn.connect("pressed", self, "_show_panel", [ "details" ])
-    background_btn.connect("pressed", self, "_show_panel", [ "background" ])
-    middleground_btn.connect("pressed", self, "_show_panel", [ "middleground" ])
-    foreground_btn.connect("pressed", self, "_show_panel", [ "foreground" ])
+    grid_btn.connect("pressed", self, "_show_panel", [ "grid" ])
+    help_btn.connect("pressed", self, "_show_panel", [ "help" ])
     play_btn.connect("pressed", self, "_play_level")
     stop_btn.connect("pressed", self, "_stop_level")
     save_btn.get_popup().connect("id_pressed", self, "_open_save_dialog")
@@ -77,18 +75,12 @@ func _show_panel(panel_type: String) -> void:
     if panel_type == "details":
         detail_panel.show()
         current_panel = detail_panel
-    elif panel_type == "background":
+    elif panel_type == "grid":
         grid_panel.show()
-        grid_panel.set_current_tilemap_layer(MapLayer.BACKGROUND)
         current_panel = grid_panel
-    elif panel_type == "middleground":
-        grid_panel.show()
-        grid_panel.set_current_tilemap_layer(MapLayer.MIDDLEGROUND)
-        current_panel = grid_panel
-    elif panel_type == "foreground":
-        grid_panel.show()
-        grid_panel.set_current_tilemap_layer(MapLayer.FOREGROUND)
-        current_panel = grid_panel
+    elif panel_type == "help":
+        help_panel.show()
+        current_panel = help_panel
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventKey:
