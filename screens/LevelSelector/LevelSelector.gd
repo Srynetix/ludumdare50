@@ -1,34 +1,73 @@
 extends Control
 
 onready var backbutton: Button = $MarginContainer/VBoxContainer/HBoxContainer/Button
-onready var levels: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/Levels
+onready var tab_container: TabContainer = $"MarginContainer/VBoxContainer/TabContainer"
+onready var template_tab: ScrollContainer = $"MarginContainer/VBoxContainer/TabContainer/Template"
 
 var _level_card: PackedScene = preload("res://screens/LevelSelector/LevelCard.tscn")
 
 func _ready() -> void:
     backbutton.connect("pressed", self, "_on_back_pressed")
 
+    var collection_folders = LevelCollection.scan_collection_names()
+    for folder in collection_folders:
+        var collection = LevelCollection.new()
+        collection.load_system_collection(folder)
+        _prepare_collection_levels(collection)
+
+    _prepare_user_levels()
+
+    # Remove template
+    template_tab.queue_free()
+
+func _prepare_collection_levels(collection: LevelCollection):
+    # First, clone the Template tab
+    var collection_tab = template_tab.duplicate()
+    collection_tab.name = collection.collection_name
+    tab_container.add_child(collection_tab)
+
     # Remove placeholder cards
-    for child in levels.get_children():
+    var levels_container: VBoxContainer = collection_tab.get_node("Levels")
+    for child in levels_container.get_children():
         child.queue_free()
-        levels.remove_child(child)
 
-    var level_data = GameData.levels
-    var max_level = GameData.max_level
+    # Now, render levels
+    var max_level = GameData.get_max_level(collection.collection_folder)
+    for x in range(min(max_level + 1, len(collection.levels))):
+        var level_item = collection.levels[x]
+        var card = _level_card.instance()
+        levels_container.add_child(card)
 
-    for x in range(max_level + 1):
-        if level_data.has(str(x)):
-            var level_item = level_data[str(x)]
-            var card = _level_card.instance()
-            levels.add_child(card)
+        card.level_name = level_item.level_name
+        card.level_author = level_item.level_author
+        card.connect("pressed", self, "_on_level_pressed", [collection, x])
 
-            card.level_name = level_item["name"]
-            card.level_author = level_item["author"]
-            card.connect("pressed", self, "_on_level_pressed", [x])
+func _prepare_user_levels():
+    # First, clone the Template tab
+    var collection_tab = template_tab.duplicate()
+    collection_tab.name = "User Levels"
+    tab_container.add_child(collection_tab)
+
+    # Remove placeholder cards
+    var levels_container: VBoxContainer = collection_tab.get_node("Levels")
+    for child in levels_container.get_children():
+        child.queue_free()
+
+    var collection = LevelCollection.new()
+    collection.load_user_collection()
+
+    for x in range(len(collection.levels)):
+        var level_item = collection.levels[x]
+        var card = _level_card.instance()
+        levels_container.add_child(card)
+
+        card.level_name = level_item.level_name
+        card.level_author = level_item.level_author
+        card.connect("pressed", self, "_on_level_pressed", [collection, x])
 
 func _on_back_pressed() -> void:
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "TitleScreen")
 
-func _on_level_pressed(level: int) -> void:
-    GameData.last_level = level
+func _on_level_pressed(collection: LevelCollection, level: int) -> void:
+    GameData.set_last_level(collection.collection_folder, level)
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameScreen")

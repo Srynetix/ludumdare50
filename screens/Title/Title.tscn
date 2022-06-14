@@ -115,7 +115,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Author:anchor_top")
+tracks/5/path = NodePath("MarginContainer3/Author:anchor_left")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -191,16 +191,16 @@ tracks/4/keys = {
 "values": [ true, true, false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Author:anchor_top")
+tracks/5/path = NodePath("MarginContainer3/Author:anchor_left")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"transitions": PoolRealArray( 1, 1, 0.112656 ),
 "update": 0,
-"values": [ 1.0, 1.0, 0.0 ]
+"values": [ -2.0, -2.0, 0.0 ]
 }
 
 [node name="Title" type="Control"]
@@ -259,20 +259,20 @@ custom_fonts/font = SubResource( 3 )
 text = "Continue"
 flat = true
 
-[node name="Select Level" type="Button" parent="MarginContainer/Buttons"]
+[node name="New Game" type="Button" parent="MarginContainer/Buttons"]
 margin_top = 99.0
 margin_right = 832.0
 margin_bottom = 140.0
 custom_fonts/font = SubResource( 3 )
-text = "Select Level"
+text = "New Game"
 flat = true
 
-[node name="New Game" type="Button" parent="MarginContainer/Buttons"]
+[node name="Select Level" type="Button" parent="MarginContainer/Buttons"]
 margin_top = 144.0
 margin_right = 832.0
 margin_bottom = 185.0
 custom_fonts/font = SubResource( 3 )
-text = "New Game"
+text = "Select Level"
 flat = true
 
 [node name="Editor" type="Button" parent="MarginContainer/Buttons"]
@@ -312,17 +312,28 @@ custom_fonts/font = SubResource( 10 )
 text = "Clear save data"
 flat = true
 
-[node name="Author" type="RichTextLabel" parent="."]
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 303.0
-margin_top = 446.0
-margin_right = 552.0
-margin_bottom = 476.0
+margin_top = -80.0
+margin_right = 220.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 20
+
+[node name="Author" type="RichTextLabel" parent="MarginContainer3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 210.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 200, 50 )
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
-bbcode_text = "[center]Made by [wave]@Srynetix[/wave][center]"
-text = "Made by @Srynetix"
-fit_content_height = true
+bbcode_text = "Version %s
+Made by [wave]@Srynetix[/wave]"
+text = "Version %s
+Made by @Srynetix"
 scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -344,7 +355,7 @@ message = "Are you sure you want to start a new game?
 You will lose your progression."
 
 [connection signal="pressed" from="MarginContainer/Buttons/Continue" to="." method="start_game"]
-[connection signal="pressed" from="MarginContainer/Buttons/Select Level" to="." method="level_selector"]
 [connection signal="pressed" from="MarginContainer/Buttons/New Game" to="." method="start_new_game"]
+[connection signal="pressed" from="MarginContainer/Buttons/Select Level" to="." method="level_selector"]
 [connection signal="pressed" from="MarginContainer/Buttons/Editor" to="." method="start_editor"]
 [connection signal="pressed" from="MarginContainer/Buttons/Options" to="." method="options"]

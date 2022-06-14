@@ -1,11 +1,32 @@
 extends SxGameData
 
-var last_level: int setget _set_last_level, _get_last_level
-var max_level: int setget _set_max_level, _get_max_level
+class LastLevel:
+    var collection: String
+    var level_id: int
+
+    func to_array() -> Array:
+        return [collection, level_id]
+
+    static func from_array(array: Array) -> LastLevel:
+        var level = LastLevel.new()
+        level.collection = array[0]
+        level.level_id = array[1]
+        return level
+
+    static func from_collection(collection_: String, level_id_: int) -> LastLevel:
+        var level = LastLevel.new()
+        level.collection = collection_
+        level.level_id = level_id_
+        return level
+
+# Private
+var _max_levels := Dictionary()
+var _last_level := LastLevel.new()
+
+# Values
 var deaths: int setget _set_deaths, _get_deaths
 var from_boot: bool setget _set_from_boot, _get_from_boot
 var from_game: bool setget _set_from_game, _get_from_game
-var levels: Dictionary setget ,_get_levels
 
 var effects_volume: int setget _set_effects_volume, _get_effects_volume
 var music_volume: int setget _set_music_volume, _get_music_volume
@@ -18,27 +39,39 @@ func _ready():
     logger.set_max_log_level(SxLog.LogLevel.DEBUG)
     load_from_disk()
 
-    # Load JSON data
-    store_static_value("levels", SxJson.read_json_file("res://assets/data/levels.json"))
+    # Init
+    _last_level = _load_last_level()
 
     # Set audio buses level
     AudioServer.set_bus_volume_db(_effects_bus_idx, GameData.effects_volume)
     AudioServer.set_bus_volume_db(_music_bus_idx, GameData.music_volume)
 
-func _get_levels() -> Dictionary:
-    return load_static_value("levels", Dictionary())
+func set_max_level(collection_name: String, max_level: int) -> void:
+    _max_levels[collection_name] = max_level
+    store_value("max_levels", _max_levels)
 
-func _set_last_level(value: int) -> void:
-    store_value("last_level", value)
+func get_max_level(collection_name: String) -> int:
+    _max_levels = load_value("max_levels", Dictionary())
+    if _max_levels.has(collection_name):
+        return _max_levels[collection_name]
+    return 0
 
-func _get_last_level() -> int:
-    return int(load_value("last_level", 0))
+func reset_last_level(collection_name: String) -> void:
+    set_last_level(collection_name, 0)
 
-func _set_max_level(value: int) -> void:
-    store_value("max_level", value)
+func set_last_level(collection_name: String, id: int) -> void:
+    _last_level.collection = collection_name
+    _last_level.level_id = id
+    store_value("last_level_collection", _last_level.to_array())
 
-func _get_max_level() -> int:
-    return int(load_value("max_level", 0))
+func get_last_level() -> LastLevel:
+    return _last_level
+
+func _load_last_level() -> LastLevel:
+    var value = load_value("last_level_collection", null)
+    if value == null:
+        return LastLevel.from_array([LevelCollection.DEFAULT_COLLECTION, 0])
+    return LastLevel.from_array(value)
 
 func _set_deaths(value: int) -> void:
     store_value("deaths", value)

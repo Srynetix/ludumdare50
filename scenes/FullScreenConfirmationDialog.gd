@@ -14,7 +14,7 @@ signal canceled()
 
 func _set_message(value: String):
     message = value
-    if Engine.editor_hint:
+    if message_label:
         message_label.text = value
 
 func _ready() -> void:

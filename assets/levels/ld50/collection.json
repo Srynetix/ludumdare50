@@ -1,0 +1,18 @@
+{
+    "name": "Ludum Dare 50",
+    "author": "Srynetix",
+    "levels": [
+        "res://assets/levels/ld50/Level00.lvl",
+        "res://assets/levels/ld50/Level01.lvl",
+        "res://assets/levels/ld50/Level02.lvl",
+        "res://assets/levels/ld50/Level03.lvl",
+        "res://assets/levels/ld50/Level04.lvl",
+        "res://assets/levels/ld50/Level05.lvl",
+        "res://assets/levels/ld50/Level06.lvl",
+        "res://assets/levels/ld50/Level07.lvl",
+        "res://assets/levels/ld50/Level08.lvl",
+        "res://assets/levels/ld50/Level09.lvl",
+        "res://assets/levels/ld50/Level10.lvl",
+        "res://assets/levels/ld50/LevelEnd.lvl"
+    ]
+}

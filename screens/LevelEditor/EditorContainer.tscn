@@ -124,23 +124,24 @@ custom_fonts/font = SubResource( 1 )
 text = "Play"
 flat = true
 
-[node name="Save" type="Button" parent="Panel/TopContainer/TopBar/Right"]
+[node name="Save" type="MenuButton" parent="Panel/TopContainer/TopBar/Right"]
 margin_left = 52.0
 margin_right = 100.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 48, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Save"
-flat = true
+items = [ "User data...", null, 0, false, false, 0, 0, null, "", false, "Source...", null, 0, false, false, 1, 0, null, "", false, "Base64...", null, 0, false, false, 2, 0, null, "", false ]
 
-[node name="Load" type="Button" parent="Panel/TopContainer/TopBar/Right"]
+[node name="Load" type="MenuButton" parent="Panel/TopContainer/TopBar/Right"]
 margin_left = 104.0
 margin_right = 153.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 48, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Load"
-flat = true
+items = [ "Binary (User data)...", null, 0, false, false, 0, 0, null, "", false, "Scene (Source)...", null, 0, false, false, 1, 0, null, "", false, "Binary (Source)...", null, 0, false, false, 2, 0, null, "", false, "Base64...", null, 0, false, false, 3, 0, null, "", false ]
+switch_on_hover = true
 
 [node name="Exit" type="Button" parent="Panel/TopContainer/TopBar/Right"]
 margin_left = 157.0
@@ -157,9 +158,18 @@ margin_bottom = 130.0
 popup_exclusive = true
 resizable = true
 access = 1
-filters = PoolStringArray( "*.json; Level" )
+filters = PoolStringArray( "*.lvl; Level" )
 current_dir = "user://levels"
 current_path = "user://levels/"
+
+[node name="SaveSystemDialog" type="FileDialog" parent="."]
+margin_right = 315.0
+margin_bottom = 130.0
+popup_exclusive = true
+resizable = true
+filters = PoolStringArray( "*.lvl; Level" )
+current_dir = "res://assets/levels"
+current_path = "res://assets/levels/"
 
 [node name="LoadDialog" type="FileDialog" parent="."]
 margin_right = 315.0
@@ -169,9 +179,102 @@ window_title = "Open a File"
 resizable = true
 mode = 0
 access = 1
-filters = PoolStringArray( "*.json; Level" )
+filters = PoolStringArray( "*.lvl; Level" )
 current_dir = "user://levels"
 current_path = "user://levels/"
+
+[node name="LoadSceneDialog" type="FileDialog" parent="."]
+margin_right = 315.0
+margin_bottom = 130.0
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+filters = PoolStringArray( "*.tscn; Level scene" )
+current_dir = "res://levels"
+current_path = "res://levels/"
+
+[node name="LoadSystemDialog" type="FileDialog" parent="."]
+margin_right = 315.0
+margin_bottom = 130.0
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+filters = PoolStringArray( "*.lvl; Level" )
+current_dir = "res://assets/levels"
+current_path = "res://assets/levels/"
+
+[node name="ExportDialog" type="AcceptDialog" parent="."]
+margin_right = 83.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 300 )
+window_title = "Share your level"
+dialog_autowrap = true
+
+[node name="MarginContainer" type="MarginContainer" parent="ExportDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 34
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExportDialog/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 392.0
+margin_bottom = 266.0
+
+[node name="TextEdit" type="TextEdit" parent="ExportDialog/MarginContainer/VBoxContainer"]
+margin_right = 384.0
+margin_bottom = 234.0
+size_flags_vertical = 3
+readonly = true
+wrap_enabled = true
+
+[node name="Button" type="Button" parent="ExportDialog/MarginContainer/VBoxContainer"]
+margin_left = 130.0
+margin_top = 238.0
+margin_right = 253.0
+margin_bottom = 258.0
+size_flags_horizontal = 4
+text = "Copy to clipboard"
+
+[node name="ImportDialog" type="ConfirmationDialog" parent="."]
+margin_right = 83.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 300 )
+window_title = "Import a level"
+dialog_autowrap = true
+
+[node name="MarginContainer" type="MarginContainer" parent="ImportDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 34
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ImportDialog/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 392.0
+margin_bottom = 266.0
+
+[node name="TextEdit" type="TextEdit" parent="ImportDialog/MarginContainer/VBoxContainer"]
+margin_right = 384.0
+margin_bottom = 234.0
+size_flags_vertical = 3
+wrap_enabled = true
+
+[node name="Button" type="Button" parent="ImportDialog/MarginContainer/VBoxContainer"]
+margin_left = 122.0
+margin_top = 238.0
+margin_right = 262.0
+margin_bottom = 258.0
+size_flags_horizontal = 4
+text = "Copy from clipboard"
 
 [node name="ExitDialog" type="ConfirmationDialog" parent="."]
 margin_right = 200.0

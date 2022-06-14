@@ -4,7 +4,6 @@ class_name Level
 signal success()
 signal restart()
 
-export var level_number := 1
 export var level_author := ""
 export var level_name := ""
 export var bomb_time := 30
@@ -24,9 +23,9 @@ onready var level_hud: LevelHUD = $LevelHUD
 onready var success_fx: AudioStreamPlayer = $SuccessFX
 onready var camera: SxFXCamera = $Camera
 
-var initial_background_tile_data := Array()
-var initial_middleground_tile_data := Array()
-var initial_foreground_tile_data := Array()
+var initial_background_tile_data := PoolIntArray()
+var initial_middleground_tile_data := PoolIntArray()
+var initial_foreground_tile_data := PoolIntArray()
 
 var _players := Array()
 var _time_bombs := Array()
@@ -40,13 +39,13 @@ func _ready() -> void:
     level_hud.set_level_data(level_name, level_author, help_text, wait_for_help_text)
 
     if len(initial_background_tile_data) > 0:
-        SxTileMap.load_dump(background_tilemap, initial_background_tile_data)
+        SxTileMap.apply_dump(background_tilemap, initial_background_tile_data)
 
     if len(initial_middleground_tile_data) > 0:
-        SxTileMap.load_dump(tilemap, initial_middleground_tile_data)
+        SxTileMap.apply_dump(tilemap, initial_middleground_tile_data)
 
     if len(initial_foreground_tile_data) > 0:
-        SxTileMap.load_dump(foreground_tilemap, initial_foreground_tile_data)
+        SxTileMap.apply_dump(foreground_tilemap, initial_foreground_tile_data)
 
     call_deferred("_spawn_tiles")
     _prepare_camera()
