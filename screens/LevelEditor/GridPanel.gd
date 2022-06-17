@@ -29,7 +29,7 @@ var current_tool = ToolMode.PENCIL
 var current_layer: int = MapLayer.MIDDLEGROUND
 var current_tile_rotation := 0
 
-var grid_bounds_coefficient = 1
+var grid_bounds_coefficient = 2
 onready var cell_size = background_tilemap.cell_size * background_tilemap.scale
 onready var grid_size = get_viewport_rect().size / cell_size
 onready var grid_width = grid_size.x

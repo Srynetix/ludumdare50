@@ -5,8 +5,6 @@ var _current_level: Level = null
 var _collection := LevelCollection.new()
 
 func _ready() -> void:
-    GameData.from_game = true
-
     var last_level = GameData.get_last_level()
     _collection.load_collection(last_level.collection)
     _current_level_idx = last_level.level_id

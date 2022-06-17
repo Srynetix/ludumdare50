@@ -30,8 +30,11 @@ _global_script_class_icons={
 "SxBuffer": "",
 "SxColor": "",
 "SxDebugInfo": "",
+"SxDebugPanel": "",
+"SxFAButton": "",
+"SxFAFont": "",
+"SxFALabel": "",
 "SxFXCamera": "",
-"SxFadingRichTextEffect": "",
 "SxFadingRichTextLabel": "",
 "SxGameData": "",
 "SxGlobalAudioFxPlayer": "",
@@ -156,15 +159,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/sxgd/nodes/debug/SxDebugInfo/SxDebugInfo.gd"
 }, {
+"base": "CanvasLayer",
+"class": "SxDebugPanel",
+"language": "GDScript",
+"path": "res://addons/sxgd/nodes/debug/SxDebugPanel/SxDebugPanel.gd"
+}, {
+"base": "Button",
+"class": "SxFAButton",
+"language": "GDScript",
+"path": "res://addons/sxgd/modules/SxFontAwesome/SxFAButton.gd"
+}, {
+"base": "Reference",
+"class": "SxFAFont",
+"language": "GDScript",
+"path": "res://addons/sxgd/modules/SxFontAwesome/SxFAFont.gd"
+}, {
+"base": "Label",
+"class": "SxFALabel",
+"language": "GDScript",
+"path": "res://addons/sxgd/modules/SxFontAwesome/SxFALabel.gd"
+}, {
 "base": "Camera2D",
 "class": "SxFXCamera",
 "language": "GDScript",
 "path": "res://addons/sxgd/nodes/fx/SxFXCamera/SxFXCamera.gd"
-}, {
-"base": "RichTextEffect",
-"class": "SxFadingRichTextEffect",
-"language": "GDScript",
-"path": "res://addons/sxgd/nodes/ui/SxFadingRichTextLabel/SxFadingRichTextEffect.gd"
 }, {
 "base": "RichTextLabel",
 "class": "SxFadingRichTextLabel",
@@ -266,12 +284,12 @@ config/windows_native_icon="res://assets/logos/timebomb-logo.ico"
 
 [autoload]
 
+GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.tscn"
 GameData="*res://autoloads/GameData.gd"
-GameDebugInfo="*res://autoloads/GameDebugInfo.tscn"
+GameDebugPanel="*res://autoloads/GameDebugPanel.tscn"
 GameGlobalAudioFxPlayer="*res://autoloads/GameGlobalAudioFxPlayer.tscn"
 GameGlobalMusicPlayer="*res://autoloads/GameGlobalMusicPlayer.tscn"
 GameLoadCache="*res://autoloads/GameLoadCache.gd"
-GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.tscn"
 
 [debug]
 

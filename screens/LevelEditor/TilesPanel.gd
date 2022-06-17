@@ -105,6 +105,12 @@ func _unhandled_input(event):
         var event_key: InputEventKey = event
         if event_key.pressed && event_key.scancode == KEY_R:
             _on_tool_pressed(tool_rotate, ToolMode.ROTATE)
+        elif event_key.pressed && event_key.scancode == KEY_M:
+            _on_tool_pressed(tool_rotate, ToolMode.MOVE)
+        elif event_key.pressed && event_key.scancode == KEY_Z:
+            _on_tool_pressed(tool_rotate, ToolMode.ZOOM)
+        elif event_key.pressed && event_key.scancode == KEY_P:
+            _on_tool_pressed(tool_rotate, ToolMode.PENCIL)
         elif event_key.pressed && event_key.scancode == KEY_F1:
             _on_layer_selected(MapLayer.BACKGROUND)
         elif event_key.pressed && event_key.scancode == KEY_F2:

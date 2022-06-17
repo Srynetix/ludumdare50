@@ -1,6 +1,8 @@
 extends Node2D
 class_name Level
 
+const Direction = SxFXCamera.Direction
+
 signal success()
 signal restart()
 
@@ -33,6 +35,7 @@ var _exit_doors := Array()
 var _push_buttons := Array()
 var _turrets := Array()
 var _finished := false
+var _animating_camera := false
 
 func _ready() -> void:
     level_hud.connect("level_ready", self, "_activate")
@@ -54,14 +57,7 @@ func _process(_delta: float) -> void:
     if !_finished:
         if len(_players) > 0:
             var player: Player = _players[0]
-            camera.global_position = player.global_position
-
-func _input(event: InputEvent) -> void:
-    if event is InputEventKey:
-        var key: InputEventKey = event
-        if key.scancode == KEY_ENTER:
-            if !GameData.has_value("from_game"):
-                get_tree().reload_current_scene()
+            _camera_follow_player(player)
 
 func _prepare_camera() -> void:
     var rect = tilemap.get_used_rect()
@@ -248,3 +244,31 @@ func _zoom_on_position(position: Vector2) -> void:
     camera.limit_bottom = 1000000
     camera.smoothing_enabled = false
     yield(camera.tween_to_position(position, 0.5, 0.5), "completed")
+
+func _move_camera_to_position(position: Vector2) -> void:
+    camera.limit_left = -1000000
+    camera.limit_right = 1000000
+    camera.limit_top = -1000000
+    camera.limit_bottom = 1000000
+    camera.smoothing_enabled = false
+    yield(camera.tween_to_position(position, 0.5, 1), "completed")
+
+func _camera_follow_player(player: Player) -> void:
+    if _animating_camera:
+        return
+
+    _animating_camera = true
+    var position = player.global_position
+
+    if lock_camera:
+        if position.x > camera.limit_right:
+            yield(camera.viewport_scroll(Vector2(camera.limit_left, camera.limit_top), Direction.RIGHT), "completed")
+        elif position.x < camera.limit_left:
+            yield(camera.viewport_scroll(Vector2(camera.limit_left, camera.limit_top), Direction.LEFT), "completed")
+        elif position.y > camera.limit_bottom:
+            yield(camera.viewport_scroll(Vector2(camera.limit_left, camera.limit_top), Direction.DOWN), "completed")
+        elif position.y < camera.limit_top:
+            yield(camera.viewport_scroll(Vector2(camera.limit_left, camera.limit_top), Direction.UP), "completed")
+
+    camera.global_position = position
+    _animating_camera = false

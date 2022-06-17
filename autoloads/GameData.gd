@@ -26,7 +26,6 @@ var _last_level := LastLevel.new()
 # Values
 var deaths: int setget _set_deaths, _get_deaths
 var from_boot: bool setget _set_from_boot, _get_from_boot
-var from_game: bool setget _set_from_game, _get_from_game
 
 var effects_volume: int setget _set_effects_volume, _get_effects_volume
 var music_volume: int setget _set_music_volume, _get_music_volume
@@ -85,22 +84,16 @@ func _set_from_boot(value: bool) -> void:
 func _get_from_boot() -> bool:
     return bool(load_value("from_boot", false))
 
-func _set_from_game(value: bool) -> void:
-    store_value("from_game", value)
-
-func _get_from_game() -> bool:
-    return bool(load_value("from_game", false))
-
 func _set_effects_volume(value: int) -> void:
     store_value("effects_volume", value, "options")
     AudioServer.set_bus_volume_db(_effects_bus_idx, value)
 
 func _get_effects_volume() -> int:
-    return int(load_value("effects_volume", -3, "options"))
+    return int(load_value("effects_volume", -6, "options"))
 
 func _set_music_volume(value: int) -> void:
     store_value("music_volume", value, "options")
     AudioServer.set_bus_volume_db(_music_bus_idx, value)
 
 func _get_music_volume() -> int:
-    return int(load_value("music_volume", -3, "options"))
+    return int(load_value("music_volume", -12, "options"))

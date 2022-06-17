@@ -15,11 +15,25 @@ func _draw() -> void:
     # Full grid
     for y in range(bounds.position.y, bounds.end.y + 1):
         var y_pos = y * zoomed_cell_size + origin.y
-        draw_line(Vector2(origin.x + bounds.position.x * zoomed_cell_size, y_pos), Vector2(zoomed_cell_size * bounds.end.x + origin.x, y_pos), SxColor.with_alpha_f(Color.lightgray, 0.1), 1)
+        var color = SxColor.with_alpha_f(Color.lightgray, 0.1)
+        var width = 1
+
+        if int(y) % int(grid_height) == 0:
+            color = SxColor.with_alpha_f(Color.blueviolet, 0.25)
+            width = 2
+
+        draw_line(Vector2(origin.x + bounds.position.x * zoomed_cell_size, y_pos), Vector2(zoomed_cell_size * bounds.end.x + origin.x, y_pos), color, width)
 
     for x in range(bounds.position.x, bounds.end.x + 1):
         var x_pos = x * zoomed_cell_size + origin.x
-        draw_line(Vector2(x_pos, origin.y + bounds.position.y * zoomed_cell_size), Vector2(x_pos, zoomed_cell_size * bounds.end.y + origin.y), SxColor.with_alpha_f(Color.lightgray, 0.1), 1)
+        var color = SxColor.with_alpha_f(Color.lightgray, 0.1)
+        var width = 1
+
+        if int(x) % int(grid_width) == 0:
+            color = SxColor.with_alpha_f(Color.blueviolet, 0.25)
+            width = 2
+
+        draw_line(Vector2(x_pos, origin.y + bounds.position.y * zoomed_cell_size), Vector2(x_pos, zoomed_cell_size * bounds.end.y + origin.y), color, width)
 
     # Center grid
     for y in range(0, grid_height + 1):

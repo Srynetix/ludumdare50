@@ -34,7 +34,7 @@ func load_resources():
     store_scene("TitleScreen", "res://screens/Title/Title.tscn")
     store_scene("OptionsScreen", "res://screens/Options/Options.tscn")
     store_scene("LevelSelectorScreen", "res://screens/LevelSelector/LevelSelector.tscn")
-    store_scene("EditorScreen", "res://screens/LevelEditor/EditorContainer.tscn")
+    store_scene("EditorScreen", "res://screens/LevelEditor/LevelEditor.tscn")
 
     # Levels
     for i in range(level_count + 1):

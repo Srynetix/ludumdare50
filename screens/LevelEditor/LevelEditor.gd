@@ -3,6 +3,12 @@ extends Control
 const GridPanel = preload("res://screens/LevelEditor/GridPanel.gd")
 const DetailPanel = preload("res://screens/LevelEditor/DetailPanel.gd")
 
+enum EditorPanel {
+    GRID = 0,
+    DETAILS,
+    HELP
+}
+
 onready var top_container: MarginContainer = $Panel/TopContainer
 onready var details_btn: Button = $Panel/TopContainer/TopBar/Left/Details
 onready var help_btn: Button = $Panel/TopContainer/TopBar/Left/Help
@@ -38,9 +44,9 @@ var current_level: Level = null
 var logger = SxLog.get_logger("Editor")
 
 func _ready() -> void:
-    details_btn.connect("pressed", self, "_show_panel", [ "details" ])
-    grid_btn.connect("pressed", self, "_show_panel", [ "grid" ])
-    help_btn.connect("pressed", self, "_show_panel", [ "help" ])
+    details_btn.connect("pressed", self, "_show_panel", [ EditorPanel.DETAILS ])
+    grid_btn.connect("pressed", self, "_show_panel", [ EditorPanel.GRID ])
+    help_btn.connect("pressed", self, "_show_panel", [ EditorPanel.HELP ])
     play_btn.connect("pressed", self, "_play_level")
     stop_btn.connect("pressed", self, "_stop_level")
     save_btn.get_popup().connect("id_pressed", self, "_open_save_dialog")
@@ -68,17 +74,17 @@ func _ready() -> void:
 
     current_panel = grid_panel
 
-func _show_panel(panel_type: String) -> void:
+func _show_panel(panel_type: int) -> void:
     if current_panel != null:
         current_panel.hide()
 
-    if panel_type == "details":
+    if panel_type == EditorPanel.DETAILS:
         detail_panel.show()
         current_panel = detail_panel
-    elif panel_type == "grid":
+    elif panel_type == EditorPanel.GRID:
         grid_panel.show()
         current_panel = grid_panel
-    elif panel_type == "help":
+    elif panel_type == EditorPanel.HELP:
         help_panel.show()
         current_panel = help_panel
 
@@ -213,6 +219,9 @@ func _load_scene_inner(level: LevelInfo) -> void:
     SxTileMap.apply_dump(grid_panel.background_tilemap, level.background_tiles)
     SxTileMap.apply_dump(grid_panel.middleground_tilemap, level.middleground_tiles)
     SxTileMap.apply_dump(grid_panel.foreground_tilemap, level.foreground_tiles)
+
+    # Load grid panel
+    _show_panel(EditorPanel.GRID)
 
 func _exit_editor() -> void:
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "TitleScreen")
