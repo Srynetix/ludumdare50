@@ -13,9 +13,14 @@ func _ready():
     music_volume.connect("value_changed", self, "_on_music_volume_changed")
 
 func _percent_to_db(percent: int) -> int:
+    # TODO: Use linear2db
+    if percent == 0:
+        return -100
     return int(SxMath.map(percent, 0, 100, -24, 0))
 
 func _db_to_percent(db: int) -> int:
+    if db == -100:
+        return 0
     return int(SxMath.map(db, -24, 0, 0, 100))
 
 func _on_effects_volume_changed(value: int) -> void:

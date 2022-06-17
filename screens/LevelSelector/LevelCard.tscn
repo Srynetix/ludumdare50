@@ -40,29 +40,29 @@ custom_constants/margin_bottom = 5
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 695.0
+margin_right = 1009.0
 margin_bottom = 45.0
 mouse_filter = 2
 
-[node name="LevelId" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_right = 186.0
+[node name="LevelName" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 500.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 1 )
-text = "Level 00"
-align = 1
+text = "Level"
 valign = 1
 
-[node name="LevelName" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_left = 190.0
-margin_right = 690.0
+[node name="LevelAuthor" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_left = 504.0
+margin_right = 1004.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 2 )
-text = "Level"
+text = "Unknown"
 valign = 1
 autowrap = true
 __meta__ = {

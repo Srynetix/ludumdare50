@@ -1,0 +1,195 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://screens/LevelEditor/DetailPanel.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="DetailPanel" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+script = ExtResource( 2 )
+
+[node name="Fields" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 824.0
+margin_bottom = 472.0
+custom_constants/separation = 8
+
+[node name="LevelName" type="HBoxContainer" parent="Fields"]
+margin_right = 816.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="Fields/LevelName"]
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "Well, that's your level name"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Level name"
+
+[node name="LineEdit" type="LineEdit" parent="Fields/LevelName"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "My great level"
+
+[node name="Author" type="HBoxContainer" parent="Fields"]
+margin_top = 48.0
+margin_right = 816.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="Fields/Author"]
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "Well, that's your level name"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Author"
+
+[node name="LineEdit" type="LineEdit" parent="Fields/Author"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "Unknown player"
+
+[node name="HelpText" type="HBoxContainer" parent="Fields"]
+margin_top = 96.0
+margin_right = 816.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="Fields/HelpText"]
+margin_top = 18.0
+margin_right = 224.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "You can use bbcode!"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Help text"
+
+[node name="TextEdit" type="TextEdit" parent="Fields/HelpText"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+size_flags_horizontal = 3
+text = "Yes, this is a [rainbow]great[/rainbow] level!"
+bookmark_gutter = true
+wrap_enabled = true
+
+[node name="BombTime" type="HBoxContainer" parent="Fields"]
+margin_top = 168.0
+margin_right = 816.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="Fields/BombTime"]
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "Time left before the bomb explodes"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Bomb time"
+
+[node name="SpinBox" type="SpinBox" parent="Fields/BombTime"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 30.0
+align = 2
+
+[node name="TurretFireRate" type="HBoxContainer" parent="Fields"]
+margin_top = 216.0
+margin_right = 816.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Label" type="Label" parent="Fields/TurretFireRate"]
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "Delay before each turret fire"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Turret fire rate"
+
+[node name="SpinBox" type="SpinBox" parent="Fields/TurretFireRate"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 10.0
+step = 0.01
+value = 1.0
+align = 2
+
+[node name="WaitForHelpText" type="HBoxContainer" parent="Fields"]
+margin_top = 264.0
+margin_right = 816.0
+margin_bottom = 304.0
+
+[node name="Label" type="Label" parent="Fields/WaitForHelpText"]
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "Player can move only when level description is done showing"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Wait for help text"
+autowrap = true
+
+[node name="CheckButton" type="CheckButton" parent="Fields/WaitForHelpText"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+align = 2
+
+[node name="LockCamera" type="HBoxContainer" parent="Fields"]
+margin_top = 312.0
+margin_right = 816.0
+margin_bottom = 352.0
+
+[node name="Label" type="Label" parent="Fields/LockCamera"]
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 224, 0 )
+hint_tooltip = "Lock the camera scroll"
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+text = "Lock camera"
+autowrap = true
+
+[node name="CheckButton" type="CheckButton" parent="Fields/LockCamera"]
+margin_left = 228.0
+margin_right = 816.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+align = 2

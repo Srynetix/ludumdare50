@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="HelpPanel" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 50
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="Help" type="RichTextLabel" parent="."]
+margin_left = 8.0
+margin_top = 50.0
+margin_right = 824.0
+margin_bottom = 472.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/bold_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]How to use the Level Editor[/b]
+
+The editor should be quite straightforward to use, do not hesitate to send me feedback on the GitHub repository if needed.
+
+[b]Grid view[/b]
+
+The grid view is the main editor view.
+You can:
+- draw tiles with [color=yellow]left-click[/color] (with the [color=yellow]Pe[/color] tool / [color=yellow]P[/color] key),
+- remove tiles with [color=yellow]right-click[/color],
+- drag the view with [color=yellow]middle-click[/color] + scroll or with [color=yellow]left-click + scroll[/color] when using the [color=yellow]Mo[/color] tool / [color=yellow]M[/color] key,
+- zoom with the [color=yellow]mouse wheel[/color] or with [color=yellow]left-click + up/down scroll[/color] when using the [color=yellow]Zo[/color] tool / [color=yellow]Z[/color] key,
+- rotate the selected tile 90° by clicking the [color=yellow]Ro[/color] tool / [color=yellow]R[/color] key,
+- hide the UI with the [color=yellow]H[/color] key (kind of Zen Mode),
+- re-center the view with the [color=yellow]C[/color] key,
+- quickly change grid layers using the F1/F2/F3 keys.
+
+The grid is composed of [color=yellow]three[/color] layers:
+- [color=yellow]Background[/color], for decorations
+- [color=yellow]Middleground[/color], for active elements (walls and objects)
+- [color=yellow]Foreground[/color], for decorations but above the player and other objects
+
+One thing to notice is that [color=yellow]special objects[/color], marked with a [color=yellow]letter[/color] in the tileset have to be drawn in the [color=yellow]Middleground[/color] layer, or else the special tiles will appear as-is in your level.
+
+[b]Detail view[/b]
+
+This is your level settings, inline help is available when you hover each field label.
+
+[b]Share/Import levels[/b]
+
+You can use the Base64 export and import to easily share your levels with other people!
+To export, once your level is ready, click the \"Save\" menu, then \"Base64...\"
+To import, use the \"Load\" menu, then \"Base64...\"."
+text = "How to use the Level Editor
+
+The editor should be quite straightforward to use, do not hesitate to send me feedback on the GitHub repository if needed.
+
+Grid view
+
+The grid view is the main editor view.
+You can:
+- draw tiles with left-click (with the Pe tool / P key),
+- remove tiles with right-click,
+- drag the view with middle-click + scroll or with left-click + scroll when using the Mo tool / M key,
+- zoom with the mouse wheel or with left-click + up/down scroll when using the Zo tool / Z key,
+- rotate the selected tile 90° by clicking the Ro tool / R key,
+- hide the UI with the H key (kind of Zen Mode),
+- re-center the view with the C key,
+- quickly change grid layers using the F1/F2/F3 keys.
+
+The grid is composed of three layers:
+- Background, for decorations
+- Middleground, for active elements (walls and objects)
+- Foreground, for decorations but above the player and other objects
+
+One thing to notice is that special objects, marked with a letter in the tileset have to be drawn in the Middleground layer, or else the special tiles will appear as-is in your level.
+
+Detail view
+
+This is your level settings, inline help is available when you hover each field label.
+
+Share/Import levels
+
+You can use the Base64 export and import to easily share your levels with other people!
+To export, once your level is ready, click the \"Save\" menu, then \"Base64...\"
+To import, use the \"Load\" menu, then \"Base64...\"."

@@ -1,35 +1,32 @@
 extends Control
 
-export var current_level_idx := 1
-export var load_from_save := true
-
-var _current_level: Level
+var _current_level_idx := 0
+var _current_level: Level = null
+var _collection := LevelCollection.new()
 
 func _ready() -> void:
-    GameData.from_game = true
+    var last_level = GameData.get_last_level()
+    _collection.load_collection(last_level.collection)
+    _current_level_idx = last_level.level_id
+    _load_level()
 
-    var level_id = current_level_idx
-    if load_from_save:
-        level_id = GameData.last_level
-
-    _load_level(level_id)
-
-func _choose_music(level_id: int) -> String:
-    if level_id in [0, 1, 2]:
+func _choose_music() -> String:
+    if _collection.collection_folder == "ld50":
+        if _current_level_idx in [0, 1, 2]:
+            return "track2"
+        elif _current_level_idx in [3, 4, 5]:
+            return "track3"
+        elif _current_level_idx in [6, 7, 8]:
+            return "track4"
+        return "track5"
+    else:
         return "track2"
-    elif level_id in [3, 4, 5]:
-        return "track3"
-    elif level_id in [6, 7, 8]:
-        return "track4"
-    return "track5"
 
-func _load_level(level_id: int) -> void:
-    var level_path = "Level%02d" % level_id
-
-    var max_level = GameData.max_level
-    if max_level <= level_id:
-        GameData.max_level = level_id
-    GameData.last_level = level_id
+func _load_level() -> void:
+    var max_level = GameData.get_max_level(_collection.collection_folder)
+    if max_level <= _current_level_idx:
+        GameData.set_max_level(_collection.collection_folder, _current_level_idx)
+    GameData.set_last_level(_collection.collection_folder, _current_level_idx)
     GameData.persist_to_disk()
 
     if _current_level != null:
@@ -37,18 +34,11 @@ func _load_level(level_id: int) -> void:
         yield(GameSceneTransitioner, "animation_finished")
         _current_level.queue_free()
 
-    var track: AudioStreamOGGVorbis = GameLoadCache.load_resource(_choose_music(level_id))
+    var track: AudioStreamOGGVorbis = GameLoadCache.load_resource(_choose_music())
     GameGlobalMusicPlayer.fade_in(0.5)
     GameGlobalMusicPlayer.play_stream(track)
 
-    # Play end game
-    if !GameLoadCache.has_scene(level_path):
-        GameData.last_level = level_id
-        GameData.persist_to_disk()
-        _current_level = GameLoadCache.instantiate_scene("LevelEnd")
-    else:
-        _current_level = GameLoadCache.instantiate_scene(level_path)
-
+    _current_level = LevelFile.instantiate_level(_collection.levels[_current_level_idx])
     _current_level.connect("success", self, "_load_next_level")
     _current_level.connect("restart", self, "_reload_current_level")
     add_child(_current_level)
@@ -56,10 +46,24 @@ func _load_level(level_id: int) -> void:
     GameSceneTransitioner.fade_in()
     yield(GameSceneTransitioner, "animation_finished")
 
-    current_level_idx = level_id
-
 func _load_next_level() -> void:
-    _load_level(current_level_idx + 1)
+    if _current_level_idx == len(_collection.levels) - 1:
+        if _collection.collection_folder == "ld50":
+            GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverGoodScreen")
+        else:
+            GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "LevelSelectorScreen")
+    else:
+        _current_level_idx += 1
+        _load_level()
 
 func _reload_current_level() -> void:
-    _load_level(current_level_idx)
+    if _current_level_idx == len(_collection.levels) - 1 && _collection.collection_folder == "ld50":
+        GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "GameOverScreen")
+    else:
+        _load_level()
+
+func _unhandled_input(event: InputEvent):
+    if event is InputEventKey:
+        var event_key: InputEventKey = event
+        if event_key.pressed && event_key.scancode == KEY_ESCAPE:
+            GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "TitleScreen")

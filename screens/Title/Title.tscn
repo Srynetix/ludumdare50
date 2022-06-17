@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/EndScene.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxVignette/Vignette.gdshader" type="Shader" id=4]
-[ext_resource path="res://addons/sxgd/assets/fonts/Jost-800-Heavy.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/FullScreenConfirmationDialog.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/sxgd/nodes/fx/screen-effects/SxVignette/SxVignette.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fx/exitdoor.wav" type="AudioStream" id=7]
 [ext_resource path="res://screens/Title/Title.gd" type="Script" id=8]
@@ -32,7 +32,7 @@ use_filter = true
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 32
+size = 24
 outline_size = 2
 outline_color = Color( 0.2, 0.2, 0.2, 1 )
 use_mipmaps = true
@@ -115,7 +115,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Author:anchor_top")
+tracks/5/path = NodePath("MarginContainer3/Author:anchor_left")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -191,25 +191,17 @@ tracks/4/keys = {
 "values": [ true, true, false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Author:anchor_top")
+tracks/5/path = NodePath("MarginContainer3/Author:anchor_left")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"transitions": PoolRealArray( 1, 1, 0.112656 ),
 "update": 0,
-"values": [ 1.0, 1.0, 0.0 ]
+"values": [ -2.0, -2.0, 0.0 ]
 }
-
-[sub_resource type="DynamicFont" id=11]
-size = 32
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=12]
-size = 32
-font_data = ExtResource( 5 )
 
 [node name="Title" type="Control"]
 anchor_right = 1.0
@@ -260,33 +252,41 @@ margin_bottom = 480.0
 alignment = 1
 
 [node name="Continue" type="Button" parent="MarginContainer/Buttons"]
-margin_top = 53.0
+margin_top = 54.0
 margin_right = 832.0
-margin_bottom = 106.0
+margin_bottom = 95.0
 custom_fonts/font = SubResource( 3 )
 text = "Continue"
 flat = true
 
-[node name="Select Level" type="Button" parent="MarginContainer/Buttons"]
-margin_top = 110.0
+[node name="New Game" type="Button" parent="MarginContainer/Buttons"]
+margin_top = 99.0
 margin_right = 832.0
-margin_bottom = 163.0
-custom_fonts/font = SubResource( 3 )
-text = "Select Level"
-flat = true
-
-[node name="New Game2" type="Button" parent="MarginContainer/Buttons"]
-margin_top = 167.0
-margin_right = 832.0
-margin_bottom = 220.0
+margin_bottom = 140.0
 custom_fonts/font = SubResource( 3 )
 text = "New Game"
 flat = true
 
-[node name="Options" type="Button" parent="MarginContainer/Buttons"]
-margin_top = 224.0
+[node name="Select Level" type="Button" parent="MarginContainer/Buttons"]
+margin_top = 144.0
 margin_right = 832.0
-margin_bottom = 277.0
+margin_bottom = 185.0
+custom_fonts/font = SubResource( 3 )
+text = "Select Level"
+flat = true
+
+[node name="Editor" type="Button" parent="MarginContainer/Buttons"]
+margin_top = 189.0
+margin_right = 832.0
+margin_bottom = 230.0
+custom_fonts/font = SubResource( 3 )
+text = "Level Editor"
+flat = true
+
+[node name="Options" type="Button" parent="MarginContainer/Buttons"]
+margin_top = 234.0
+margin_right = 832.0
+margin_bottom = 275.0
 custom_fonts/font = SubResource( 3 )
 text = "Options"
 flat = true
@@ -312,17 +312,28 @@ custom_fonts/font = SubResource( 10 )
 text = "Clear save data"
 flat = true
 
-[node name="Author" type="RichTextLabel" parent="."]
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 303.0
-margin_top = 446.0
-margin_right = 552.0
-margin_bottom = 476.0
+margin_top = -80.0
+margin_right = 220.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 20
+
+[node name="Author" type="RichTextLabel" parent="MarginContainer3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 210.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 200, 50 )
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
-bbcode_text = "[center]Made by [wave]@Srynetix[/wave][center]"
-text = "Made by @Srynetix"
-fit_content_height = true
+bbcode_text = "Version %s
+Made by [wave]@Srynetix[/wave]"
+text = "Version %s
+Made by @Srynetix"
 scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -335,53 +346,16 @@ stream = ExtResource( 7 )
 volume_db = -10.0
 pitch_scale = 2.0
 
-[node name="ClearSaveDataOverlay" type="Panel" parent="."]
+[node name="ClearSaveDataConfirm" parent="." instance=ExtResource( 5 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
 
-[node name="Tween" type="Tween" parent="ClearSaveDataOverlay"]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ClearSaveDataOverlay"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/separation = 80
-alignment = 1
-
-[node name="Label" type="Label" parent="ClearSaveDataOverlay/VBoxContainer"]
-margin_top = 125.0
-margin_right = 832.0
-margin_bottom = 222.0
-custom_fonts/font = SubResource( 11 )
-text = "Are you sure you want to clear all data, including your game progression ?"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ClearSaveDataOverlay/VBoxContainer"]
-margin_top = 302.0
-margin_right = 832.0
-margin_bottom = 355.0
-custom_constants/separation = 80
-alignment = 1
-
-[node name="Yes" type="Button" parent="ClearSaveDataOverlay/VBoxContainer/HBoxContainer"]
-margin_left = 313.0
-margin_right = 381.0
-margin_bottom = 53.0
-custom_fonts/font = SubResource( 12 )
-text = "Yes"
-flat = true
-
-[node name="No" type="Button" parent="ClearSaveDataOverlay/VBoxContainer/HBoxContainer"]
-margin_left = 461.0
-margin_right = 518.0
-margin_bottom = 53.0
-custom_fonts/font = SubResource( 12 )
-text = "No"
-flat = true
+[node name="ConfirmNewGame" parent="." instance=ExtResource( 5 )]
+visible = false
+message = "Are you sure you want to start a new game?
+You will lose your progression."
 
 [connection signal="pressed" from="MarginContainer/Buttons/Continue" to="." method="start_game"]
+[connection signal="pressed" from="MarginContainer/Buttons/New Game" to="." method="start_new_game"]
 [connection signal="pressed" from="MarginContainer/Buttons/Select Level" to="." method="level_selector"]
-[connection signal="pressed" from="MarginContainer/Buttons/New Game2" to="." method="start_new_game"]
+[connection signal="pressed" from="MarginContainer/Buttons/Editor" to="." method="start_editor"]
 [connection signal="pressed" from="MarginContainer/Buttons/Options" to="." method="options"]
