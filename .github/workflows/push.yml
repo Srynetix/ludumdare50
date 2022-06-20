@@ -1,9 +1,10 @@
-name: PR Builds
+name: Push builds
 
 on:
   push:
     branches:
-      - automation
+      - develop
+      - main
 
 jobs:
   build-web:
