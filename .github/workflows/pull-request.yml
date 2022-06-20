@@ -16,8 +16,3 @@ jobs:
     with:
       platform: Windows Desktop
       name: time-lab
-  deploy-web:
-    needs: build-web
-    uses: ./github/workflows/web-deploy.yml
-    with:
-      name: time-lab
