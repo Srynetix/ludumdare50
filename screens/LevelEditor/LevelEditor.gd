@@ -34,10 +34,10 @@ onready var save_system_dialog: FileDialog = $Dialogs/SaveSystemDialog
 onready var load_dialog: FileDialog = $Dialogs/LoadDialog
 onready var load_scene_dialog: FileDialog = $Dialogs/LoadSceneDialog
 onready var load_system_dialog: FileDialog = $Dialogs/LoadSystemDialog
-onready var exit_dialog: ConfirmationDialog = $Dialogs/ExitDialog
+onready var exit_dialog: FullScreenConfirmationDialog = $Dialogs/ExitActionConfirmation
 onready var export_dialog: AcceptDialog = $Dialogs/ExportDialog
 onready var import_dialog: AcceptDialog = $Dialogs/ImportDialog
-onready var new_dialog: ConfirmationDialog = $Dialogs/NewDialog
+onready var new_dialog: FullScreenConfirmationDialog = $Dialogs/NewActionConfirmation
 
 var level_scene: PackedScene = preload("res://scenes/Level.tscn")
 var current_panel: Control = null
@@ -156,10 +156,10 @@ func _open_save_dialog(menu_id: int) -> void:
         export_dialog.popup_centered()
 
 func _open_exit_dialog() -> void:
-    exit_dialog.popup_centered()
+    exit_dialog.fade_in()
 
 func _open_new_dialog() -> void:
-    new_dialog.popup_centered()
+    new_dialog.fade_in()
 
 func _open_load_dialog(menu_id: int) -> void:
     if menu_id == 0:
