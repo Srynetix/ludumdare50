@@ -27,6 +27,6 @@ jobs:
   build-linux:
     uses: ./.github/workflows/build-game.yml
     with:
-      platform: Linux/X11
+      platform: Linux X11
       name: time-lab
       output_name: Time Lab.x86_64
