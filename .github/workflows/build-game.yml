@@ -22,6 +22,10 @@ jobs:
         with:
           lfs: true
           submodules: recursive
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Setup templates
         run: |
           mkdir -v -p ~/.local/share/godot/templates
@@ -33,5 +37,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ inputs.name }}-${{ inputs.platform }}
+          name: ${{ inputs.name }}-${{ steps.extract_branch.outputs.branch }}-${{ inputs.platform }}
           path: "build/${{ inputs.platform }}"
