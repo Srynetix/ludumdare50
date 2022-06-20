@@ -45,13 +45,19 @@ jobs:
         name: Install rsync 📚
         run: |
           apt-get update && apt-get install -y rsync
-      - if: ${{ inputs.platform == 'HTML5' }}
-        name: Deploy to GitHub Pages 🚀
+      - if: ${{ inputs.platform == 'HTML5' && steps.extract_branch.outputs.branch != 'main' }}
+        name: Deploy to GitHub Pages (non-main) 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages
           folder: build/HTML5
           target-folder: ${{ steps.extract_branch.outputs.branch }}
+      - if: ${{ inputs.platform == 'HTML5' && steps.extract_branch.outputs.branch == 'main' }}
+        name: Deploy to GitHub Pages (main) 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: build/HTML5
       - if: ${{ inputs.platform != 'HTML5' }}
         name: Upload artifact
         uses: actions/upload-artifact@v1
