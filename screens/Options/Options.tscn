@@ -99,18 +99,42 @@ size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 1
 
+[node name="Resolution" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Margin/VBoxContainer"]
+margin_top = 114.0
+margin_right = 792.0
+margin_bottom = 155.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Margin/VBoxContainer/Resolution"]
+margin_top = 3.0
+margin_right = 200.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/font = SubResource( 2 )
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/Margin/VBoxContainer/Resolution"]
+margin_left = 204.0
+margin_right = 792.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "832x480"
+align = 2
+items = [ "832x480", null, false, 0, null, "1040x600", null, false, 1, null, "1248x720", null, false, 2, null, "1664x960", null, false, 3, null ]
+selected = 0
+
 [node name="EffectsVolume" parent="MarginContainer/VBoxContainer/Margin/VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 144.0
+margin_top = 175.0
 margin_right = 792.0
-margin_bottom = 179.0
+margin_bottom = 210.0
 option_name = "Effects volume"
 
 [node name="MusicVolume" parent="MarginContainer/VBoxContainer/Margin/VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 199.0
+margin_top = 230.0
 margin_right = 792.0
-margin_bottom = 234.0
+margin_bottom = 265.0
 option_name = "Music volume"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="go_back"]

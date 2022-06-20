@@ -1,5 +1,7 @@
 extends SxGameData
 
+const _DEFAULT_RESOLUTION = "832x480"
+
 class LastLevel:
     var collection: String
     var level_id: int
@@ -24,11 +26,11 @@ var _max_levels := Dictionary()
 var _last_level := LastLevel.new()
 
 # Values
-var deaths: int setget _set_deaths, _get_deaths
-var from_boot: bool setget _set_from_boot, _get_from_boot
-
-var effects_volume: int setget _set_effects_volume, _get_effects_volume
-var music_volume: int setget _set_music_volume, _get_music_volume
+var deaths: int setget _set_deaths
+var from_boot: bool setget _set_from_boot
+var resolution: String setget _set_resolution
+var effects_volume: int setget _set_effects_volume
+var music_volume: int setget _set_music_volume
 
 onready var _effects_bus_idx: int = AudioServer.get_bus_index("Effects")
 onready var _music_bus_idx: int = AudioServer.get_bus_index("Music")
@@ -41,9 +43,16 @@ func _ready():
     # Init
     _last_level = _load_last_level()
 
-    # Set audio buses level
-    AudioServer.set_bus_volume_db(_effects_bus_idx, GameData.effects_volume)
-    AudioServer.set_bus_volume_db(_music_bus_idx, GameData.music_volume)
+    _set_deaths(int(load_value("deaths", 0)))
+    _set_from_boot(bool(load_value("from_boot", false)))
+    _set_effects_volume(int(load_value("effects_volume", -6, "options")))
+    _set_music_volume(int(load_value("music_volume", -12, "options")))
+    _set_resolution(load_value("resolution", _DEFAULT_RESOLUTION, "options"))
+
+func _set_resolution(value: String) -> void:
+    resolution = value
+    SxOS.set_window_size_str(value)
+    store_value("resolution", value, "options")
 
 func set_max_level(collection_name: String, max_level: int) -> void:
     _max_levels[collection_name] = max_level
@@ -75,25 +84,13 @@ func _load_last_level() -> LastLevel:
 func _set_deaths(value: int) -> void:
     store_value("deaths", value)
 
-func _get_deaths() -> int:
-    return int(load_value("deaths", 0))
-
 func _set_from_boot(value: bool) -> void:
     store_value("from_boot", value)
-
-func _get_from_boot() -> bool:
-    return bool(load_value("from_boot", false))
 
 func _set_effects_volume(value: int) -> void:
     store_value("effects_volume", value, "options")
     AudioServer.set_bus_volume_db(_effects_bus_idx, value)
 
-func _get_effects_volume() -> int:
-    return int(load_value("effects_volume", -6, "options"))
-
 func _set_music_volume(value: int) -> void:
     store_value("music_volume", value, "options")
     AudioServer.set_bus_volume_db(_music_bus_idx, value)
-
-func _get_music_volume() -> int:
-    return int(load_value("music_volume", -12, "options"))
