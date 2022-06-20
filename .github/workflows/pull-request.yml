@@ -7,17 +7,17 @@ on:
 
 jobs:
   build-web:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: ./.github/workflows/build-game.yml
-        with:
-          platform: HTML5
-          name: time-lab
-      - uses: ./github/workflows/web-deploy.yml
-        with:
-          name: time-lab
+    uses: ./.github/workflows/build-game.yml
+    with:
+      platform: HTML5
+      name: time-lab
   build-windows:
     uses: ./.github/workflows/build-game.yml
     with:
       platform: Windows Desktop
+      name: time-lab
+  deploy-web:
+    needs: build-web
+    uses: ./github/workflows/web-deploy.yml
+    with:
       name: time-lab
