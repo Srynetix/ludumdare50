@@ -347,10 +347,9 @@ volume_db = -10.0
 pitch_scale = 2.0
 
 [node name="ClearSaveDataConfirm" parent="." instance=ExtResource( 5 )]
-visible = false
+message = "Are you sure you want to clear all data, including your game progression ?"
 
 [node name="ConfirmNewGame" parent="." instance=ExtResource( 5 )]
-visible = false
 message = "Are you sure you want to start a new game?
 You will lose your progression."
 

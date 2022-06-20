@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://screens/LevelEditor/DetailPanel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://screens/LevelEditor/GridPanel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://screens/LevelEditor/LevelEditor.gd" type="Script" id=4]
 [ext_resource path="res://screens/LevelEditor/HelpPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/FullScreenConfirmationDialog.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
@@ -73,7 +74,7 @@ margin_bottom = 41.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="Left" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
-margin_right = 555.0
+margin_right = 546.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
@@ -108,53 +109,53 @@ text = "Help"
 flat = true
 
 [node name="Right" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
-margin_left = 559.0
+margin_left = 550.0
 margin_right = 816.0
 margin_bottom = 33.0
 alignment = 2
 
 [node name="Play" type="Button" parent="Panel/TopContainer/TopBar/Right"]
-margin_right = 48.0
+margin_right = 50.0
 margin_bottom = 33.0
-rect_min_size = Vector2( 48, 0 )
+rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Play"
 flat = true
 
 [node name="Save" type="MenuButton" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 52.0
-margin_right = 100.0
+margin_left = 54.0
+margin_right = 104.0
 margin_bottom = 33.0
-rect_min_size = Vector2( 48, 0 )
+rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Save"
 items = [ "User data...", null, 0, false, false, 0, 0, null, "", false, "Source...", null, 0, false, false, 1, 0, null, "", false, "Base64...", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Load" type="MenuButton" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 104.0
-margin_right = 153.0
+margin_left = 108.0
+margin_right = 158.0
 margin_bottom = 33.0
-rect_min_size = Vector2( 48, 0 )
+rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Load"
 items = [ "Binary (User data)...", null, 0, false, false, 0, 0, null, "", false, "Scene (Source)...", null, 0, false, false, 1, 0, null, "", false, "Binary (Source)...", null, 0, false, false, 2, 0, null, "", false, "Base64...", null, 0, false, false, 3, 0, null, "", false ]
 switch_on_hover = true
 
 [node name="New" type="Button" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 157.0
-margin_right = 205.0
+margin_left = 162.0
+margin_right = 212.0
 margin_bottom = 33.0
-rect_min_size = Vector2( 48, 0 )
+rect_min_size = Vector2( 50, 0 )
 hint_tooltip = "Reset current editor and create a new level"
 custom_fonts/font = SubResource( 1 )
 text = "New"
 flat = true
 
 [node name="Exit" type="Button" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 209.0
-margin_right = 257.0
+margin_left = 216.0
+margin_right = 266.0
 margin_bottom = 33.0
-rect_min_size = Vector2( 48, 0 )
+rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Exit"
 flat = true
@@ -296,20 +297,12 @@ margin_bottom = 258.0
 size_flags_horizontal = 4
 text = "Copy from clipboard"
 
-[node name="ExitDialog" type="ConfirmationDialog" parent="Dialogs"]
-margin_right = 276.0
-margin_bottom = 70.0
-popup_exclusive = true
-dialog_text = "Are you sure you want to exit the editor?"
+[node name="NewActionConfirmation" parent="Dialogs" instance=ExtResource( 6 )]
+message = "Are you sure you want to create a new level ?
+The editor will be cleared."
 
-[node name="NewDialog" type="ConfirmationDialog" parent="Dialogs"]
-margin_right = 200.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 350, 70 )
-popup_exclusive = true
-dialog_text = "Are you sure you want to create a new level ?
-The current level will be erased, so make sure you saved it."
-dialog_autowrap = true
+[node name="ExitActionConfirmation" parent="Dialogs" instance=ExtResource( 6 )]
+message = "Are you sure you want to exit the editor?"
 
 [node name="LevelPanel" type="Panel" parent="."]
 visible = false
