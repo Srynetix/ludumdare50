@@ -12,13 +12,15 @@ onready var _level_name_label: Label = $MarginContainer/VBoxContainer/LevelName
 
 func _set_level_name(value: String) -> void:
     level_name = value
-    if _level_name_label:
-        _level_name_label.text = level_name
+    if !_level_name_label:
+        yield(self, "ready")
+    _level_name_label.text = level_name
 
 func _set_level_author(value: String) -> void:
     level_author = value
-    if _level_author_label:
-        _level_author_label.text = value
+    if !_level_author_label:
+        yield(self, "ready")
+    _level_author_label.text = value
 
 func _ready() -> void:
     _button.connect("pressed", self, "_on_button_pressed")

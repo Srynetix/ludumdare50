@@ -21,11 +21,13 @@ func _on_slider_update(v: float) -> void:
 
 func _set_value(v: int) -> void:
     value = v
-    if slider:
-        slider.value = v
-        value_label.text = "%d%%" % v
+    if !slider:
+        yield(self, "ready")
+    slider.value = v
+    value_label.text = "%d%%" % v
 
 func _set_option_name(v: String) -> void:
     option_name = v
-    if name_label:
-        name_label.text = v
+    if !name_label:
+        yield(self, "ready")
+    name_label.text = v

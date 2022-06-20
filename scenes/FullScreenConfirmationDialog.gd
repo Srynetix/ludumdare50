@@ -14,8 +14,9 @@ signal canceled()
 
 func _set_message(value: String):
     message = value
-    if message_label:
-        message_label.text = value
+    if !message_label:
+        yield(self, "ready")
+    message_label.text = value
 
 func _ready() -> void:
     visible = false
