@@ -41,8 +41,8 @@ func _physics_process(delta: float) -> void:
 
         elif collider is Destructible:
             collider.hit()
-            queue_free()  
-    
+            queue_free()
+
         initial_velocity = initial_velocity.bounce(collision.normal)
         rotation = initial_velocity.angle()
         _velocity = _velocity.bounce(collision.normal)

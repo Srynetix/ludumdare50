@@ -36,6 +36,7 @@ var _push_buttons := Array()
 var _turrets := Array()
 var _finished := false
 var _animating_camera := false
+var _frozen_bomb_count := 0
 
 func _ready() -> void:
     level_hud.connect("level_ready", self, "_activate")
@@ -91,7 +92,7 @@ func _activate() -> void:
         var turret: Turret = node
         turret.activate()
 
-func _stop_mechanisms() -> void:
+func _end_mechanisms() -> void:
     _finished = true
 
     for node in _players:
@@ -161,6 +162,8 @@ func _spawn_tiles() -> void:
             areas_target.add_child(tile)
             tilemap.set_cellv(pos, -1)
             tile.connect("timeout", self, "_on_bomb_explosion", [tile])
+            tile.connect("frozen", self, "_on_bomb_frozen", [tile])
+            tile.connect("unfrozen", self, "_on_bomb_unfrozen", [tile])
             _time_bombs.append(tile)
 
         elif tile_name == "spikes":
@@ -196,7 +199,7 @@ func _spawn_tiles() -> void:
             _turrets.append(tile)
 
 func _on_player_exit(_player: Player) -> void:
-    _stop_mechanisms()
+    _end_mechanisms()
 
     level_hud.play_animation("win")
     success_fx.play()
@@ -206,25 +209,47 @@ func _on_player_exit(_player: Player) -> void:
     emit_signal("success")
 
 func _on_player_dead(player: Player) -> void:
+    _end_mechanisms()
+    _show_explosion(player.global_position)
+    _game_over()
+
+func _show_explosion(position: Vector2) -> void:
     var explosion: ExplosionFX = GameLoadCache.instantiate_scene("ExplosionFX")
     fx_target.add_child(explosion)
-
-    explosion.position = player.position
+    explosion.position = position
     explosion.explode()
-
-    _stop_mechanisms()
-    _game_over()
 
 func _on_bomb_explosion(bomb: TimeBomb) -> void:
-    _stop_mechanisms()
+    _end_mechanisms()
     yield(_zoom_on_position(bomb.global_position), "completed")
 
-    var explosion = GameLoadCache.instantiate_scene("ExplosionFX")
-    fx_target.add_child(explosion)
-    explosion.position = bomb.position
-    explosion.explode()
-
+    _show_explosion(bomb.global_position)
     _game_over()
+
+func _on_bomb_frozen(bomb: TimeBomb) -> void:
+    _frozen_bomb_count += 1
+
+    for node in get_tree().get_nodes_in_group("turret"):
+        var turret: Turret = node
+        turret.freeze()
+
+    for node in get_tree().get_nodes_in_group("bullet"):
+        var bullet: Bullet = node
+        if bullet.hurt_player:
+            bullet.freeze()
+
+func _on_bomb_unfrozen(bomb: TimeBomb) -> void:
+    _frozen_bomb_count -= 1
+
+    if _frozen_bomb_count == 0:
+        for node in get_tree().get_nodes_in_group("turret"):
+            var turret: Turret = node
+            turret.unfreeze()
+
+        for node in get_tree().get_nodes_in_group("bullet"):
+            var bullet: Bullet = node
+            if bullet.hurt_player:
+                bullet.unfreeze()
 
 func _try_to_open_doors() -> void:
     for node in _push_buttons:
@@ -244,14 +269,6 @@ func _zoom_on_position(position: Vector2) -> void:
     camera.limit_bottom = 1000000
     camera.smoothing_enabled = false
     yield(camera.tween_to_position(position, 0.5, 0.5), "completed")
-
-func _move_camera_to_position(position: Vector2) -> void:
-    camera.limit_left = -1000000
-    camera.limit_right = 1000000
-    camera.limit_top = -1000000
-    camera.limit_bottom = 1000000
-    camera.smoothing_enabled = false
-    yield(camera.tween_to_position(position, 0.5, 1), "completed")
 
 func _camera_follow_player(player: Player) -> void:
     if _animating_camera:
