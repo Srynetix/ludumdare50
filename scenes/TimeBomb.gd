@@ -2,6 +2,8 @@ extends KinematicBody2D
 class_name TimeBomb
 
 signal timeout()
+signal frozen()
+signal unfrozen()
 
 export var initial_time: float = 30
 export var freeze_time: float = 2
@@ -21,7 +23,7 @@ func _ready() -> void:
     timer.connect("timeout", self, "_on_timer_timeout")
 
     freeze_timer.wait_time = freeze_time
-    freeze_timer.connect("timeout", self, "_on_freeze_timer_timeout")
+    freeze_timer.connect("timeout", self, "_unfreeze")
 
 func _process(_delta: float) -> void:
     if !timer.is_stopped():
@@ -36,15 +38,12 @@ func freeze() -> void:
     timer.paused = true
     freeze_timer.start()
     animation_player.play("freezed")
+    emit_signal("frozen")
 
-    for node in get_tree().get_nodes_in_group("turret"):
-        var turret: Turret = node
-        turret.freeze()
-
-    for node in get_tree().get_nodes_in_group("bullet"):
-        var bullet: Bullet = node
-        if bullet.hurt_player:
-            bullet.freeze()
+func _unfreeze() -> void:
+    timer.paused = false
+    animation_player.play("running")
+    emit_signal("unfrozen")
 
 func stop() -> void:
     timer.paused = true
@@ -59,17 +58,3 @@ func _on_timer_timeout() -> void:
         return
 
     emit_signal("timeout")
-
-func _on_freeze_timer_timeout() -> void:
-    timer.paused = false
-
-    for node in get_tree().get_nodes_in_group("turret"):
-        var turret: Turret = node
-        turret.unfreeze()
-
-    for node in get_tree().get_nodes_in_group("bullet"):
-        var bullet: Bullet = node
-        if bullet.hurt_player:
-            bullet.unfreeze()
-
-    animation_player.play("running")
