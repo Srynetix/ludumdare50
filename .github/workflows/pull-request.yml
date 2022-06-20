@@ -9,10 +9,10 @@ jobs:
   build-web:
     uses: ./.github/workflows/build-game.yml
     with:
-      platform: HTML
+      platform: HTML5
       name: time-lab
   build-windows:
     uses: ./.github/workflows/build-game.yml
     with:
-      platform: Windows
+      platform: Windows Desktop
       name: time-lab
