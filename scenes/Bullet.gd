@@ -16,7 +16,9 @@ onready var fx_player: SxGlobalAudioFxPlayer = get_node("/root/GameGlobalAudioFx
 func _ready() -> void:
     if hurt_player:
         modulate = Color.red
-        set_collision_mask_bit(2, true) # Player
+        set_collision_layer_bit(2, false)   # Bullets
+        set_collision_layer_bit(6, true)    # EnemyBullets
+        set_collision_mask_bit(7, true)     # PlayerArea
 
     rotation = initial_velocity.angle()
     fx_player.play("shoot")
