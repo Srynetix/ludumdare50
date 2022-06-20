@@ -17,4 +17,16 @@ jobs:
     with:
       platform: Windows Desktop
       name: time-lab
-      output_name: TimeLab.exe
+      output_name: Time Lab.exe
+  build-mac:
+    uses: ./.github/workflows/build-game.yml
+    with:
+      platform: Mac OSX
+      name: time-lab
+      output_name: Time Lab.zip
+  build-linux:
+    uses: ./.github/workflows/build-game.yml
+    with:
+      platform: Linux/X11
+      name: time-lab
+      output_name: Time Lab.x86_64
