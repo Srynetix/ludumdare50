@@ -353,6 +353,8 @@ move_right={
 2d_physics/layer_5="Background"
 2d_physics/layer_6="Glass"
 2d_physics/layer_7="EnemyBullets"
+2d_physics/layer_8="PlayerArea"
+2d_physics/layer_9="Actions"
 
 [physics]
 
