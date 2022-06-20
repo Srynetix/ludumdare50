@@ -40,7 +40,7 @@ jobs:
       - name: Build game
         run: |
           mkdir -v -p "build/${{ inputs.platform }}"
-          godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.platform }}/${{ input.output_name }}"
+          godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.platform }}/${{ inputs.output_name }}"
       - if: ${{ inputs.platform == 'HTML5' }}
         name: Install rsync 📚
         run: |
