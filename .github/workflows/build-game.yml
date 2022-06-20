@@ -9,6 +9,9 @@ on:
       name:
         required: true
         type: string
+      output_name:
+        required: true
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -37,7 +40,7 @@ jobs:
       - name: Build game
         run: |
           mkdir -v -p "build/${{ inputs.platform }}"
-          godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.platform }}/${{ inputs.name }}"
+          godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.platform }}/${{ input.output_name }}"
       - if: ${{ inputs.platform == 'HTML5' }}
         name: Install rsync 📚
         run: |
