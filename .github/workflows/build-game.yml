@@ -1,0 +1,32 @@
+name: Build game
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        required: true
+        type: string
+      name:
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build ${{ inputs.name }} for platform ${{ inputs.platform }}
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4.4
+    steps:
+      - name: Setup templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/3.4.4.stable ~/.local/share/godot/templates/3.4.4.stable
+      - name: Build game
+        run: |
+          mkdir -v -p "build/${{ inputs.platform }}"
+          godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.platform }}/${{ inputs.name }}"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ inputs.name }}-${{ inputs.platform }}
+          path: "build/${{ inputs.platform }}"
