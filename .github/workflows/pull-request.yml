@@ -10,12 +10,12 @@ env:
 
 jobs:
   build-web:
-    uses: ./github/workflows/build-game.yml
+    uses: ./.github/workflows/build-game.yml
     with:
       platform: HTML
       name: ${{ env.EXPORT_NAME }}
   build-windows:
-    uses: ./github/workflows/build-game.yml
+    uses: ./.github/workflows/build-game.yml
     with:
       platform: Windows
       name: ${{ env.EXPORT_NAME }}
