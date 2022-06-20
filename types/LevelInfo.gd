@@ -1,9 +1,9 @@
 extends Node
 class_name LevelInfo
 
-var level_name := ""
-var level_author := ""
-var help_text := ""
+var level_name := "New level"
+var level_author := "Unknown"
+var help_text := "Your text here"
 var bomb_time := 30
 var turret_fire_rate := 1.0
 var wait_for_help_text := false
