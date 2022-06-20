@@ -38,11 +38,11 @@ jobs:
         run: |
           mkdir -v -p "build/${{ inputs.platform }}"
           godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.platform }}/${{ inputs.name }}"
-      - if: ${{ inputs.platform }} == HTML5
+      - if: ${{ inputs.platform == "HTML5" }}
         name: Install rsync 📚
         run: |
           apt-get update && apt-get install -y rsync
-      - if: ${{ inputs.platform }} == HTML5
+      - if: ${{ inputs.platform == "HTML5" }}
         name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
