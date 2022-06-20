@@ -73,7 +73,7 @@ margin_bottom = 41.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="Left" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
-margin_right = 607.0
+margin_right = 555.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
@@ -108,7 +108,7 @@ text = "Help"
 flat = true
 
 [node name="Right" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
-margin_left = 611.0
+margin_left = 559.0
 margin_right = 816.0
 margin_bottom = 33.0
 alignment = 2
@@ -140,16 +140,31 @@ text = "Load"
 items = [ "Binary (User data)...", null, 0, false, false, 0, 0, null, "", false, "Scene (Source)...", null, 0, false, false, 1, 0, null, "", false, "Binary (Source)...", null, 0, false, false, 2, 0, null, "", false, "Base64...", null, 0, false, false, 3, 0, null, "", false ]
 switch_on_hover = true
 
-[node name="Exit" type="Button" parent="Panel/TopContainer/TopBar/Right"]
+[node name="New" type="Button" parent="Panel/TopContainer/TopBar/Right"]
 margin_left = 157.0
 margin_right = 205.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 48, 0 )
+hint_tooltip = "Reset current editor and create a new level"
+custom_fonts/font = SubResource( 1 )
+text = "New"
+flat = true
+
+[node name="Exit" type="Button" parent="Panel/TopContainer/TopBar/Right"]
+margin_left = 209.0
+margin_right = 257.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 48, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Exit"
 flat = true
 
-[node name="SaveDialog" type="FileDialog" parent="."]
+[node name="Dialogs" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="SaveDialog" type="FileDialog" parent="Dialogs"]
 margin_right = 315.0
 margin_bottom = 130.0
 popup_exclusive = true
@@ -159,7 +174,7 @@ filters = PoolStringArray( "*.lvl; Level" )
 current_dir = "user://levels"
 current_path = "user://levels/"
 
-[node name="SaveSystemDialog" type="FileDialog" parent="."]
+[node name="SaveSystemDialog" type="FileDialog" parent="Dialogs"]
 margin_right = 315.0
 margin_bottom = 130.0
 popup_exclusive = true
@@ -168,7 +183,7 @@ filters = PoolStringArray( "*.lvl; Level" )
 current_dir = "res://assets/levels"
 current_path = "res://assets/levels/"
 
-[node name="LoadDialog" type="FileDialog" parent="."]
+[node name="LoadDialog" type="FileDialog" parent="Dialogs"]
 margin_right = 315.0
 margin_bottom = 130.0
 popup_exclusive = true
@@ -180,7 +195,7 @@ filters = PoolStringArray( "*.lvl; Level" )
 current_dir = "user://levels"
 current_path = "user://levels/"
 
-[node name="LoadSceneDialog" type="FileDialog" parent="."]
+[node name="LoadSceneDialog" type="FileDialog" parent="Dialogs"]
 margin_right = 315.0
 margin_bottom = 130.0
 popup_exclusive = true
@@ -191,7 +206,7 @@ filters = PoolStringArray( "*.tscn; Level scene" )
 current_dir = "res://levels"
 current_path = "res://levels/"
 
-[node name="LoadSystemDialog" type="FileDialog" parent="."]
+[node name="LoadSystemDialog" type="FileDialog" parent="Dialogs"]
 margin_right = 315.0
 margin_bottom = 130.0
 popup_exclusive = true
@@ -202,14 +217,14 @@ filters = PoolStringArray( "*.lvl; Level" )
 current_dir = "res://assets/levels"
 current_path = "res://assets/levels/"
 
-[node name="ExportDialog" type="AcceptDialog" parent="."]
-margin_right = 83.0
-margin_bottom = 58.0
+[node name="ExportDialog" type="AcceptDialog" parent="Dialogs"]
+margin_right = 400.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
 window_title = "Share your level"
 dialog_autowrap = true
 
-[node name="MarginContainer" type="MarginContainer" parent="ExportDialog"]
+[node name="MarginContainer" type="MarginContainer" parent="Dialogs/ExportDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -221,20 +236,20 @@ custom_constants/margin_top = 8
 custom_constants/margin_left = 8
 custom_constants/margin_bottom = 34
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ExportDialog/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Dialogs/ExportDialog/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 376.0
 margin_bottom = 222.0
 
-[node name="TextEdit" type="TextEdit" parent="ExportDialog/MarginContainer/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="Dialogs/ExportDialog/MarginContainer/VBoxContainer"]
 margin_right = 384.0
 margin_bottom = 234.0
 size_flags_vertical = 3
 readonly = true
 wrap_enabled = true
 
-[node name="Button" type="Button" parent="ExportDialog/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Dialogs/ExportDialog/MarginContainer/VBoxContainer"]
 margin_left = 130.0
 margin_top = 238.0
 margin_right = 253.0
@@ -242,14 +257,14 @@ margin_bottom = 258.0
 size_flags_horizontal = 4
 text = "Copy to clipboard"
 
-[node name="ImportDialog" type="ConfirmationDialog" parent="."]
-margin_right = 83.0
-margin_bottom = 58.0
+[node name="ImportDialog" type="ConfirmationDialog" parent="Dialogs"]
+margin_right = 400.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
 window_title = "Import a level"
 dialog_autowrap = true
 
-[node name="MarginContainer" type="MarginContainer" parent="ImportDialog"]
+[node name="MarginContainer" type="MarginContainer" parent="Dialogs/ImportDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -261,19 +276,19 @@ custom_constants/margin_top = 8
 custom_constants/margin_left = 8
 custom_constants/margin_bottom = 34
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ImportDialog/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Dialogs/ImportDialog/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 376.0
 margin_bottom = 222.0
 
-[node name="TextEdit" type="TextEdit" parent="ImportDialog/MarginContainer/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="Dialogs/ImportDialog/MarginContainer/VBoxContainer"]
 margin_right = 384.0
 margin_bottom = 234.0
 size_flags_vertical = 3
 wrap_enabled = true
 
-[node name="Button" type="Button" parent="ImportDialog/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Dialogs/ImportDialog/MarginContainer/VBoxContainer"]
 margin_left = 122.0
 margin_top = 238.0
 margin_right = 262.0
@@ -281,11 +296,20 @@ margin_bottom = 258.0
 size_flags_horizontal = 4
 text = "Copy from clipboard"
 
-[node name="ExitDialog" type="ConfirmationDialog" parent="."]
-margin_right = 200.0
+[node name="ExitDialog" type="ConfirmationDialog" parent="Dialogs"]
+margin_right = 276.0
 margin_bottom = 70.0
 popup_exclusive = true
 dialog_text = "Are you sure you want to exit the editor?"
+
+[node name="NewDialog" type="ConfirmationDialog" parent="Dialogs"]
+margin_right = 200.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 350, 70 )
+popup_exclusive = true
+dialog_text = "Are you sure you want to create a new level ?
+The current level will be erased, so make sure you saved it."
+dialog_autowrap = true
 
 [node name="LevelPanel" type="Panel" parent="."]
 visible = false

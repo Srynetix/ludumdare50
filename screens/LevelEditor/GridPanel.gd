@@ -96,11 +96,6 @@ func _process(_delta: float):
     current_angle_label.text = "Current angle: %d°" % current_tile_rotation
 
     tile_at_cursor.rotation_degrees = current_tile_rotation
-    if pos_in_bounds:
-        tile_at_cursor.visible = true
-        tile_at_cursor.position = _get_placeholder_pos(mouse_pos)
-    else:
-        tile_at_cursor.visible = false
 
 func _zoom_at_mouse_pos(mouse_pos: Vector2, coef: float) -> void:
     # TODO: handle offset
@@ -211,7 +206,20 @@ func _unhandled_input(event: InputEvent):
         if event_key.pressed && event_key.scancode == KEY_C:
             _reset_position()
 
+    # Tile position
+    _process_placeholder_position()
+
     _set_current_zoom(clamp(current_zoom, 0.2, 2.0))
+
+func _process_placeholder_position():
+    var mouse_pos = get_local_mouse_position()
+    var map_tile_pos = _get_map_tile_pos(mouse_pos)
+    var pos_in_bounds = _tile_pos_in_bounds(map_tile_pos)
+    if pos_in_bounds:
+        tile_at_cursor.visible = true
+        tile_at_cursor.position = _get_placeholder_pos(mouse_pos)
+    else:
+        tile_at_cursor.visible = false
 
 func _reset_position():
     _set_current_zoom(1)

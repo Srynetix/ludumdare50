@@ -17,6 +17,7 @@ onready var grid_btn: Button = $Panel/TopContainer/TopBar/Left/Grid
 onready var play_btn: Button = $Panel/TopContainer/TopBar/Right/Play
 onready var save_btn: MenuButton = $Panel/TopContainer/TopBar/Right/Save
 onready var load_btn: MenuButton = $Panel/TopContainer/TopBar/Right/Load
+onready var new_btn: Button = $Panel/TopContainer/TopBar/Right/New
 onready var exit_btn: Button = $Panel/TopContainer/TopBar/Right/Exit
 onready var stop_btn: Button = $LevelPanel/GameOverlay/ParentOverlay/TopContainer/TopBar/Right/Stop
 
@@ -28,14 +29,15 @@ onready var level_panel: Panel = $LevelPanel
 onready var overlay_container: Control = $LevelPanel/GameOverlay/ParentOverlay
 onready var level_container: Control = $LevelPanel/LevelContainer
 
-onready var save_dialog: FileDialog = $SaveDialog
-onready var save_system_dialog: FileDialog = $SaveSystemDialog
-onready var load_dialog: FileDialog = $LoadDialog
-onready var load_scene_dialog: FileDialog = $LoadSceneDialog
-onready var load_system_dialog: FileDialog = $LoadSystemDialog
-onready var exit_dialog: ConfirmationDialog = $ExitDialog
-onready var export_dialog: AcceptDialog = $ExportDialog
-onready var import_dialog: AcceptDialog = $ImportDialog
+onready var save_dialog: FileDialog = $Dialogs/SaveDialog
+onready var save_system_dialog: FileDialog = $Dialogs/SaveSystemDialog
+onready var load_dialog: FileDialog = $Dialogs/LoadDialog
+onready var load_scene_dialog: FileDialog = $Dialogs/LoadSceneDialog
+onready var load_system_dialog: FileDialog = $Dialogs/LoadSystemDialog
+onready var exit_dialog: ConfirmationDialog = $Dialogs/ExitDialog
+onready var export_dialog: AcceptDialog = $Dialogs/ExportDialog
+onready var import_dialog: AcceptDialog = $Dialogs/ImportDialog
+onready var new_dialog: ConfirmationDialog = $Dialogs/NewDialog
 
 var level_scene: PackedScene = preload("res://scenes/Level.tscn")
 var current_panel: Control = null
@@ -51,6 +53,7 @@ func _ready() -> void:
     stop_btn.connect("pressed", self, "_stop_level")
     save_btn.get_popup().connect("id_pressed", self, "_open_save_dialog")
     load_btn.get_popup().connect("id_pressed", self, "_open_load_dialog")
+    new_btn.connect("pressed", self, "_open_new_dialog")
     exit_btn.connect("pressed", self, "_open_exit_dialog")
 
     # Dialogs
@@ -61,6 +64,7 @@ func _ready() -> void:
     load_system_dialog.connect("file_selected", self, "_load_level")
     exit_dialog.connect("confirmed", self, "_exit_editor")
     import_dialog.connect("confirmed", self, "_load_base64_level")
+    new_dialog.connect("confirmed", self, "_reset_editor")
 
     # Clipboard
     var copy_to_clipboard_btn: Button = export_dialog.get_node("MarginContainer/VBoxContainer/Button")
@@ -73,6 +77,8 @@ func _ready() -> void:
     load_btn.get_popup().set("custom_fonts/font", load_btn.get("custom_fonts/font"))
 
     current_panel = grid_panel
+
+    _load_scene_inner(LevelInfo.new())
 
 func _show_panel(panel_type: int) -> void:
     if current_panel != null:
@@ -152,6 +158,9 @@ func _open_save_dialog(menu_id: int) -> void:
 func _open_exit_dialog() -> void:
     exit_dialog.popup_centered()
 
+func _open_new_dialog() -> void:
+    new_dialog.popup_centered()
+
 func _open_load_dialog(menu_id: int) -> void:
     if menu_id == 0:
         # Binary
@@ -222,6 +231,9 @@ func _load_scene_inner(level: LevelInfo) -> void:
 
     # Load grid panel
     _show_panel(EditorPanel.GRID)
+
+func _reset_editor() -> void:
+    _load_scene_inner(LevelInfo.new())
 
 func _exit_editor() -> void:
     GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "TitleScreen")
