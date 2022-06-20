@@ -5,17 +5,14 @@ on:
     branches:
       - automation
 
-env:
-  EXPORT_NAME: time-lab
-
 jobs:
   build-web:
     uses: ./.github/workflows/build-game.yml
     with:
       platform: HTML
-      name: ${{ env.EXPORT_NAME }}
+      name: time-lab
   build-windows:
     uses: ./.github/workflows/build-game.yml
     with:
       platform: Windows
-      name: ${{ env.EXPORT_NAME }}
+      name: time-lab
