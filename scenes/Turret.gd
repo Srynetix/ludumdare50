@@ -13,11 +13,9 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-var _players := Array()
-var _nearest_player: Player
+var _target_node: Node
 var _stopped := false
 var _exploded := false
-var _frozen := false
 var _current_hit := 0
 
 func _ready() -> void:
@@ -27,9 +25,17 @@ func _ready() -> void:
     timer.connect("timeout", self, "_on_timer_timeout")
 
 func _process(_delta: float) -> void:
-    if !_stopped && !_exploded && !_frozen:
-        _detect_nearest_player()
-        _aim_nearest_player()
+    if is_ready():
+        _aim_target_node()
+
+func is_ready() -> bool:
+    return !_stopped && !_exploded
+
+func track_node(node: Node2D) -> void:
+    _target_node = node
+
+func untrack() -> void:
+    _target_node = null
 
 func hit() -> void:
     _current_hit += 1
@@ -60,12 +66,7 @@ func fire() -> void:
         get_parent().add_child(bullet)
 
 func activate() -> void:
-    _players.clear()
-
-    for node in get_tree().get_nodes_in_group("player"):
-        _players.append(node)
-
-    timer.start()
+    start()
 
 func start() -> void:
     _stopped = false
@@ -73,37 +74,18 @@ func start() -> void:
 
 func stop() -> void:
     _stopped = true
-    _nearest_player = null
+    _target_node = null
     timer.stop()
 
-func freeze() -> void:
-    _frozen = true
-    _nearest_player = null
-    timer.stop()
-
-func unfreeze() -> void:
-    _frozen = false
-    timer.start()
-
-func _detect_nearest_player() -> void:
-    var nearest_player = null
-    var nearest_distance = INF
-    for node in _players:
-        var player: Player = node
-        var dist = position.distance_squared_to(player.position)
-        if dist < nearest_distance:
-            nearest_distance = dist
-            nearest_player = player
-
-    _nearest_player = nearest_player
-
-func _aim_nearest_player() -> void:
-    if _nearest_player != null:
-        var dir = position.direction_to(_nearest_player.position)
+func _aim_target_node() -> void:
+    if _target_node != null:
+        var dir = position.direction_to(_target_node.position)
         gun.rotation = dir.angle()
+    else:
+        gun.rotation = 0
 
 func _on_timer_timeout() -> void:
-    if _nearest_player != null && !_exploded && !_stopped:
+    if _target_node != null && is_ready():
         fire()
 
 func _on_body_entered(body: PhysicsBody2D) -> void:

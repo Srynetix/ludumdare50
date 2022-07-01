@@ -52,13 +52,16 @@ func _physics_process(delta: float) -> void:
 
     _remove_if_too_many_bounces()
 
+# Destroy bullet, showing sparkles.
 func destroy() -> void:
     _show_sparkles()
     queue_free()
 
+# Freeze bullet.
 func freeze() -> void:
     _frozen = true
 
+# Unfreeze bullet.
 func unfreeze() -> void:
     _frozen = false
 

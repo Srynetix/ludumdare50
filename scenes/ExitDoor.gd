@@ -6,8 +6,9 @@ export var initial_opened: bool = false
 var is_exit := true
 var opened: bool = false setget _set_opened
 
-onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
+# Activate the door.
 func activate() -> void:
     opened = initial_opened
 
@@ -17,6 +18,6 @@ func _set_opened(value: bool) -> void:
 
     opened = value
     if opened:
-        animation_player.play("opened")
+        _animation_player.play("opened")
     else:
-        animation_player.play("closed")
+        _animation_player.play("closed")

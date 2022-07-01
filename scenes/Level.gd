@@ -59,6 +59,7 @@ func _process(_delta: float) -> void:
         if len(_players) > 0:
             var player: Player = _players[0]
             _camera_follow_player(player)
+            _update_turrets()
 
 func _prepare_camera() -> void:
     var rect = tilemap.get_used_rect()
@@ -226,25 +227,25 @@ func _on_bomb_explosion(bomb: TimeBomb) -> void:
     _show_explosion(bomb.global_position)
     _game_over()
 
-func _on_bomb_frozen(bomb: TimeBomb) -> void:
+func _on_bomb_frozen(_bomb: TimeBomb) -> void:
     _frozen_bomb_count += 1
 
     for node in get_tree().get_nodes_in_group("turret"):
         var turret: Turret = node
-        turret.freeze()
+        turret.stop()
 
     for node in get_tree().get_nodes_in_group("bullet"):
         var bullet: Bullet = node
         if bullet.hurt_player:
             bullet.freeze()
 
-func _on_bomb_unfrozen(bomb: TimeBomb) -> void:
+func _on_bomb_unfrozen(_bomb: TimeBomb) -> void:
     _frozen_bomb_count -= 1
 
     if _frozen_bomb_count == 0:
         for node in get_tree().get_nodes_in_group("turret"):
             var turret: Turret = node
-            turret.unfreeze()
+            turret.start()
 
         for node in get_tree().get_nodes_in_group("bullet"):
             var bullet: Bullet = node
@@ -289,3 +290,34 @@ func _camera_follow_player(player: Player) -> void:
 
     camera.global_position = position
     _animating_camera = false
+
+func _update_turrets() -> void:
+    var vp_size = get_viewport_rect().size
+    var vp_half_size = vp_size / 2
+    var vp_dist = vp_size.length_squared()
+
+    for node in _turrets:
+        var turret: Turret = node
+        if turret.is_ready():
+            var nearest_player = null
+            var nearest_distance = INF
+            for pnode in _players:
+                var player: Player = pnode
+                # Two scanning mode, if camera is locked or not
+                if lock_camera:
+                    # Only scan if player is in the same space than the turret
+                    var player_space = ((player.global_position - vp_half_size) / vp_size).round()
+                    var turret_space = ((turret.global_position - vp_half_size) / vp_size).round()
+                    if player_space != turret_space:
+                        continue
+
+                # Only scan if player is in the same space than the turret
+                var dist = turret.global_position.distance_squared_to(player.global_position)
+                if dist < vp_dist && dist < nearest_distance:
+                    nearest_distance = dist
+                    nearest_player = player
+
+            if nearest_player == null:
+                turret.untrack()
+            else:
+                turret.track_node(nearest_player)
