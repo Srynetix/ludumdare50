@@ -4,6 +4,7 @@ export var tileset: TileSet
 
 enum ToolMode {
     PENCIL,
+    ERASER,
     MOVE,
     ZOOM,
     ROTATE
@@ -21,6 +22,7 @@ signal layer_selected(map_layer)
 
 onready var tile_container: HBoxContainer = $MarginContainer/HBoxContainer/Tiles/HBoxContainer
 onready var tool_pencil: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Pencil
+onready var tool_eraser: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Eraser
 onready var tool_move: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Move
 onready var tool_zoom: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Zoom
 onready var tool_rotate: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Rotate
@@ -58,6 +60,7 @@ func _ready():
             first_tile = false
 
     tool_pencil.connect("pressed", self, "_on_tool_pressed", [ tool_pencil, ToolMode.PENCIL ])
+    tool_eraser.connect("pressed", self, "_on_tool_pressed", [ tool_eraser, ToolMode.ERASER ])
     tool_move.connect("pressed", self, "_on_tool_pressed", [ tool_move, ToolMode.MOVE ])
     tool_zoom.connect("pressed", self, "_on_tool_pressed", [ tool_zoom, ToolMode.ZOOM ])
     tool_rotate.connect("pressed", self, "_on_tool_pressed", [ tool_rotate, ToolMode.ROTATE ])
@@ -76,10 +79,11 @@ func _on_tile_pressed(tile: TextureButton, tile_name: String) -> void:
     emit_signal("tile_selected", tile_name)
 
 func _on_tool_pressed(btn: Button, tool_mode: int) -> void:
-    if selected_tool != null:
-        selected_tool.modulate = Color.white
-    selected_tool = btn
-    selected_tool.modulate = SxColor.with_alpha_f(Color.lightgray, 0.5)
+    if btn != tool_rotate:
+        if selected_tool != null:
+            selected_tool.modulate = Color.white
+        selected_tool = btn
+        selected_tool.modulate = SxColor.with_alpha_f(Color.lightgray, 0.5)
 
     emit_signal("tool_selected", tool_mode)
 
@@ -105,6 +109,8 @@ func _unhandled_input(event):
         var event_key: InputEventKey = event
         if event_key.pressed && event_key.scancode == KEY_R:
             _on_tool_pressed(tool_rotate, ToolMode.ROTATE)
+        elif event_key.pressed && event_key.scancode == KEY_E:
+            _on_tool_pressed(tool_eraser, ToolMode.ERASER)
         elif event_key.pressed && event_key.scancode == KEY_M:
             _on_tool_pressed(tool_rotate, ToolMode.MOVE)
         elif event_key.pressed && event_key.scancode == KEY_Z:

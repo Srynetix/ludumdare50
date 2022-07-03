@@ -30,15 +30,39 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var jump_particles: CPUParticles2D = $JumpParticles
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
+var _last_touch_index = -1
+var _gun_angle = 0
+
 func _ready() -> void:
     area_detector.connect("area_entered", self, "_on_area_detector_area_entered")
     area_detector.connect("body_entered", self, "_on_area_detector_body_entered")
 
+func _unhandled_input(event: InputEvent):
+    if !SxOS.is_mobile():
+        if event is InputEventMouseMotion:
+            var motion_event: InputEventMouseMotion = make_input_local(event)
+            _gun_angle = motion_event.position.angle()
+
+    else:
+        if event is InputEventScreenDrag:
+            var drag_event: InputEventScreenDrag = make_input_local(event)
+            if drag_event.index == _last_touch_index:
+                _gun_angle = drag_event.position.angle()
+
+        elif event is InputEventScreenTouch:
+            var touch_event: InputEventScreenTouch = make_input_local(event)
+            if touch_event.index == _last_touch_index && !touch_event.pressed:
+                _last_touch_index = -1
+                _gun_angle = touch_event.position.angle()
+                Input.action_press("fire")
+            elif _last_touch_index == -1 && touch_event.pressed:
+                _last_touch_index = touch_event.index
+                _gun_angle = touch_event.position.angle()
+
 func _process(_delta: float) -> void:
     if detect_input:
         # Move gun with mouse
-        var local_mouse_position = get_local_mouse_position()
-        gun.rotation = local_mouse_position.angle()
+        gun.rotation = _gun_angle
 
         # Flip sprite depending on rotation
         if gun.rotation_degrees > -90 && gun.rotation_degrees < 90:

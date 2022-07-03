@@ -39,6 +39,7 @@ _global_script_class_icons={
 "SxGameData": "",
 "SxGlobalAudioFxPlayer": "",
 "SxGlobalMusicPlayer": "",
+"SxInput": "",
 "SxJson": "",
 "SxLoadCache": "",
 "SxLog": "",
@@ -51,6 +52,9 @@ _global_script_class_icons={
 "SxText": "",
 "SxTileMap": "",
 "SxVignette": "",
+"SxVirtualButton": "",
+"SxVirtualControls": "",
+"SxVirtualJoystick": "",
 "TimeBomb": "",
 "Turret": ""
 }
@@ -206,6 +210,11 @@ _global_script_classes=[ {
 "path": "res://addons/sxgd/nodes/audio/SxGlobalMusicPlayer/SxGlobalMusicPlayer.gd"
 }, {
 "base": "Reference",
+"class": "SxInput",
+"language": "GDScript",
+"path": "res://addons/sxgd/extensions/SxInput.gd"
+}, {
+"base": "Reference",
 "class": "SxJson",
 "language": "GDScript",
 "path": "res://addons/sxgd/extensions/SxJson.gd"
@@ -264,6 +273,21 @@ _global_script_classes=[ {
 "class": "SxVignette",
 "language": "GDScript",
 "path": "res://addons/sxgd/nodes/fx/screen-effects/SxVignette/SxVignette.gd"
+}, {
+"base": "TextureRect",
+"class": "SxVirtualButton",
+"language": "GDScript",
+"path": "res://addons/sxgd/modules/SxVirtualControls/SxVirtualButton.gd"
+}, {
+"base": "Control",
+"class": "SxVirtualControls",
+"language": "GDScript",
+"path": "res://addons/sxgd/modules/SxVirtualControls/SxVirtualControls.gd"
+}, {
+"base": "TextureRect",
+"class": "SxVirtualJoystick",
+"language": "GDScript",
+"path": "res://addons/sxgd/modules/SxVirtualControls/SxVirtualJoystick.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "TimeBomb",
@@ -347,6 +371,26 @@ move_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+aim_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+aim_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+aim_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+aim_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
  ]
 }
 

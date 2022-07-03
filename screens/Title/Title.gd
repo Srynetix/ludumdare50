@@ -8,6 +8,8 @@ onready var new_game_confirm: FullScreenConfirmationDialog = $ConfirmNewGame
 onready var clear_save_data_btn: Button = $MarginContainer2/ClearSaveData
 
 func _ready() -> void:
+    get_tree().set_quit_on_go_back(true)
+
     if GameData.from_boot:
         GameData.remove("from_boot")
     else:
@@ -62,3 +64,6 @@ func _clear_save_data() -> void:
 
 func _show_clear_save_data_panel() -> void:
     clear_save_data_confirm.fade_in()
+
+func _exit_tree():
+    get_tree().set_quit_on_go_back(false)

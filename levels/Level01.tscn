@@ -3,8 +3,8 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 
 [node name="Level" instance=ExtResource( 1 )]
-level_name = "Level 01: Slide"
 level_author = "Srynetix"
+level_name = "Level 01: Slide"
 help_text = "Hello again!
 
 See these blocks upfront? This is [color=#5555dd]ice[/color], try stepping on it.

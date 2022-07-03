@@ -39,6 +39,7 @@ func _ready():
     var logger = SxLog.get_logger("SxGameData")
     logger.set_max_log_level(SxLog.LogLevel.DEBUG)
     load_from_disk()
+    get_tree().set_quit_on_go_back(false)
 
     # Init
     _last_level = _load_last_level()

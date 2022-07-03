@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://screens/LevelEditor/TilesPanel.gd" type="Script" id=1]
 [ext_resource path="res://resources/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://addons/sxgd/modules/SxFontAwesome/SxFAButton.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.498039 )
@@ -44,14 +45,14 @@ margin_bottom = 44.0
 custom_constants/separation = 8
 
 [node name="Tiles" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_right = 538.0
+margin_right = 537.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Tiles"]
-margin_right = 538.0
+margin_right = 537.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -60,14 +61,14 @@ text = "Tiles"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Tiles"]
 margin_top = 12.0
-margin_right = 538.0
+margin_right = 537.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Grid" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 546.0
-margin_right = 681.0
+margin_left = 545.0
+margin_right = 679.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -75,7 +76,7 @@ size_flags_stretch_ratio = 0.25
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Grid"]
-margin_right = 135.0
+margin_right = 134.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -84,7 +85,7 @@ text = "Grid"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Grid"]
 margin_top = 12.0
-margin_right = 135.0
+margin_right = 134.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -102,8 +103,8 @@ text = "Layer"
 items = [ "Background", null, 2, false, false, 0, 0, null, "", false, "Middleground", null, 2, true, false, 1, 0, null, "", false, "Foreground", null, 2, false, false, 2, 0, null, "", false ]
 
 [node name="Tools" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 689.0
-margin_right = 824.0
+margin_left = 687.0
+margin_right = 823.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -111,7 +112,7 @@ size_flags_stretch_ratio = 0.25
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Tools"]
-margin_right = 135.0
+margin_right = 136.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -120,55 +121,52 @@ text = "Tools"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Tools"]
 margin_top = 12.0
-margin_right = 135.0
+margin_right = 136.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Pencil" type="Button" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer"]
-margin_top = 2.0
-margin_right = 28.0
-margin_bottom = 26.0
+[node name="Pencil" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
+margin_right = 24.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 24, 24 )
-hint_tooltip = "Pencil (Write tiles) (P)"
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Pe"
 flat = true
+icon_name = "pencil"
+icon_size = 16
 
-[node name="Move" type="Button" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer"]
-margin_left = 32.0
-margin_top = 2.0
-margin_right = 64.0
-margin_bottom = 26.0
+[node name="Eraser" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 28.0
+margin_right = 52.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 24, 24 )
-hint_tooltip = "Move map (M)"
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Mo"
 flat = true
+icon_name = "eraser"
+icon_size = 16
 
-[node name="Zoom" type="Button" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer"]
-margin_left = 68.0
-margin_top = 2.0
-margin_right = 96.0
-margin_bottom = 26.0
+[node name="Move" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 56.0
+margin_right = 80.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 24, 24 )
-hint_tooltip = "Zoom map (move mouse up/down) (Z)"
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Zo"
 flat = true
+icon_name = "up-down-left-right"
+icon_size = 16
 
-[node name="Rotate" type="Button" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer"]
-margin_left = 100.0
-margin_top = 2.0
-margin_right = 128.0
-margin_bottom = 26.0
+[node name="Zoom" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 84.0
+margin_right = 108.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 24, 24 )
-hint_tooltip = "Rotate tile 90° left (R)"
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Ro"
 flat = true
+icon_name = "magnifying-glass"
+icon_size = 16
+
+[node name="Rotate" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 112.0
+margin_right = 136.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 24, 24 )
+flat = true
+icon_name = "rotate-right"
+icon_size = 16

@@ -66,4 +66,11 @@ func _unhandled_input(event: InputEvent):
     if event is InputEventKey:
         var event_key: InputEventKey = event
         if event_key.pressed && event_key.scancode == KEY_ESCAPE:
-            GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "TitleScreen")
+            _go_back()
+
+func _notification(what):
+    if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _go_back()
+
+func _go_back():
+    GameSceneTransitioner.fade_to_cached_scene(GameLoadCache, "TitleScreen")

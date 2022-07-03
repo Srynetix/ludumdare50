@@ -4,6 +4,14 @@ const TilesPanel = preload("res://screens/LevelEditor/TilesPanel.gd")
 const ToolMode = TilesPanel.ToolMode
 const MapLayer = TilesPanel.MapLayer
 
+enum ActionState {
+    NONE = 0,
+    PAINTING,
+    ERASING,
+    MOVING,
+    ZOOMING
+}
+
 onready var background_tilemap: TileMap = $Middle/BackgroundTileMap
 onready var middleground_tilemap: TileMap = $Middle/MiddlegroundTileMap
 onready var foreground_tilemap: TileMap = $Middle/ForegroundTileMap
@@ -18,10 +26,7 @@ onready var current_angle_label: Label = $HUD/VBoxContainer/CurrentAngle
 
 var tilemap: TileMap = null
 var current_tile := "wall"
-var painting := false
-var erasing := false
-var scrolling := false
-var zooming := false
+var action_state: int = ActionState.NONE
 var tileset: TileSet = null
 var current_zoom: float = 1
 var offset := Vector2.ZERO
@@ -84,10 +89,11 @@ func _process(_delta: float):
     var map_tile_pos = _get_map_tile_pos(mouse_pos)
     var pos_in_bounds = _tile_pos_in_bounds(map_tile_pos)
     if pos_in_bounds:
-        if painting:
-            paint_tile_with_current(map_tile_pos)
-        elif erasing:
-            erase_tile(map_tile_pos)
+        match action_state:
+            ActionState.PAINTING:
+                paint_tile_with_current(map_tile_pos)
+            ActionState.ERASING:
+                erase_tile(map_tile_pos)
 
     tile_at_cursor.scale = Vector2(2 * current_zoom, 2 * current_zoom)
     grid_offset_label.text = "Grid offset: (%d, %d)" % [offset.x, offset.y]
@@ -169,37 +175,38 @@ func _rotate_current_tile() -> void:
 func _unhandled_input(event: InputEvent):
     if event is InputEventMouseButton:
         var event_btn: InputEventMouseButton = event
-        if event_btn.button_index == BUTTON_LEFT:
-            if current_tool == ToolMode.PENCIL:
-                painting = event_btn.pressed
-                zooming = false
-                scrolling = false
-            elif current_tool == ToolMode.MOVE:
-                painting = false
-                zooming = false
-                scrolling = event_btn.pressed
-            elif current_tool == ToolMode.ZOOM:
-                zooming = event_btn.pressed
-                painting = false
-                scrolling = false
-        elif event_btn.button_index == BUTTON_RIGHT:
-            erasing = event_btn.pressed
-        elif event_btn.button_index == BUTTON_MIDDLE:
-            scrolling = event_btn.pressed
-        elif event_btn.button_index == BUTTON_WHEEL_UP:
-            _zoom_at_mouse_pos(event_btn.position, 1.05)
-        elif event_btn.button_index == BUTTON_WHEEL_DOWN:
-            _zoom_at_mouse_pos(event_btn.position, 0.95)
+        if !event_btn.pressed:
+            action_state = ActionState.NONE
+        else:
+            if event_btn.button_index == BUTTON_LEFT:
+                match current_tool:
+                    ToolMode.PENCIL:
+                        action_state = ActionState.PAINTING
+                    ToolMode.ERASER:
+                        action_state = ActionState.ERASING
+                    ToolMode.MOVE:
+                        action_state = ActionState.MOVING
+                    ToolMode.ZOOM:
+                        action_state = ActionState.ZOOMING
+            elif event_btn.button_index == BUTTON_RIGHT:
+                action_state = ActionState.ERASING
+            elif event_btn.button_index == BUTTON_MIDDLE:
+                action_state = ActionState.MOVING
+            elif event_btn.button_index == BUTTON_WHEEL_UP:
+                _zoom_at_mouse_pos(event_btn.position, 1.05)
+            elif event_btn.button_index == BUTTON_WHEEL_DOWN:
+                _zoom_at_mouse_pos(event_btn.position, 0.95)
 
     elif event is InputEventMouseMotion:
         var event_mot: InputEventMouseMotion = event
-        if scrolling:
-            _set_offset(offset + event_mot.relative)
-        elif zooming:
-            if event_mot.relative.y > 0:
-                _zoom_at_mouse_pos(event_mot.position, 1.05)
-            elif event_mot.relative.y < 0:
-                _zoom_at_mouse_pos(event_mot.position, 0.95)
+        match action_state:
+            ActionState.MOVING:
+                _set_offset(offset + event_mot.relative)
+            ActionState.ZOOMING:
+                if event_mot.relative.y > 0:
+                    _zoom_at_mouse_pos(event_mot.position, 1.05)
+                elif event_mot.relative.y < 0:
+                    _zoom_at_mouse_pos(event_mot.position, 0.95)
 
     elif event is InputEventKey:
         var event_key: InputEventKey = event

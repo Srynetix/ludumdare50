@@ -40,11 +40,11 @@ The editor should be quite straightforward to use, do not hesitate to send me fe
 
 The grid view is the main editor view.
 You can:
-- draw tiles with [color=yellow]left-click[/color] (with the [color=yellow]Pe[/color] tool / [color=yellow]P[/color] key),
-- remove tiles with [color=yellow]right-click[/color],
-- drag the view with [color=yellow]middle-click[/color] + scroll or with [color=yellow]left-click + scroll[/color] when using the [color=yellow]Mo[/color] tool / [color=yellow]M[/color] key,
-- zoom with the [color=yellow]mouse wheel[/color] or with [color=yellow]left-click + up/down scroll[/color] when using the [color=yellow]Zo[/color] tool / [color=yellow]Z[/color] key,
-- rotate the selected tile 90° by clicking the [color=yellow]Ro[/color] tool / [color=yellow]R[/color] key,
+- draw tiles with [color=yellow]left-click[/color] (with the [color=yellow]Pencil[/color] tool / [color=yellow]P[/color] key),
+- remove tiles with [color=yellow]right-click[/color] or with [color=yellow]left-click[/color] when using the [color=yellow]Eraser[/color] tool / [color=yellow]E[/color] key,
+- drag the view with [color=yellow]middle-click[/color] + scroll or with [color=yellow]left-click + scroll[/color] when using the [color=yellow]Move[/color] tool / [color=yellow]M[/color] key,
+- zoom with the [color=yellow]mouse wheel[/color] or with [color=yellow]left-click + up/down scroll[/color] when using the [color=yellow]Zoom[/color] tool / [color=yellow]Z[/color] key,
+- rotate the selected tile 90° by clicking the [color=yellow]Rotate[/color] tool / [color=yellow]R[/color] key,
 - hide the UI with the [color=yellow]H[/color] key (kind of Zen Mode),
 - re-center the view with the [color=yellow]C[/color] key,
 - quickly change grid layers using the F1/F2/F3 keys.
@@ -73,11 +73,11 @@ Grid view
 
 The grid view is the main editor view.
 You can:
-- draw tiles with left-click (with the Pe tool / P key),
-- remove tiles with right-click,
-- drag the view with middle-click + scroll or with left-click + scroll when using the Mo tool / M key,
-- zoom with the mouse wheel or with left-click + up/down scroll when using the Zo tool / Z key,
-- rotate the selected tile 90° by clicking the Ro tool / R key,
+- draw tiles with left-click (with the Pencil tool / P key),
+- remove tiles with right-click or with left-click when using the Eraser tool / E key,
+- drag the view with middle-click + scroll or with left-click + scroll when using the Move tool / M key,
+- zoom with the mouse wheel or with left-click + up/down scroll when using the Zoom tool / Z key,
+- rotate the selected tile 90° by clicking the Rotate tool / R key,
 - hide the UI with the H key (kind of Zen Mode),
 - re-center the view with the C key,
 - quickly change grid layers using the F1/F2/F3 keys.
