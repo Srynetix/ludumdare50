@@ -12,6 +12,10 @@ on:
       output_name:
         required: true
         type: string
+      debug:
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build:
@@ -33,10 +37,16 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/3.4.4.stable ~/.local/share/godot/templates/3.4.4.stable
-      - name: Build game
+      - name: Build game (release)
+        if: ${{ inputs.debug == false }}
         run: |
           mkdir -v -p "build/${{ inputs.platform }}"
           godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.output_name }}"
+      - name: Build game (debug)
+        if: ${{ inputs.debug == true }}
+        run: |
+          mkdir -v -p "build/${{ inputs.platform }}"
+          godot -v --export-debug "${{ inputs.platform }}" "./build/${{ inputs.output_name }}"
       - if: ${{ inputs.platform == 'HTML5' }}
         name: Install rsync 📚
         run: |
