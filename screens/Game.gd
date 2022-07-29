@@ -34,7 +34,7 @@ func _load_level() -> void:
         yield(GameSceneTransitioner, "animation_finished")
         _current_level.queue_free()
 
-    var track: AudioStreamOGGVorbis = GameLoadCache.load_resource(_choose_music())
+    var track := GameLoadCache.load_resource(_choose_music()) as AudioStreamOGGVorbis
     GameGlobalMusicPlayer.fade_in(0.5)
     GameGlobalMusicPlayer.play_stream(track)
 
@@ -64,7 +64,7 @@ func _reload_current_level() -> void:
 
 func _unhandled_input(event: InputEvent):
     if event is InputEventKey:
-        var event_key: InputEventKey = event
+        var event_key := event as InputEventKey
         if event_key.pressed && event_key.scancode == KEY_ESCAPE:
             _go_back()
 

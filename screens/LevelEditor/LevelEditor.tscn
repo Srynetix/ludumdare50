@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://screens/LevelEditor/DetailPanel.tscn" type="PackedScene" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://screens/LevelEditor/LevelEditor.gd" type="Script" id=4]
 [ext_resource path="res://screens/LevelEditor/HelpPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/FullScreenConfirmationDialog.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/sxgd/nodes/ui/SxFullScreenFileDialog/SxFullScreenFileDialog.tscn" type="PackedScene" id=7]
+[ext_resource path="res://screens/LevelEditor/FullScreenImportDialog.tscn" type="PackedScene" id=8]
+[ext_resource path="res://screens/LevelEditor/FullScreenExportDialog.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
@@ -74,7 +77,7 @@ margin_bottom = 41.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="Left" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
-margin_right = 546.0
+margin_right = 406.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
@@ -109,13 +112,15 @@ text = "Help"
 flat = true
 
 [node name="Right" type="HBoxContainer" parent="Panel/TopContainer/TopBar"]
-margin_left = 550.0
+margin_left = 410.0
 margin_right = 816.0
 margin_bottom = 33.0
+size_flags_horizontal = 3
 alignment = 2
 
 [node name="Play" type="Button" parent="Panel/TopContainer/TopBar/Right"]
-margin_right = 50.0
+margin_left = 140.0
+margin_right = 190.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
@@ -123,27 +128,27 @@ text = "Play"
 flat = true
 
 [node name="Save" type="MenuButton" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 54.0
-margin_right = 104.0
+margin_left = 194.0
+margin_right = 244.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Save"
-items = [ "User data...", null, 0, false, false, 0, 0, null, "", false, "Source...", null, 0, false, false, 1, 0, null, "", false, "Base64...", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "File...", null, 0, false, false, 0, 0, null, "", false, "Base64...", null, 0, true, false, 1, 0, null, "", false ]
 
 [node name="Load" type="MenuButton" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 108.0
-margin_right = 158.0
+margin_left = 248.0
+margin_right = 298.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Load"
-items = [ "Binary (User data)...", null, 0, false, false, 0, 0, null, "", false, "Scene (Source)...", null, 0, false, false, 1, 0, null, "", false, "Binary (Source)...", null, 0, false, false, 2, 0, null, "", false, "Base64...", null, 0, false, false, 3, 0, null, "", false ]
+items = [ "File...", null, 0, false, false, 0, 0, null, "", false, "Base64...", null, 0, false, false, 1, 0, null, "", false ]
 switch_on_hover = true
 
 [node name="New" type="Button" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 162.0
-margin_right = 212.0
+margin_left = 302.0
+margin_right = 352.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 50, 0 )
 hint_tooltip = "Reset current editor and create a new level"
@@ -152,8 +157,8 @@ text = "New"
 flat = true
 
 [node name="Exit" type="Button" parent="Panel/TopContainer/TopBar/Right"]
-margin_left = 216.0
-margin_right = 266.0
+margin_left = 356.0
+margin_right = 406.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 50, 0 )
 custom_fonts/font = SubResource( 1 )
@@ -165,137 +170,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="SaveDialog" type="FileDialog" parent="Dialogs"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-resizable = true
-access = 1
-filters = PoolStringArray( "*.lvl; Level" )
-current_dir = "user://levels"
-current_path = "user://levels/"
+[node name="SaveDialog" parent="Dialogs" instance=ExtResource( 7 )]
+mode = 1
+shortcuts = [ {
+"name": "User Data",
+"path": "user://levels"
+}, {
+"name": "Source (Levels)",
+"path": "res://assets/levels"
+} ]
+file_filter = "*.lvl"
 
-[node name="SaveSystemDialog" type="FileDialog" parent="Dialogs"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-resizable = true
-filters = PoolStringArray( "*.lvl; Level" )
-current_dir = "res://assets/levels"
-current_path = "res://assets/levels/"
-
-[node name="LoadDialog" type="FileDialog" parent="Dialogs"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-window_title = "Open a File"
-resizable = true
-mode = 0
-access = 1
-filters = PoolStringArray( "*.lvl; Level" )
-current_dir = "user://levels"
-current_path = "user://levels/"
-
-[node name="LoadSceneDialog" type="FileDialog" parent="Dialogs"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-window_title = "Open a File"
-resizable = true
-mode = 0
-filters = PoolStringArray( "*.tscn; Level scene" )
-current_dir = "res://levels"
-current_path = "res://levels/"
-
-[node name="LoadSystemDialog" type="FileDialog" parent="Dialogs"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-window_title = "Open a File"
-resizable = true
-mode = 0
-filters = PoolStringArray( "*.lvl; Level" )
-current_dir = "res://assets/levels"
-current_path = "res://assets/levels/"
-
-[node name="ExportDialog" type="AcceptDialog" parent="Dialogs"]
-margin_right = 400.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 400, 300 )
-window_title = "Share your level"
-dialog_autowrap = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Dialogs/ExportDialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -36.0
-custom_constants/margin_right = 8
-custom_constants/margin_top = 8
-custom_constants/margin_left = 8
-custom_constants/margin_bottom = 34
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Dialogs/ExportDialog/MarginContainer"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 376.0
-margin_bottom = 222.0
-
-[node name="TextEdit" type="TextEdit" parent="Dialogs/ExportDialog/MarginContainer/VBoxContainer"]
-margin_right = 384.0
-margin_bottom = 234.0
-size_flags_vertical = 3
-readonly = true
-wrap_enabled = true
-
-[node name="Button" type="Button" parent="Dialogs/ExportDialog/MarginContainer/VBoxContainer"]
-margin_left = 130.0
-margin_top = 238.0
-margin_right = 253.0
-margin_bottom = 258.0
-size_flags_horizontal = 4
-text = "Copy to clipboard"
-
-[node name="ImportDialog" type="ConfirmationDialog" parent="Dialogs"]
-margin_right = 400.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 400, 300 )
-window_title = "Import a level"
-dialog_autowrap = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Dialogs/ImportDialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -36.0
-custom_constants/margin_right = 8
-custom_constants/margin_top = 8
-custom_constants/margin_left = 8
-custom_constants/margin_bottom = 34
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Dialogs/ImportDialog/MarginContainer"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 376.0
-margin_bottom = 222.0
-
-[node name="TextEdit" type="TextEdit" parent="Dialogs/ImportDialog/MarginContainer/VBoxContainer"]
-margin_right = 384.0
-margin_bottom = 234.0
-size_flags_vertical = 3
-wrap_enabled = true
-
-[node name="Button" type="Button" parent="Dialogs/ImportDialog/MarginContainer/VBoxContainer"]
-margin_left = 122.0
-margin_top = 238.0
-margin_right = 262.0
-margin_bottom = 258.0
-size_flags_horizontal = 4
-text = "Copy from clipboard"
+[node name="LoadDialog" parent="Dialogs" instance=ExtResource( 7 )]
+shortcuts = [ {
+"name": "User Data",
+"path": "user://levels"
+}, {
+"name": "Source (Scenes)",
+"path": "res://levels"
+}, {
+"name": "Source (Levels)",
+"path": "res://assets/levels"
+} ]
+file_filter = "*.lvl, *.tscn"
 
 [node name="NewActionConfirmation" parent="Dialogs" instance=ExtResource( 6 )]
 message = "Are you sure you want to create a new level ?
@@ -304,14 +201,20 @@ The editor will be cleared."
 [node name="ExitActionConfirmation" parent="Dialogs" instance=ExtResource( 6 )]
 message = "Are you sure you want to exit the editor?"
 
+[node name="ImportDialog" parent="Dialogs" instance=ExtResource( 8 )]
+
+[node name="ExportDialog" parent="Dialogs" instance=ExtResource( 9 )]
+
 [node name="LevelPanel" type="Panel" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="LevelContainer" type="Control" parent="LevelPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="GameOverlay" type="CanvasLayer" parent="LevelPanel"]
 layer = 2
@@ -320,6 +223,7 @@ layer = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="TopContainer" type="MarginContainer" parent="LevelPanel/GameOverlay/ParentOverlay"]
 margin_right = 832.0
@@ -365,6 +269,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -195.0
 margin_top = -119.0
+mouse_filter = 2
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20

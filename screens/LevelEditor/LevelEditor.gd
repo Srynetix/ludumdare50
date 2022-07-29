@@ -9,37 +9,34 @@ enum EditorPanel {
     HELP
 }
 
-onready var top_container: MarginContainer = $Panel/TopContainer
-onready var details_btn: Button = $Panel/TopContainer/TopBar/Left/Details
-onready var help_btn: Button = $Panel/TopContainer/TopBar/Left/Help
-onready var grid_btn: Button = $Panel/TopContainer/TopBar/Left/Grid
+onready var top_container := $Panel/TopContainer as MarginContainer
+onready var details_btn := $Panel/TopContainer/TopBar/Left/Details as Button
+onready var help_btn := $Panel/TopContainer/TopBar/Left/Help as Button
+onready var grid_btn := $Panel/TopContainer/TopBar/Left/Grid as Button
 
-onready var play_btn: Button = $Panel/TopContainer/TopBar/Right/Play
-onready var save_btn: MenuButton = $Panel/TopContainer/TopBar/Right/Save
-onready var load_btn: MenuButton = $Panel/TopContainer/TopBar/Right/Load
-onready var new_btn: Button = $Panel/TopContainer/TopBar/Right/New
-onready var exit_btn: Button = $Panel/TopContainer/TopBar/Right/Exit
-onready var stop_btn: Button = $LevelPanel/GameOverlay/ParentOverlay/TopContainer/TopBar/Right/Stop
+onready var play_btn := $Panel/TopContainer/TopBar/Right/Play as Button
+onready var save_btn := $Panel/TopContainer/TopBar/Right/Save as MenuButton
+onready var load_btn := $Panel/TopContainer/TopBar/Right/Load as MenuButton
+onready var new_btn := $Panel/TopContainer/TopBar/Right/New as Button
+onready var exit_btn := $Panel/TopContainer/TopBar/Right/Exit as Button
+onready var stop_btn := $LevelPanel/GameOverlay/ParentOverlay/TopContainer/TopBar/Right/Stop as Button
 
-onready var main_panel: Panel = $Panel
-onready var detail_panel: DetailPanel = $Panel/DetailPanelContainer/DetailPanel
-onready var grid_panel: GridPanel = $Panel/GridPanel
-onready var help_panel: MarginContainer = $Panel/HelpPanel
-onready var level_panel: Panel = $LevelPanel
-onready var overlay_container: Control = $LevelPanel/GameOverlay/ParentOverlay
-onready var level_container: Control = $LevelPanel/LevelContainer
+onready var main_panel := $Panel as Panel
+onready var detail_panel := $Panel/DetailPanelContainer/DetailPanel as DetailPanel
+onready var grid_panel := $Panel/GridPanel as GridPanel
+onready var help_panel := $Panel/HelpPanel as MarginContainer
+onready var level_panel := $LevelPanel as Panel
+onready var overlay_container := $LevelPanel/GameOverlay/ParentOverlay as Control
+onready var level_container := $LevelPanel/LevelContainer as Control
 
-onready var save_dialog: FileDialog = $Dialogs/SaveDialog
-onready var save_system_dialog: FileDialog = $Dialogs/SaveSystemDialog
-onready var load_dialog: FileDialog = $Dialogs/LoadDialog
-onready var load_scene_dialog: FileDialog = $Dialogs/LoadSceneDialog
-onready var load_system_dialog: FileDialog = $Dialogs/LoadSystemDialog
-onready var exit_dialog: FullScreenConfirmationDialog = $Dialogs/ExitActionConfirmation
-onready var export_dialog: AcceptDialog = $Dialogs/ExportDialog
-onready var import_dialog: AcceptDialog = $Dialogs/ImportDialog
-onready var new_dialog: FullScreenConfirmationDialog = $Dialogs/NewActionConfirmation
+onready var save_dialog := $Dialogs/SaveDialog as SxFullScreenFileDialog
+onready var load_dialog := $Dialogs/LoadDialog as SxFullScreenFileDialog
+onready var exit_dialog := $Dialogs/ExitActionConfirmation as FullScreenConfirmationDialog
+onready var export_dialog := $Dialogs/ExportDialog as FullScreenExportDialog
+onready var import_dialog := $Dialogs/ImportDialog as FullScreenImportDialog
+onready var new_dialog := $Dialogs/NewActionConfirmation as FullScreenConfirmationDialog
 
-var level_scene: PackedScene = preload("res://scenes/Level.tscn")
+var level_scene := preload("res://scenes/Level.tscn") as PackedScene
 var current_panel: Control = null
 var current_level: Level = null
 
@@ -58,19 +55,10 @@ func _ready() -> void:
 
     # Dialogs
     save_dialog.connect("file_selected", self, "_save_level")
-    save_system_dialog.connect("file_selected", self, "_save_level")
     load_dialog.connect("file_selected", self, "_load_level")
-    load_scene_dialog.connect("file_selected", self, "_load_scene_level")
-    load_system_dialog.connect("file_selected", self, "_load_level")
     exit_dialog.connect("confirmed", self, "_exit_editor")
     import_dialog.connect("confirmed", self, "_load_base64_level")
     new_dialog.connect("confirmed", self, "_reset_editor")
-
-    # Clipboard
-    var copy_to_clipboard_btn: Button = export_dialog.get_node("MarginContainer/VBoxContainer/Button")
-    var copy_from_clipboard_btn: Button = import_dialog.get_node("MarginContainer/VBoxContainer/Button")
-    copy_to_clipboard_btn.connect("pressed", self, "_copy_to_clipboard")
-    copy_from_clipboard_btn.connect("pressed", self, "_copy_from_clipboard")
 
     # Copy font
     save_btn.get_popup().set("custom_fonts/font", save_btn.get("custom_fonts/font"))
@@ -96,7 +84,7 @@ func _show_panel(panel_type: int) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventKey:
-        var event_key: InputEventKey = event
+        var event_key := event as InputEventKey
         if event_key.pressed && event_key.scancode == KEY_H:
             _toggle_ui()
         elif event_key.pressed && event_key.scancode == KEY_ENTER:
@@ -129,14 +117,6 @@ func _stop_level() -> void:
     current_level.queue_free()
     main_panel.show()
 
-func _copy_to_clipboard() -> void:
-    var text_edit = export_dialog.get_node("MarginContainer/VBoxContainer/TextEdit")
-    OS.set_clipboard(text_edit.text)
-
-func _copy_from_clipboard() -> void:
-    var text_edit = import_dialog.get_node("MarginContainer/VBoxContainer/TextEdit")
-    text_edit.text = OS.get_clipboard()
-
 func _open_save_dialog(menu_id: int) -> void:
     if menu_id == 0:
         var levels = Directory.new()
@@ -144,16 +124,13 @@ func _open_save_dialog(menu_id: int) -> void:
             levels.make_dir("user://levels")
 
         save_dialog.invalidate()
-        save_dialog.popup_centered_minsize(Vector2(200, 200))
+        save_dialog.show()
     elif menu_id == 1:
-        save_system_dialog.invalidate()
-        save_system_dialog.popup_centered_minsize(Vector2(200, 200))
-    elif menu_id == 2:
         # Base64
-        var level = _build_level()
-        var text_edit: TextEdit = export_dialog.get_node("MarginContainer/VBoxContainer/TextEdit")
-        text_edit.text = LevelFile.to_base64(level)
-        export_dialog.popup_centered()
+        var level := _build_level()
+        var base64_data := LevelFile.to_base64(level)
+        export_dialog.set_export_data(base64_data)
+        export_dialog.show()
 
 func _open_exit_dialog() -> void:
     exit_dialog.fade_in()
@@ -169,18 +146,11 @@ func _open_load_dialog(menu_id: int) -> void:
             levels.make_dir("user://levels")
 
         load_dialog.invalidate()
-        load_dialog.popup_centered_minsize(Vector2(200, 200))
+        load_dialog.show()
     elif menu_id == 1:
-        # Scene
-        load_scene_dialog.invalidate()
-        load_scene_dialog.popup_centered_minsize(Vector2(200, 200))
-    elif menu_id == 2:
-        # Binary (system)
-        load_system_dialog.invalidate()
-        load_system_dialog.popup_centered_minsize(Vector2(200, 200))
-    elif menu_id == 3:
         # Base64
-        import_dialog.popup_centered()
+        import_dialog.reset_text()
+        import_dialog.show()
 
 func _save_level(path: String) -> void:
     var level = _build_level()
@@ -201,17 +171,19 @@ func _build_level() -> LevelInfo:
     return level
 
 func _load_level(path: String) -> void:
-    var level = LevelFile.load_level(path)
+    if path.ends_with(".tscn"):
+        _load_scene_level(path)
+        return
+
+    var level := LevelFile.load_level(path)
     _load_scene_inner(level)
 
 func _load_scene_level(path: String) -> void:
-    var level = LevelFile.load_scene_level(path)
+    var level := LevelFile.load_scene_level(path)
     _load_scene_inner(level)
 
-func _load_base64_level() -> void:
-    var text_edit: TextEdit = import_dialog.get_node("MarginContainer/VBoxContainer/TextEdit")
-    var base64 = text_edit.text
-    var level = LevelFile.from_base64(base64)
+func _load_base64_level(base64_data: String) -> void:
+    var level := LevelFile.from_base64(base64_data)
     if level.level_name == "":
         logger.error("Corrupted base64, did not load level")
     else:

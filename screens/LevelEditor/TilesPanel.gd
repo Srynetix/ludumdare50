@@ -20,17 +20,17 @@ signal tile_selected(tile_name)
 signal tool_selected(tool_mode)
 signal layer_selected(map_layer)
 
-onready var tile_container: HBoxContainer = $MarginContainer/HBoxContainer/Tiles/HBoxContainer
-onready var tool_pencil: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Pencil
-onready var tool_eraser: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Eraser
-onready var tool_move: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Move
-onready var tool_zoom: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Zoom
-onready var tool_rotate: Button = $MarginContainer/HBoxContainer/Tools/HBoxContainer/Rotate
-onready var grid_layer: MenuButton = $MarginContainer/HBoxContainer/Grid/HBoxContainer/Layer
+onready var tile_container := $MarginContainer/HBoxContainer/Tiles/HBoxContainer as HBoxContainer
+onready var tool_pencil := $MarginContainer/HBoxContainer/Tools/HBoxContainer/Pencil as Button
+onready var tool_eraser := $MarginContainer/HBoxContainer/Tools/HBoxContainer/Eraser as Button
+onready var tool_move := $MarginContainer/HBoxContainer/Tools/HBoxContainer/Move as Button
+onready var tool_zoom := $MarginContainer/HBoxContainer/Tools/HBoxContainer/Zoom as Button
+onready var tool_rotate := $MarginContainer/HBoxContainer/Tools/HBoxContainer/Rotate as Button
+onready var grid_layer := $MarginContainer/HBoxContainer/Grid/HBoxContainer/Layer as MenuButton
 
 var selected_tile: TextureButton = null
 var selected_tool: Button = null
-var selected_layer: int = MapLayer.MIDDLEGROUND
+var selected_layer := MapLayer.MIDDLEGROUND as int
 
 const tile_size = 24
 
@@ -106,7 +106,7 @@ func map_layer_to_string(map_layer: int) -> String:
 
 func _unhandled_input(event):
     if event is InputEventKey:
-        var event_key: InputEventKey = event
+        var event_key := event as InputEventKey
         if event_key.pressed && event_key.scancode == KEY_R:
             _on_tool_pressed(tool_rotate, ToolMode.ROTATE)
         elif event_key.pressed && event_key.scancode == KEY_E:

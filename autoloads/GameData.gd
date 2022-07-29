@@ -29,11 +29,11 @@ var _last_level := LastLevel.new()
 var deaths: int setget _set_deaths
 var from_boot: bool setget _set_from_boot
 var resolution: String setget _set_resolution
-var effects_volume: int setget _set_effects_volume
-var music_volume: int setget _set_music_volume
+var effects_volume: float setget _set_effects_volume
+var music_volume: float setget _set_music_volume
 
-onready var _effects_bus_idx: int = AudioServer.get_bus_index("Effects")
-onready var _music_bus_idx: int = AudioServer.get_bus_index("Music")
+onready var _effects_bus_idx := AudioServer.get_bus_index("Effects")
+onready var _music_bus_idx := AudioServer.get_bus_index("Music")
 
 func _ready():
     var logger = SxLog.get_logger("SxGameData")
@@ -88,10 +88,12 @@ func _set_deaths(value: int) -> void:
 func _set_from_boot(value: bool) -> void:
     store_value("from_boot", value)
 
-func _set_effects_volume(value: int) -> void:
+func _set_effects_volume(value: float) -> void:
+    effects_volume = value
     store_value("effects_volume", value, "options")
     AudioServer.set_bus_volume_db(_effects_bus_idx, value)
 
-func _set_music_volume(value: int) -> void:
+func _set_music_volume(value: float) -> void:
+    music_volume = value
     store_value("music_volume", value, "options")
     AudioServer.set_bus_volume_db(_music_bus_idx, value)

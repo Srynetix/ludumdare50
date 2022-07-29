@@ -1,12 +1,12 @@
 extends Area2D
 class_name ExitDoor
 
-export var initial_opened: bool = false
+export var initial_opened := false
 
 var is_exit := true
-var opened: bool = false setget _set_opened
+var opened := false setget _set_opened
 
-onready var _animation_player: AnimationPlayer = $AnimationPlayer
+onready var _animation_player := $AnimationPlayer as AnimationPlayer
 
 # Activate the door.
 func activate() -> void:

@@ -2,12 +2,12 @@ tool
 extends Panel
 class_name FullScreenConfirmationDialog
 
-export(String, MULTILINE) var message: String = "Are you sure?" setget _set_message
+export(String, MULTILINE) var message := "Are you sure?" setget _set_message
 
-onready var tween: Tween = $Tween
-onready var message_label: Label = $VBoxContainer/Label
-onready var yes_btn: Button = $VBoxContainer/HBoxContainer/Yes
-onready var no_btn: Button = $VBoxContainer/HBoxContainer/No
+onready var tween := $Tween as Tween
+onready var message_label := $VBoxContainer/Label as Label
+onready var yes_btn := $VBoxContainer/HBoxContainer/Yes as Button
+onready var no_btn := $VBoxContainer/HBoxContainer/No as Button
 
 signal confirmed()
 signal canceled()

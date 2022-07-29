@@ -16,7 +16,7 @@ Good for him, I have thousands like him waiting for a challenge.
 
 export var good_ending := false
 
-onready var help_text: HelpText = $HelpText
+onready var help_text := $HelpText as HelpText
 
 func _ready() -> void:
     var deaths = GameData.deaths

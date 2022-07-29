@@ -91,8 +91,8 @@ static func load_level(path: String) -> LevelInfo:
     return unpack_level(data)
 
 static func load_scene_level(scene_path: String) -> LevelInfo:
-    var level_scene: PackedScene = load(scene_path)
-    var level: Level = level_scene.instance()
+    var level_scene := load(scene_path) as PackedScene
+    var level := level_scene.instance() as Level
 
     var level_info = LevelInfo.new()
     level_info.level_name = level.level_name
@@ -108,7 +108,7 @@ static func load_scene_level(scene_path: String) -> LevelInfo:
     return level_info
 
 static func instantiate_level(level_info: LevelInfo) -> Level:
-    var level: Level = level_scene.instance()
+    var level := level_scene.instance() as Level
 
     level.level_name = level_info.level_name
     level.level_author = level_info.level_author

@@ -1,9 +1,9 @@
 extends MarginContainer
 
-onready var level_name: LineEdit = $Fields/LevelName/LineEdit
-onready var level_author: LineEdit = $Fields/Author/LineEdit
-onready var help_text: TextEdit = $Fields/HelpText/TextEdit
-onready var bomb_time: SpinBox = $Fields/BombTime/SpinBox
-onready var turret_fire_rate: SpinBox = $Fields/TurretFireRate/SpinBox
-onready var wait_for_help_text: CheckButton = $Fields/WaitForHelpText/CheckButton
-onready var lock_camera: CheckButton = $Fields/LockCamera/CheckButton
+onready var level_name := $Fields/LevelName/LineEdit as LineEdit
+onready var level_author := $Fields/Author/LineEdit as LineEdit
+onready var help_text := $Fields/HelpText/TextEdit as TextEdit
+onready var bomb_time := $Fields/BombTime/SpinBox as SpinBox
+onready var turret_fire_rate := $Fields/TurretFireRate/SpinBox as SpinBox
+onready var wait_for_help_text := $Fields/WaitForHelpText/CheckButton as CheckButton
+onready var lock_camera := $Fields/LockCamera/CheckButton as CheckButton

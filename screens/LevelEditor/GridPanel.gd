@@ -12,26 +12,26 @@ enum ActionState {
     ZOOMING
 }
 
-onready var background_tilemap: TileMap = $Middle/BackgroundTileMap
-onready var middleground_tilemap: TileMap = $Middle/MiddlegroundTileMap
-onready var foreground_tilemap: TileMap = $Middle/ForegroundTileMap
-onready var tile_at_cursor: Sprite = $Middle/TileAtCursor
+onready var background_tilemap := $Middle/BackgroundTileMap as TileMap
+onready var middleground_tilemap := $Middle/MiddlegroundTileMap as TileMap
+onready var foreground_tilemap := $Middle/ForegroundTileMap as TileMap
+onready var tile_at_cursor := $Middle/TileAtCursor as Sprite
 onready var tiles_panel = $TilesPanel
 onready var grid_lines = $GridLines
 
-onready var grid_offset_label: Label = $HUD/VBoxContainer/GridOffset
-onready var cell_position_label: Label = $HUD/VBoxContainer/CellPosition
-onready var zoom_level_label: Label = $HUD/VBoxContainer/ZoomLevel
-onready var current_angle_label: Label = $HUD/VBoxContainer/CurrentAngle
+onready var grid_offset_label := $HUD/VBoxContainer/GridOffset as Label
+onready var cell_position_label := $HUD/VBoxContainer/CellPosition as Label
+onready var zoom_level_label := $HUD/VBoxContainer/ZoomLevel as Label
+onready var current_angle_label := $HUD/VBoxContainer/CurrentAngle as Label
 
 var tilemap: TileMap = null
 var current_tile := "wall"
-var action_state: int = ActionState.NONE
+var action_state := ActionState.NONE as int
 var tileset: TileSet = null
-var current_zoom: float = 1
+var current_zoom := 1.0
 var offset := Vector2.ZERO
 var current_tool = ToolMode.PENCIL
-var current_layer: int = MapLayer.MIDDLEGROUND
+var current_layer := MapLayer.MIDDLEGROUND as int
 var current_tile_rotation := 0
 
 var grid_bounds_coefficient = 2
@@ -174,7 +174,7 @@ func _rotate_current_tile() -> void:
 
 func _unhandled_input(event: InputEvent):
     if event is InputEventMouseButton:
-        var event_btn: InputEventMouseButton = event
+        var event_btn := event as InputEventMouseButton
         if !event_btn.pressed:
             action_state = ActionState.NONE
         else:
@@ -198,7 +198,7 @@ func _unhandled_input(event: InputEvent):
                 _zoom_at_mouse_pos(event_btn.position, 0.95)
 
     elif event is InputEventMouseMotion:
-        var event_mot: InputEventMouseMotion = event
+        var event_mot := event as InputEventMouseMotion
         match action_state:
             ActionState.MOVING:
                 _set_offset(offset + event_mot.relative)
@@ -209,7 +209,7 @@ func _unhandled_input(event: InputEvent):
                     _zoom_at_mouse_pos(event_mot.position, 0.95)
 
     elif event is InputEventKey:
-        var event_key: InputEventKey = event
+        var event_key := event as InputEventKey
         if event_key.pressed && event_key.scancode == KEY_C:
             _reset_position()
 
