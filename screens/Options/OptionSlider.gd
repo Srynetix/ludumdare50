@@ -1,14 +1,15 @@
 tool
 extends HBoxContainer
+class_name OptionSlider
 
 signal value_changed(value)
 
-export var value: int = 75 setget _set_value
-export var option_name: String = "Option name" setget _set_option_name
+export var value := 75 setget _set_value
+export var option_name := "Option name" setget _set_option_name
 
-onready var name_label: Label = $Name
-onready var slider: HSlider = $Slider
-onready var value_label: Label = $Value
+onready var name_label := $Name as Label
+onready var slider := $Slider as HSlider
+onready var value_label := $Value as Label
 
 func _ready():
     slider.connect("value_changed", self, "_on_slider_update")

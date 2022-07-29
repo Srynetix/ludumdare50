@@ -5,7 +5,7 @@ signal shown()
 
 export(String, MULTILINE) var text := ""
 
-onready var label: SxFadingRichTextLabel = $MarginContainer/SxFadingRichTextLabel
+onready var label := $MarginContainer/SxFadingRichTextLabel as SxFadingRichTextLabel
 
 func _ready() -> void:
     label.connect("shown", self, "_on_label_shown")

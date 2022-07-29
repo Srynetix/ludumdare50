@@ -15,15 +15,15 @@ export var turret_fire_rate := 1.0
 export var lock_camera := false
 export var editor_mode := false
 
-onready var areas_target: Node = $Areas
-onready var fx_target: Node = $FX
-onready var players_target: Node = $Players
-onready var background_tilemap: TileMap = $Background
-onready var tilemap: TileMap = $Middleground
-onready var foreground_tilemap: TileMap = $Foreground
-onready var level_hud: LevelHUD = $LevelHUD
-onready var success_fx: AudioStreamPlayer = $SuccessFX
-onready var camera: SxFXCamera = $Camera
+onready var areas_target := $Areas as Node
+onready var fx_target := $FX as Node
+onready var players_target := $Players as Node
+onready var background_tilemap := $Background as TileMap
+onready var tilemap := $Middleground as TileMap
+onready var foreground_tilemap := $Foreground as TileMap
+onready var level_hud := $LevelHUD as LevelHUD
+onready var success_fx := $SuccessFX as AudioStreamPlayer
+onready var camera := $Camera as SxFXCamera
 
 var initial_background_tile_data := PoolIntArray()
 var initial_middleground_tile_data := PoolIntArray()
@@ -57,7 +57,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
     if !_finished:
         if len(_players) > 0:
-            var player: Player = _players[0]
+            var player := _players[0] as Player
             _camera_follow_player(player)
             _update_turrets()
 
@@ -78,34 +78,34 @@ func _prepare_camera() -> void:
 
 func _activate() -> void:
     for node in _players:
-        var player: Player = node
+        var player := node as Player
         player.detect_input = true
 
     for node in _time_bombs:
-        var bomb: TimeBomb = node
+        var bomb := node as TimeBomb
         bomb.activate()
 
     for node in _exit_doors:
-        var door: ExitDoor = node
+        var door := node as ExitDoor
         door.activate()
 
     for node in _turrets:
-        var turret: Turret = node
+        var turret := node as Turret
         turret.activate()
 
 func _end_mechanisms() -> void:
     _finished = true
 
     for node in _players:
-        var player: Player = node
+        var player := node as Player
         player.detect_input = false
 
     for node in _time_bombs:
-        var bomb: TimeBomb = node
+        var bomb := node as TimeBomb
         bomb.stop()
 
     for node in _turrets:
-        var turret: Turret = node
+        var turret := node as Turret
         turret.stop()
 
     for node in get_tree().get_nodes_in_group("bullet"):
@@ -127,27 +127,27 @@ func _spawn_tiles() -> void:
         var tile_name = tilemap.tile_set.tile_get_name(tile_idx)
 
         if tile_name == "destructible":
-            var tile: Destructible = GameLoadCache.instantiate_scene("Destructible")
+            var tile := GameLoadCache.instantiate_scene("Destructible") as Destructible
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2) * tilemap.scale.x
             areas_target.add_child(tile)
             tilemap.set_cellv(pos, -1)
 
         elif tile_name == "exit":
-            var tile: ExitDoor = GameLoadCache.instantiate_scene("ExitDoor")
+            var tile := GameLoadCache.instantiate_scene("ExitDoor") as ExitDoor
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2 + Vector2(0, tilemap.cell_size.y / 2)) * tilemap.scale.x
             areas_target.add_child(tile)
             tilemap.set_cellv(pos, -1)
             _exit_doors.append(tile)
 
         elif tile_name == "start":
-            var tile: ExitDoor = GameLoadCache.instantiate_scene("ExitDoor")
+            var tile := GameLoadCache.instantiate_scene("ExitDoor") as ExitDoor
             tile.is_exit = false
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2 + Vector2(0, tilemap.cell_size.y / 2)) * tilemap.scale.x
             areas_target.add_child(tile)
             tilemap.set_cellv(pos, -1)
             _exit_doors.append(tile)
 
-            var player: Player = GameLoadCache.instantiate_scene("Player")
+            var player := GameLoadCache.instantiate_scene("Player") as Player
             player.position = tile.position
             player.bullet_target = fx_target
             player.detect_input = false
@@ -157,7 +157,7 @@ func _spawn_tiles() -> void:
             _players.append(player)
 
         elif tile_name == "bomb":
-            var tile: TimeBomb = GameLoadCache.instantiate_scene("TimeBomb")
+            var tile := GameLoadCache.instantiate_scene("TimeBomb") as TimeBomb
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2 + Vector2(tilemap.cell_size.x / 2, 0)) * tilemap.scale.x
             tile.initial_time = bomb_time
             areas_target.add_child(tile)
@@ -168,14 +168,14 @@ func _spawn_tiles() -> void:
             _time_bombs.append(tile)
 
         elif tile_name == "spikes":
-            var tile: Spikes = GameLoadCache.instantiate_scene("Spikes")
+            var tile := GameLoadCache.instantiate_scene("Spikes") as Spikes
             tile.rotation = SxTileMap.get_cell_rotation(tilemap, pos)
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2) * tilemap.scale.x
             areas_target.add_child(tile)
             tilemap.set_cellv(pos, -1)
 
         elif tile_name == "button":
-            var tile: PushButton = GameLoadCache.instantiate_scene("PushButton")
+            var tile := GameLoadCache.instantiate_scene("PushButton") as PushButton
             tile.rotation = SxTileMap.get_cell_rotation(tilemap, pos)
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2) * tilemap.scale.x
             areas_target.add_child(tile)
@@ -184,14 +184,14 @@ func _spawn_tiles() -> void:
             tile.connect("pressed", self, "_try_to_open_doors")
 
         elif tile_name == "glass":
-            var tile: Glass = GameLoadCache.instantiate_scene("Glass")
+            var tile := GameLoadCache.instantiate_scene("Glass") as Glass
             tile.rotation = SxTileMap.get_cell_rotation(tilemap, pos)
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2) * tilemap.scale.x
             areas_target.add_child(tile)
             tilemap.set_cellv(pos, -1)
 
         elif tile_name == "turret":
-            var tile: Turret = GameLoadCache.instantiate_scene("Turret")
+            var tile := GameLoadCache.instantiate_scene("Turret") as Turret
             tile.fire_rate = turret_fire_rate
             tile.rotation = SxTileMap.get_cell_rotation(tilemap, pos)
             tile.position = (tilemap.map_to_world(pos) + tilemap.cell_size / 2) * tilemap.scale.x
@@ -215,7 +215,7 @@ func _on_player_dead(player: Player) -> void:
     _game_over()
 
 func _show_explosion(position: Vector2) -> void:
-    var explosion: ExplosionFX = GameLoadCache.instantiate_scene("ExplosionFX")
+    var explosion := GameLoadCache.instantiate_scene("ExplosionFX") as ExplosionFX
     fx_target.add_child(explosion)
     explosion.position = position
     explosion.explode()
@@ -231,11 +231,11 @@ func _on_bomb_frozen(_bomb: TimeBomb) -> void:
     _frozen_bomb_count += 1
 
     for node in get_tree().get_nodes_in_group("turret"):
-        var turret: Turret = node
+        var turret := node as Turret
         turret.stop()
 
     for node in get_tree().get_nodes_in_group("bullet"):
-        var bullet: Bullet = node
+        var bullet := node as Bullet
         if bullet.hurt_player:
             bullet.freeze()
 
@@ -244,22 +244,22 @@ func _on_bomb_unfrozen(_bomb: TimeBomb) -> void:
 
     if _frozen_bomb_count == 0:
         for node in get_tree().get_nodes_in_group("turret"):
-            var turret: Turret = node
+            var turret := node as Turret
             turret.start()
 
         for node in get_tree().get_nodes_in_group("bullet"):
-            var bullet: Bullet = node
+            var bullet := node as Bullet
             if bullet.hurt_player:
                 bullet.unfreeze()
 
 func _try_to_open_doors() -> void:
     for node in _push_buttons:
-        var btn: PushButton = node
+        var btn := node as PushButton
         if !btn.is_pressed:
             return
 
     for node in _exit_doors:
-        var door: ExitDoor = node
+        var door := node as ExitDoor
         if door.is_exit && !door.opened:
             door.opened = true
 
@@ -297,12 +297,12 @@ func _update_turrets() -> void:
     var vp_dist = vp_size.length_squared()
 
     for node in _turrets:
-        var turret: Turret = node
+        var turret := node as Turret
         if turret.is_ready():
             var nearest_player = null
             var nearest_distance = INF
             for pnode in _players:
-                var player: Player = pnode
+                var player := pnode as Player
                 # Two scanning mode, if camera is locked or not
                 if lock_camera:
                     # Only scan if player is in the same space than the turret

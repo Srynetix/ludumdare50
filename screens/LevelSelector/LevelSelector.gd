@@ -1,10 +1,10 @@
 extends Control
 
-onready var backbutton: Button = $MarginContainer/VBoxContainer/HBoxContainer/Button
-onready var tab_container: TabContainer = $"MarginContainer/VBoxContainer/TabContainer"
-onready var template_tab: ScrollContainer = $"MarginContainer/VBoxContainer/TabContainer/Template"
+onready var backbutton := $MarginContainer/VBoxContainer/HBoxContainer/Button as Button
+onready var tab_container := $"MarginContainer/VBoxContainer/TabContainer" as TabContainer
+onready var template_tab := $"MarginContainer/VBoxContainer/TabContainer/Template" as ScrollContainer
 
-var _level_card: PackedScene = preload("res://screens/LevelSelector/LevelCard.tscn")
+var _level_card := preload("res://screens/LevelSelector/LevelCard.tscn") as PackedScene
 
 func _ready() -> void:
     backbutton.connect("pressed", self, "_on_back_pressed")
@@ -27,7 +27,7 @@ func _prepare_collection_levels(collection: LevelCollection):
     tab_container.add_child(collection_tab)
 
     # Remove placeholder cards
-    var levels_container: VBoxContainer = collection_tab.get_node("Levels")
+    var levels_container := collection_tab.get_node("Levels") as VBoxContainer
     for child in levels_container.get_children():
         child.queue_free()
 
@@ -49,7 +49,7 @@ func _prepare_user_levels():
     tab_container.add_child(collection_tab)
 
     # Remove placeholder cards
-    var levels_container: VBoxContainer = collection_tab.get_node("Levels")
+    var levels_container := collection_tab.get_node("Levels") as VBoxContainer
     for child in levels_container.get_children():
         child.queue_free()
 

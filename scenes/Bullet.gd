@@ -11,7 +11,7 @@ var _velocity := Vector2.ZERO
 var _bounces := 0
 var _frozen := false
 
-onready var fx_player: SxGlobalAudioFxPlayer = get_node("/root/GameGlobalAudioFxPlayer")
+onready var fx_player := get_node("/root/GameGlobalAudioFxPlayer") as SxGlobalAudioFxPlayer
 
 func _ready() -> void:
     if hurt_player:

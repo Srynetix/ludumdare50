@@ -1,11 +1,11 @@
 extends Control
 
-onready var author: RichTextLabel = $MarginContainer3/Author
-onready var continue_btn: Button = $MarginContainer/Buttons/Continue
-onready var select_level_btn: Button = $"MarginContainer/Buttons/Select Level"
-onready var clear_save_data_confirm: FullScreenConfirmationDialog = $ClearSaveDataConfirm
-onready var new_game_confirm: FullScreenConfirmationDialog = $ConfirmNewGame
-onready var clear_save_data_btn: Button = $MarginContainer2/ClearSaveData
+onready var author := $MarginContainer3/Author as RichTextLabel
+onready var continue_btn := $MarginContainer/Buttons/Continue as Button
+onready var select_level_btn := $"MarginContainer/Buttons/Select Level" as Button
+onready var clear_save_data_confirm := $ClearSaveDataConfirm as FullScreenConfirmationDialog
+onready var new_game_confirm := $ConfirmNewGame as FullScreenConfirmationDialog
+onready var clear_save_data_btn := $MarginContainer2/ClearSaveData as Button
 
 func _ready() -> void:
     get_tree().set_quit_on_go_back(true)
@@ -13,7 +13,7 @@ func _ready() -> void:
     if GameData.from_boot:
         GameData.remove("from_boot")
     else:
-        var track1: AudioStreamOGGVorbis = GameLoadCache.load_resource("track1")
+        var track1 := GameLoadCache.load_resource("track1") as AudioStreamOGGVorbis
         GameGlobalMusicPlayer.fade_in()
         GameGlobalMusicPlayer.play_stream(track1)
 

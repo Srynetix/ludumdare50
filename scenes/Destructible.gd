@@ -4,10 +4,10 @@ class_name Destructible
 # Max hits before destruction.
 var max_hits := 3
 
-onready var _sprite: Sprite = $Sprite
-onready var _explosion_fx: CPUParticles2D = $ExplosionFX
-onready var _collision_shape: CollisionShape2D = $CollisionShape2D
-onready var _audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+onready var _sprite := $Sprite as Sprite
+onready var _explosion_fx := $ExplosionFX as CPUParticles2D
+onready var _collision_shape := $CollisionShape2D as CollisionShape2D
+onready var _audio_stream_player := $AudioStreamPlayer as AudioStreamPlayer
 
 var _current_hit := 0
 

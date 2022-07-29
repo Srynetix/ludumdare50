@@ -5,15 +5,15 @@ signal timeout()
 signal frozen()
 signal unfrozen()
 
-export var initial_time: float = 30
-export var freeze_time: float = 2
+export var initial_time := 30.0
+export var freeze_time := 2.0
 
-onready var timer: Timer = $Timer
-onready var freeze_timer: Timer = $FreezeTimer
-onready var label: Label = $Label
-onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var timer := $Timer as Timer
+onready var freeze_timer := $FreezeTimer as Timer
+onready var label := $Label as Label
+onready var animation_player := $AnimationPlayer as AnimationPlayer
 
-var _remaining_time: float = 0
+var _remaining_time := 0.0
 
 func _ready() -> void:
     _remaining_time = initial_time

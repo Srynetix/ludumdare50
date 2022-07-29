@@ -5,7 +5,7 @@ signal pressed()
 
 var is_pressed := false
 
-onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var animation_player := $AnimationPlayer as AnimationPlayer
 
 func press() -> void:
     if !is_pressed:

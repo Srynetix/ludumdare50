@@ -4,7 +4,7 @@ func load_resources():
     var logger = SxLog.get_logger("SxLoadCache")
     logger.set_max_log_level(SxLog.LogLevel.INFO)
 
-    var level_count: int = 10
+    var level_count := 10
 
     # Scenes
     store_scene("SparklesFX", "res://scenes/SparklesFX.tscn")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/sxgd/nodes/ui/SxFullScreenDialog/SxFullScreenDialog.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://screens/LevelEditor/FullScreenExportDialog.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="FullScreenExportDialog" instance=ExtResource( 1 )]
+visible = false
+script = ExtResource( 3 )
+title = "Share your level"
+
+[node name="Title" parent="MarginContainer/VBoxContainer" index="0"]
+text = "Share your level"
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer" index="1"]
+margin_top = 45.0
+margin_right = 792.0
+margin_bottom = 338.0
+size_flags_vertical = 3
+readonly = true
+wrap_enabled = true
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" index="2"]
+margin_left = 297.0
+margin_top = 348.0
+margin_right = 494.0
+margin_bottom = 389.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "Copy to clipboard"
+
+[node name="Close" type="Button" parent="MarginContainer/VBoxContainer" index="3"]
+margin_left = 361.0
+margin_top = 399.0
+margin_right = 430.0
+margin_bottom = 440.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "Close"

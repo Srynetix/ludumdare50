@@ -6,14 +6,14 @@ var bullet_target: Node
 var firing := false
 var fire_rate := 1.0
 
-onready var gun: Node2D = $Gun
-onready var muzzle: Position2D = $Gun/Muzzle
-onready var timer: Timer = $Timer
-onready var animation_player: AnimationPlayer = $AnimationPlayer
-onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var gun := $Gun as Node2D
+onready var muzzle := $Gun/Muzzle as Position2D
+onready var timer := $Timer as Timer
+onready var animation_player := $AnimationPlayer as AnimationPlayer
+onready var audio_stream_player := $AudioStreamPlayer as AudioStreamPlayer
+onready var collision_shape := $CollisionShape2D as CollisionShape2D
 
-var _target_node: Node
+var _target_node: Node2D
 var _stopped := false
 var _exploded := false
 var _current_hit := 0
@@ -52,7 +52,7 @@ func explode() -> void:
     animation_player.play("explode")
 
 func fire() -> void:
-    var bullet: Bullet = GameLoadCache.instantiate_scene("Bullet")
+    var bullet := GameLoadCache.instantiate_scene("Bullet") as Bullet
     var trajectory = Vector2.RIGHT.rotated(gun.rotation)
     var bullet_initial_velocity = trajectory * 200
     bullet.hurt_player = true
@@ -90,6 +90,6 @@ func _on_timer_timeout() -> void:
 
 func _on_body_entered(body: PhysicsBody2D) -> void:
     if body is Bullet:
-        var bullet: Bullet = body
+        var bullet := body as Bullet
         bullet.destroy()
         hit()

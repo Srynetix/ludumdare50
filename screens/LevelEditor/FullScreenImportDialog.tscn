@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/sxgd/assets/fonts/Jost-400-Book.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://addons/sxgd/nodes/ui/SxFullScreenDialog/SxFullScreenDialog.tscn" type="PackedScene" id=2]
+[ext_resource path="res://screens/LevelEditor/FullScreenImportDialog.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="FullScreenImportDialog" instance=ExtResource( 2 )]
+visible = false
+script = ExtResource( 3 )
+title = "Import a level"
+
+[node name="Title" parent="MarginContainer/VBoxContainer" index="0"]
+text = "Import a level"
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer" index="1"]
+margin_top = 45.0
+margin_right = 792.0
+margin_bottom = 338.0
+size_flags_vertical = 3
+wrap_enabled = true
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" index="2"]
+margin_left = 283.0
+margin_top = 348.0
+margin_right = 508.0
+margin_bottom = 389.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "Copy from clipboard"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="3"]
+margin_top = 399.0
+margin_right = 792.0
+margin_bottom = 440.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Import" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+margin_left = 306.0
+margin_right = 384.0
+margin_bottom = 41.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "Import"
+
+[node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 404.0
+margin_right = 486.0
+margin_bottom = 41.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "Cancel"

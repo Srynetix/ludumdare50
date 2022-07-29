@@ -19,16 +19,16 @@ var _current_jumps := 0
 var _is_on_ice := false
 var _dead := false
 
-onready var gun: Node2D = $Gun
-onready var muzzle: Position2D = $Gun/Muzzle
-onready var gun_sprite: Sprite = $Gun/Sprite
-onready var sprite: Sprite = $Sprite
-onready var area_detector: Area2D = $AreaDetector
-onready var area_detector_collision_shape: CollisionShape2D = $AreaDetector/CollisionShape2D
-onready var jump_fx: AudioStreamPlayer = $JumpFX
-onready var animation_player: AnimationPlayer = $AnimationPlayer
-onready var jump_particles: CPUParticles2D = $JumpParticles
-onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var gun := $Gun as Node2D
+onready var muzzle := $Gun/Muzzle as Position2D
+onready var gun_sprite := $Gun/Sprite as Sprite
+onready var sprite := $Sprite as Sprite
+onready var area_detector := $AreaDetector as Area2D
+onready var area_detector_collision_shape := $AreaDetector/CollisionShape2D as CollisionShape2D
+onready var jump_fx := $JumpFX as AudioStreamPlayer
+onready var animation_player := $AnimationPlayer as AnimationPlayer
+onready var jump_particles := $JumpParticles as CPUParticles2D
+onready var collision_shape := $CollisionShape2D as CollisionShape2D
 
 var _last_touch_index = -1
 var _gun_angle = 0
@@ -40,17 +40,17 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent):
     if !SxOS.is_mobile():
         if event is InputEventMouseMotion:
-            var motion_event: InputEventMouseMotion = make_input_local(event)
+            var motion_event := make_input_local(event) as InputEventMouseMotion
             _gun_angle = motion_event.position.angle()
 
     else:
         if event is InputEventScreenDrag:
-            var drag_event: InputEventScreenDrag = make_input_local(event)
+            var drag_event := make_input_local(event) as InputEventScreenDrag
             if drag_event.index == _last_touch_index:
                 _gun_angle = drag_event.position.angle()
 
         elif event is InputEventScreenTouch:
-            var touch_event: InputEventScreenTouch = make_input_local(event)
+            var touch_event := make_input_local(event) as InputEventScreenTouch
             if touch_event.index == _last_touch_index && !touch_event.pressed:
                 _last_touch_index = -1
                 _gun_angle = touch_event.position.angle()
@@ -74,7 +74,7 @@ func _process(_delta: float) -> void:
 
         # Fire!
         if Input.is_action_just_pressed("fire"):
-            var bullet: Bullet = GameLoadCache.instantiate_scene("Bullet")
+            var bullet := GameLoadCache.instantiate_scene("Bullet") as Bullet
             var trajectory = Vector2.RIGHT.rotated(gun.rotation)
             var bullet_initial_velocity = trajectory * 200
             bullet.position = muzzle.global_position
@@ -100,7 +100,7 @@ func _physics_process(_delta) -> void:
         var collision = get_slide_collision(idx)
         var collider = collision.collider
         if collider is TileMap:
-            var tilemap: TileMap = collider
+            var tilemap := collider as TileMap
             var coord = tilemap.world_to_map(collision.position - collision.normal) / tilemap.scale
             var tile_id = tilemap.get_cellv(coord)
             if tile_id != -1:
@@ -172,7 +172,7 @@ func _clamp_velocity() -> void:
 
 func _on_area_detector_area_entered(area: Area2D) -> void:
     if area is ExitDoor:
-        var door: ExitDoor = area
+        var door := area as ExitDoor
         if door.is_exit && door.opened:
             exit()
 
@@ -180,13 +180,13 @@ func _on_area_detector_area_entered(area: Area2D) -> void:
         kill()
 
     elif area is PushButton:
-        var btn: PushButton = area
+        var btn := area as PushButton
         btn.press()
     pass
 
 func _on_area_detector_body_entered(body: PhysicsBody2D) -> void:
     if body is Bullet:
-        var bullet: Bullet = body
+        var bullet := body as Bullet
         if bullet.hurt_player:
             bullet.destroy()
             kill()
