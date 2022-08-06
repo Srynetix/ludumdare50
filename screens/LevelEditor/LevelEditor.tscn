@@ -214,7 +214,6 @@ mouse_filter = 2
 [node name="LevelContainer" type="Control" parent="LevelPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 
 [node name="GameOverlay" type="CanvasLayer" parent="LevelPanel"]
 layer = 2

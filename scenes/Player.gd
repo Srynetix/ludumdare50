@@ -37,7 +37,7 @@ func _ready() -> void:
     area_detector.connect("area_entered", self, "_on_area_detector_area_entered")
     area_detector.connect("body_entered", self, "_on_area_detector_body_entered")
 
-func _unhandled_input(event: InputEvent):
+func _input(event: InputEvent):
     if !SxOS.is_mobile():
         if event is InputEventMouseMotion:
             var motion_event := make_input_local(event) as InputEventMouseMotion
