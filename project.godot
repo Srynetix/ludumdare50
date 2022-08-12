@@ -380,12 +380,12 @@ config/windows_native_icon="res://assets/logos/timebomb-logo.ico"
 
 [autoload]
 
-GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.tscn"
 GameData="*res://autoloads/GameData.gd"
 GameDebugPanel="*res://autoloads/GameDebugPanel.tscn"
 GameGlobalAudioFxPlayer="*res://autoloads/GameGlobalAudioFxPlayer.tscn"
 GameGlobalMusicPlayer="*res://autoloads/GameGlobalMusicPlayer.tscn"
 GameLoadCache="*res://autoloads/GameLoadCache.gd"
+GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.tscn"
 
 [debug]
 
@@ -408,7 +408,7 @@ enabled=PoolStringArray( "res://addons/sxgd/plugin.cfg" )
 
 [engine]
 
-version="3.4.4"
+version="3.5"
 
 [global]
 
@@ -416,6 +416,26 @@ game_version="1.1.0.beta"
 
 [input]
 
+aim_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+aim_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+aim_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+aim_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
 fire={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
@@ -437,26 +457,6 @@ move_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-aim_up={
-"deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":-1.0,"script":null)
- ]
-}
-aim_left={
-"deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
- ]
-}
-aim_down={
-"deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
- ]
-}
-aim_right={
-"deadzone": 0.5,
-"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
  ]
 }
 
