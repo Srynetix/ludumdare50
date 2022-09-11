@@ -5,7 +5,7 @@
 [ext_resource path="res://screens/LevelEditor/GridPanel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://screens/LevelEditor/LevelEditor.gd" type="Script" id=4]
 [ext_resource path="res://screens/LevelEditor/HelpPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/FullScreenConfirmationDialog.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/sxgd/nodes/ui/SxFullScreenConfirmationDialog/SxFullScreenConfirmationDialog.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/sxgd/nodes/ui/SxFullScreenFileDialog/SxFullScreenFileDialog.tscn" type="PackedScene" id=7]
 [ext_resource path="res://screens/LevelEditor/FullScreenImportDialog.tscn" type="PackedScene" id=8]
 [ext_resource path="res://screens/LevelEditor/FullScreenExportDialog.tscn" type="PackedScene" id=9]
@@ -182,6 +182,7 @@ shortcuts = [ {
 file_filter = "*.lvl"
 
 [node name="LoadDialog" parent="Dialogs" instance=ExtResource( 7 )]
+mode = 0
 shortcuts = [ {
 "name": "User Data",
 "path": "user://levels"

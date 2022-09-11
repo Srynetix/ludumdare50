@@ -20,9 +20,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -416.0
-margin_top = -48.0
+margin_top = -56.0
 margin_right = 416.0
-rect_min_size = Vector2( 0, 48 )
+rect_min_size = Vector2( 0, 56 )
 mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 script = ExtResource( 1 )
@@ -41,18 +41,18 @@ custom_constants/margin_bottom = 4
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 828.0
-margin_bottom = 44.0
+margin_bottom = 52.0
 custom_constants/separation = 8
 
 [node name="Tiles" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_right = 537.0
-margin_bottom = 40.0
+margin_right = 486.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Tiles"]
-margin_right = 537.0
+margin_right = 486.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -61,22 +61,22 @@ text = "Tiles"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Tiles"]
 margin_top = 12.0
-margin_right = 537.0
-margin_bottom = 40.0
+margin_right = 486.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Grid" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 545.0
-margin_right = 679.0
-margin_bottom = 40.0
+margin_left = 494.0
+margin_right = 615.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Grid"]
-margin_right = 134.0
+margin_right = 121.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -85,16 +85,16 @@ text = "Grid"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Grid"]
 margin_top = 12.0
-margin_right = 134.0
-margin_bottom = 40.0
+margin_right = 121.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
 [node name="Layer" type="MenuButton" parent="MarginContainer/HBoxContainer/Grid/HBoxContainer"]
-margin_top = 2.0
+margin_top = 6.0
 margin_right = 46.0
-margin_bottom = 26.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 24, 24 )
 hint_tooltip = "Click to change layer"
 size_flags_horizontal = 4
@@ -103,16 +103,17 @@ text = "Layer"
 items = [ "Background", null, 2, false, false, 0, 0, null, "", false, "Middleground", null, 2, true, false, 1, 0, null, "", false, "Foreground", null, 2, false, false, 2, 0, null, "", false ]
 
 [node name="Tools" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 687.0
+margin_left = 623.0
 margin_right = 823.0
-margin_bottom = 40.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Tools"]
-margin_right = 136.0
+margin_right = 200.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -121,52 +122,52 @@ text = "Tools"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Tools"]
 margin_top = 12.0
-margin_right = 136.0
-margin_bottom = 40.0
+margin_right = 200.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
+custom_constants/separation = 16
 
 [node name="Pencil" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
 margin_right = 24.0
-margin_bottom = 28.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 24, 24 )
 flat = true
 icon_name = "pencil"
-icon_size = 16
+icon_size = 32
 
 [node name="Eraser" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 28.0
-margin_right = 52.0
-margin_bottom = 28.0
+margin_left = 40.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 24, 24 )
 flat = true
 icon_name = "eraser"
-icon_size = 16
+icon_size = 32
 
 [node name="Move" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 56.0
-margin_right = 80.0
-margin_bottom = 28.0
+margin_left = 80.0
+margin_right = 104.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 24, 24 )
 flat = true
 icon_name = "up-down-left-right"
-icon_size = 16
+icon_size = 32
 
 [node name="Zoom" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 84.0
-margin_right = 108.0
-margin_bottom = 28.0
+margin_left = 120.0
+margin_right = 144.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 24, 24 )
 flat = true
 icon_name = "magnifying-glass"
-icon_size = 16
+icon_size = 32
 
 [node name="Rotate" parent="MarginContainer/HBoxContainer/Tools/HBoxContainer" instance=ExtResource( 4 )]
-margin_left = 112.0
-margin_right = 136.0
-margin_bottom = 28.0
+margin_left = 160.0
+margin_right = 184.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 24, 24 )
 flat = true
 icon_name = "rotate-right"
-icon_size = 16
+icon_size = 32
