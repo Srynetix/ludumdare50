@@ -31,10 +31,10 @@ onready var level_container := $LevelPanel/LevelContainer as Control
 
 onready var save_dialog := $Dialogs/SaveDialog as SxFullScreenFileDialog
 onready var load_dialog := $Dialogs/LoadDialog as SxFullScreenFileDialog
-onready var exit_dialog := $Dialogs/ExitActionConfirmation as FullScreenConfirmationDialog
+onready var exit_dialog := $Dialogs/ExitActionConfirmation as SxFullScreenConfirmationDialog
 onready var export_dialog := $Dialogs/ExportDialog as FullScreenExportDialog
 onready var import_dialog := $Dialogs/ImportDialog as FullScreenImportDialog
-onready var new_dialog := $Dialogs/NewActionConfirmation as FullScreenConfirmationDialog
+onready var new_dialog := $Dialogs/NewActionConfirmation as SxFullScreenConfirmationDialog
 
 var level_scene := preload("res://scenes/Level.tscn") as PackedScene
 var current_panel: Control = null

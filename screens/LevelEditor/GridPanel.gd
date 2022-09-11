@@ -62,6 +62,9 @@ func _ready():
     tiles_panel.connect("tool_selected", self, "set_current_tool")
     tiles_panel.connect("layer_selected", self, "set_current_tilemap_layer")
 
+    # Hide it out of the screen
+    tile_at_cursor.position = Vector2(-100, -100)
+
 func _update_tile_at_cursor():
     var tile_idx = tileset.find_tile_by_name(current_tile)
     var tile_region = tileset.tile_get_region(tile_idx)
@@ -103,7 +106,7 @@ func _process(_delta: float):
 
     tile_at_cursor.rotation_degrees = current_tile_rotation
 
-func _zoom_at_mouse_pos(mouse_pos: Vector2, coef: float) -> void:
+func _zoom_at_mouse_pos(_mouse_pos: Vector2, coef: float) -> void:
     # TODO: handle offset
     _set_current_zoom(current_zoom * coef)
 
@@ -176,8 +179,12 @@ func _unhandled_input(event: InputEvent):
     if event is InputEventMouseButton:
         var event_btn := event as InputEventMouseButton
         if !event_btn.pressed:
+            if SxOS.is_mobile():
+                tile_at_cursor.visible = false
             action_state = ActionState.NONE
         else:
+            if SxOS.is_mobile():
+                tile_at_cursor.visible = true
             if event_btn.button_index == BUTTON_LEFT:
                 match current_tool:
                     ToolMode.PENCIL:
@@ -197,7 +204,7 @@ func _unhandled_input(event: InputEvent):
             elif event_btn.button_index == BUTTON_WHEEL_DOWN:
                 _zoom_at_mouse_pos(event_btn.position, 0.95)
 
-    elif event is InputEventMouseMotion:
+    if event is InputEventMouseMotion:
         var event_mot := event as InputEventMouseMotion
         match action_state:
             ActionState.MOVING:
@@ -208,7 +215,7 @@ func _unhandled_input(event: InputEvent):
                 elif event_mot.relative.y < 0:
                     _zoom_at_mouse_pos(event_mot.position, 0.95)
 
-    elif event is InputEventKey:
+    if event is InputEventKey:
         var event_key := event as InputEventKey
         if event_key.pressed && event_key.scancode == KEY_C:
             _reset_position()

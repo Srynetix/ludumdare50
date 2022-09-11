@@ -1,7 +1,7 @@
 extends SxLoadCache
 
 func load_resources():
-    var logger = SxLog.get_logger("SxLoadCache")
+    var logger := SxLog.get_logger("SxLoadCache")
     logger.set_max_log_level(SxLog.LogLevel.INFO)
 
     var level_count := 10

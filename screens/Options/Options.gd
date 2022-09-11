@@ -8,10 +8,7 @@ onready var music_bus_idx := AudioServer.get_bus_index("Music")
 onready var effects_test := $EffectsTest as AudioStreamPlayer
 
 func _ready():
-    print(GameData.effects_volume)
-    print(_db_to_percent(GameData.effects_volume))
     effects_volume.value = _db_to_percent(GameData.effects_volume)
-    print(effects_volume.value)
     music_volume.value = _db_to_percent(GameData.music_volume)
     effects_volume.connect("value_changed", self, "_on_effects_volume_changed")
     music_volume.connect("value_changed", self, "_on_music_volume_changed")

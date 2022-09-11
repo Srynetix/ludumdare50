@@ -3,8 +3,8 @@ extends Control
 onready var author := $MarginContainer3/Author as RichTextLabel
 onready var continue_btn := $MarginContainer/Buttons/Continue as Button
 onready var select_level_btn := $"MarginContainer/Buttons/Select Level" as Button
-onready var clear_save_data_confirm := $ClearSaveDataConfirm as FullScreenConfirmationDialog
-onready var new_game_confirm := $ConfirmNewGame as FullScreenConfirmationDialog
+onready var clear_save_data_confirm := $ClearSaveDataConfirm as SxFullScreenConfirmationDialog
+onready var new_game_confirm := $ConfirmNewGame as SxFullScreenConfirmationDialog
 onready var clear_save_data_btn := $MarginContainer2/ClearSaveData as Button
 
 func _ready() -> void:

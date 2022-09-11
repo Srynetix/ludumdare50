@@ -62,9 +62,9 @@ func _process(_delta: float) -> void:
             _update_turrets()
 
 func _prepare_camera() -> void:
-    var rect = tilemap.get_used_rect()
-    var size = rect.position + rect.size
-    var viewport_size = get_viewport_rect().size
+    var rect := tilemap.get_used_rect()
+    var size := rect.position + rect.size
+    var viewport_size := get_viewport_rect().size
     camera.limit_left = 0
     camera.limit_top = 0
     camera.smoothing_enabled = true
@@ -123,8 +123,8 @@ func _game_over() -> void:
 
 func _spawn_tiles() -> void:
     for pos in tilemap.get_used_cells():
-        var tile_idx = tilemap.get_cellv(pos)
-        var tile_name = tilemap.tile_set.tile_get_name(tile_idx)
+        var tile_idx := tilemap.get_cellv(pos)
+        var tile_name := tilemap.tile_set.tile_get_name(tile_idx)
 
         if tile_name == "destructible":
             var tile := GameLoadCache.instantiate_scene("Destructible") as Destructible
@@ -276,7 +276,7 @@ func _camera_follow_player(player: Player) -> void:
         return
 
     _animating_camera = true
-    var position = player.global_position
+    var position := player.global_position
 
     if lock_camera:
         if position.x > camera.limit_right:
@@ -292,15 +292,15 @@ func _camera_follow_player(player: Player) -> void:
     _animating_camera = false
 
 func _update_turrets() -> void:
-    var vp_size = get_viewport_rect().size
-    var vp_half_size = vp_size / 2
-    var vp_dist = vp_size.length_squared()
+    var vp_size := get_viewport_rect().size
+    var vp_half_size := vp_size / 2
+    var vp_dist := vp_size.length_squared()
 
     for node in _turrets:
         var turret := node as Turret
         if turret.is_ready():
-            var nearest_player = null
-            var nearest_distance = INF
+            var nearest_player: Player = null
+            var nearest_distance := INF
             for pnode in _players:
                 var player := pnode as Player
                 # Two scanning mode, if camera is locked or not

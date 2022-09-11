@@ -32,11 +32,11 @@ func _physics_process(delta: float) -> void:
     _velocity += _acceleration
     _clamp_velocity()
 
-    var collision = move_and_collide(_velocity * delta)
+    var collision := move_and_collide(_velocity * delta)
     if collision != null:
         _show_sparkles()
 
-        var collider = collision.collider
+        var collider := collision.collider as Node
         if collider.is_in_group("timebombs"):
             collider.freeze()
             queue_free()
@@ -66,14 +66,14 @@ func unfreeze() -> void:
     _frozen = false
 
 func _clamp_velocity() -> void:
-    _velocity = _velocity.clamped(_max_velocity)
+    _velocity = _velocity.limit_length(_max_velocity)
 
 func _remove_if_too_many_bounces() -> void:
     if _bounces > max_bounces:
         queue_free()
 
 func _show_sparkles() -> void:
-    var sparkles = GameLoadCache.instantiate_scene("SparklesFX")
+    var sparkles := GameLoadCache.instantiate_scene("SparklesFX") as SparklesFX
     get_parent().add_child(sparkles)
     sparkles.global_position = global_position
     fx_player.play("click")

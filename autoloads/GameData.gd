@@ -10,13 +10,13 @@ class LastLevel:
         return [collection, level_id]
 
     static func from_array(array: Array) -> LastLevel:
-        var level = LastLevel.new()
+        var level := LastLevel.new()
         level.collection = array[0]
         level.level_id = array[1]
         return level
 
     static func from_collection(collection_: String, level_id_: int) -> LastLevel:
-        var level = LastLevel.new()
+        var level := LastLevel.new()
         level.collection = collection_
         level.level_id = level_id_
         return level
@@ -36,7 +36,7 @@ onready var _effects_bus_idx := AudioServer.get_bus_index("Effects")
 onready var _music_bus_idx := AudioServer.get_bus_index("Music")
 
 func _ready():
-    var logger = SxLog.get_logger("SxGameData")
+    var logger := SxLog.get_logger("SxGameData")
     logger.set_max_log_level(SxLog.LogLevel.DEBUG)
     load_from_disk()
     get_tree().set_quit_on_go_back(false)
